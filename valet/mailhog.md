@@ -27,22 +27,26 @@ composer global require laravel/valet
 valet install
 ```
 
-## 3. Install phpMyAdmin using Homebrew.
-
+## 3. Install Mailhog using Homebrew.
 Execute the following shell command in your terminal:
 
 ```
-brew install phpmyadmin
+brew install mailhog
 ```
 
-## 4. Register phpMyAdmin path with Laravel Valet.
+Now you can access mailhog via http://127.0.0.1:8025
+
+
+## 4. Register mailhog path with valet domain.
 
 Execute the following shell commands in your terminal:
 
 ```
-cd /usr/local/share/phpmyadmin
-valet domain test
-valet link
+# Proxy over HTTP...
+valet proxy mailhog http://127.0.0.1:8025
+ 
+# Proxy over TLS + HTTP/2...
+valet proxy mailhog http://127.0.0.1:8025 --secure (optional)
 ```
 
-Now you can access phpMyAdmin in your favorite browser via http://phpmyadmin.test.
+Now you can access mailhog in your favorite browser via http://mailhog.test.
