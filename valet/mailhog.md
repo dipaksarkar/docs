@@ -1,3 +1,5 @@
+# Setup mailhog with Laravel Valet
+This article will show step by step on how to setup mailhog with Laravel Valet:
 ## 1. Install Homebrew.
 
 Execute the following shell command in your terminal:

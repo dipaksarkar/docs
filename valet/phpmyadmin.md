@@ -1,3 +1,5 @@
+# Setup phpMyAdmin with Laravel Valet
+This article will show step by step on how to setup phpMyAdmin with Laravel Valet:
 ## 1. Install Homebrew.
 
 Execute the following shell command in your terminal:
