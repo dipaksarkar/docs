@@ -1,17 +1,17 @@
 ---
 layout: home
 
-title: VitePress
-titleTemplate: Vite & Vue Powered Static Site Generator
+title: NitroFIT28
+titleTemplate: Web design and development company
 
 hero:
-  name: VitePress
-  text: Vite & Vue Powered Static Site Generator
-  tagline: Simple, powerful, and performant. Meet the modern SSG framework you've always wanted.
+  name: NitroFIT28
+  text: Bring best solution to your business
+  tagline: An easy-to-use gym and fitness management system.
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/getting-started
+      link: /overview
     - theme: alt
       text: View on GitHub
       link: https://github.com/vuejs/vitepress
