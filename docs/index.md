@@ -14,7 +14,7 @@ hero:
       link: https://coderstm.com/
     - theme: alt
       text: NitroFTI28
-      link: https://docs.coderstm.com/nitrofit28/
+      link: /nitrofit28
 
 # features:
 #   - title: "Web Development"

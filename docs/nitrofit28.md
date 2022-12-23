@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /overview
+      link: /nitrofit28/
     - theme: alt
       text: View on GitHub
       link: https://github.com/coders-tm

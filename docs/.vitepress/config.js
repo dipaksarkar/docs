@@ -1,12 +1,30 @@
 import { defineConfig } from 'vitepress'
 
+const NitroFIT28SideBar = [
+  {
+    text: 'Getting Started',
+    items: [
+      { text: 'What is NitroFIT28?', link: '/nitrofit28/' },
+      { text: 'Installation', link: '/nitrofit28/installation' },
+      { text: 'License', link: '/nitrofit28/license' }
+    ]
+  },
+  {
+    text: 'Usage',
+    items: [
+      { text: 'Opening Times', link: '/nitrofit28/opening-times' },
+      { text: 'Membership', link: '/nitrofit28/membership' },
+    ]
+  }
+]
+
 export default defineConfig({
   lang: 'en-US',
   title: 'NitroFIT28',
   description: 'An easy-to-use GYM and FITNESS Management System.',
-  base: '/nitrofit28/',
-  
-  lastUpdated: true,
+  // base: '/nitrofit28/',
+
+  ignoreDeadLinks: true,
   cleanUrls: 'without-subfolders',
 
   head: [['meta', { name: 'theme-color', content: '#3a80c3' }]],
@@ -18,30 +36,16 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: '/logo.svg',
+    logo: '/logo.png',
     siteTitle: false,
     nav: [
       { text: 'About Us', link: 'https://coderstm.com/' },
       { text: 'Our Envato', link: 'https://codecanyon.net/user/coderstm' },
     ],
 
-    sidebar: [
-      {
-        text: 'Getting Started',
-        items: [
-          { text: 'What is NitroFIT28?', link: '/overview' },
-          { text: 'Installation', link: '/installation' },
-          { text: 'License', link: '/license' }
-        ]
-      },
-      {
-        text: 'Usage',
-        items: [
-          { text: 'Opening Times', link: '/opening-times' },
-          { text: 'Membership', link: '/membership' },
-        ]
-      }
-    ],
+    sidebar: {
+      '/nitrofit28/' : NitroFIT28SideBar
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/coders-tm' },

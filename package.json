@@ -1,10 +1,24 @@
 {
-  "private": true,
+  "name": "coderstm-docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "config": {
+    "ssh": {
+      "user": "coderstm.com",
+      "server": "ssh.gb.stackcp.com",
+      "path": "~/docs.coderstm.com"
+    }
+  },
   "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:sync": "yarn docs:build && rsync -avz --delete -e \"ssh -p 22 -i ~/.ssh/sync\" docs/.vitepress/dist/* $npm_package_config_ssh_user@$npm_package_config_ssh_server:$npm_package_config_ssh_path",
     "push": "clear && git config core.ignorecase false && branch=\"$(git symbolic-ref -q HEAD)\" || \"dev\" && branch=${branch##refs/heads/} && branch=${branch:-HEAD} && echo Pushing to Branch \"$branch\" && echo Please type your commit message && read msg && clear && git add . && git commit -m \"$msg\" && git push origin \"$branch\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com:coderstm/docs.git"
+  "devDependencies": {
+    "vitepress": "^1.0.0-alpha.32",
+    "vue": "^3.2.45"
   }
 }

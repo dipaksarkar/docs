@@ -3,7 +3,7 @@
 ## Activate license
 Go to Admin -> Settings -> General to activate your license
 
-![Lisense Page](/license-page.jpg)
+![Lisense Page](/nitrofit28/license-page.jpg)
 
 If you don't know how to get purchase code, check this article.
 
