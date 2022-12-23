@@ -22,10 +22,7 @@ export default defineConfig({
   lang: 'en-US',
   title: 'NitroFIT28',
   description: 'An easy-to-use GYM and FITNESS Management System.',
-  // base: '/nitrofit28/',
-
   ignoreDeadLinks: true,
-  cleanUrls: 'without-subfolders',
 
   head: [['meta', { name: 'theme-color', content: '#3a80c3' }]],
 
