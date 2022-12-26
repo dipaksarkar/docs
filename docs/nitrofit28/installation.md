@@ -52,6 +52,20 @@ yarn global add @quasar/cli
 On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar documentation](https://quasar.dev/start/quasar-cli) page for more information.
 :::
 
+## Create Subdomains
+
+You will need to create there subdomain with document root `public_html/public` for api, admin and members as follows:
+
+```
+api.your_app_domain.com
+admin.your_app_domain.com
+members.your_app_domain.com
+```
+
+::: warning
+This different for different hosting service provider. Please go to [How to create a subdomain](https://www.namecheap.com/support/knowledgebase/article.aspx/9190/29/how-to-create-a-subdomain-in-cpanel/) for cPanel based hosting provider.
+:::
+
 ## Build Application
 
 - Open a terminal/console window and enter the following command:
@@ -78,7 +92,7 @@ yarn build:prod
 
 ## Install Procedure (Video)
 
-<iframe width="100%" height="360" src="https://www.youtube.com/embed/yCh9OVLI0SU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<iframe width="100%" height="360" src="https://www.youtube-nocookie.com/embed/QIC4nNRFogY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Install via GUI
 
