@@ -71,6 +71,7 @@ This different for different hosting service provider. Please go to [How to crea
 - Open a terminal/console window and enter the following command:
 
 ```
+cp .env.example .env
 cp .env.frontend .env.frontend.prod
 ```
 
@@ -80,13 +81,17 @@ cp .env.frontend .env.frontend.prod
 APP_ENV=Production
 APP_NAME=NitroFIT28
 APP_DEBUG=false
+APP_CURRENCY=$
 API_URL=https://api.your_app_domain.com
-COOKIE_URL=https://your_app_domain.com/privacy
+PRIVACY_URL=https://your_app_domain.com/privacy
+TERMS_URL=https://your_app_domain.com/terms
+STRIPE_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 - Build > Open a terminal/console window and enter the following command:
 
 ```
+yarn install
 yarn build:prod
 ```
 
@@ -99,7 +104,7 @@ yarn build:prod
 - Create database and Upload all files into the root folder of your hosting (normally, it is public_html). Without followings:
   - `/dist`
   - `/node_modules`
-- Go to [your_domain_name.com/install] to start installation.
+- Go to [your_app_domain.com/install] to start installation.
 - Step by step to setup your database conntection, site information and administrator.
 - Login and setup your website on Welcome Board.
 

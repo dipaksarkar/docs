@@ -14,7 +14,7 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "docs:sync": "yarn docs:build && rsync -avz --delete --exclude-from=\".syncignore\" -e \"ssh -p 22 -i ~/.ssh/sync\" docs/.vitepress/dist/* $npm_package_config_ssh_user@$npm_package_config_ssh_server:$npm_package_config_ssh_path",
+    "docs:sync": "yarn docs:build && rsync -avz --delete --exclude-from=\".syncignore\" -e \"ssh -p 22 -i ~/.ssh/20i.com\" docs/.vitepress/dist/* $npm_package_config_ssh_user@$npm_package_config_ssh_server:$npm_package_config_ssh_path",
     "push": "clear && git config core.ignorecase false && branch=\"$(git symbolic-ref -q HEAD)\" || \"dev\" && branch=${branch##refs/heads/} && branch=${branch:-HEAD} && echo Pushing to Branch \"$branch\" && echo Please type your commit message && read msg && clear && git add . && git commit -m \"$msg\" && git push origin \"$branch\""
   },
   "devDependencies": {
