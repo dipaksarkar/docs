@@ -11,8 +11,8 @@ const NitroFIT28SideBar = [
   {
     text: 'Usage',
     items: [
-      { text: 'Opening Times', link: '/nitrofit28/opening-times' },
-      { text: 'Membership', link: '/nitrofit28/membership' },
+      { text: 'App Settings', link: '/nitrofit28/app-settings' },
+      // { text: 'Membership', link: '/nitrofit28/membership' },
     ]
   }
 ]

@@ -6,9 +6,9 @@ This section will help you build a basic NitroFIT28 documentation site from grou
 
 For getting started an Quasar application you needs two things as Prerequisites. 
 
-- Node 12+ for Quasar CLI with Webpack, Node 14+ for Quasar CLI with Vite.
+1. Node 12+ for Quasar CLI with Webpack, Node 14+ for Quasar CLI with Vite.
   - To check your node version, run `node -v` in a terminal/console window.
-- Yarn v1 (strongly recommended), PNPM, or NPM.
+2. Yarn v1 (strongly recommended), PNPM, or NPM.
   - To check your yarn version, run `yarn -v` in a terminal/console window.
 
 ## Server Requirements
@@ -16,7 +16,7 @@ For getting started an Quasar application you needs two things as Prerequisites.
 The NitroFIT28 has a few system requirements. You should ensure that your web server has the following minimum PHP version and extensions:
 
 - Apache, nginx, or another compatible web server.
-- PHP >= 8.0
+- PHP >= 8.1
 - BCMath PHP Extension
 - Ctype PHP Extension
 - cURL PHP Extension
@@ -29,6 +29,10 @@ The NitroFIT28 has a few system requirements. You should ensure that your web se
 - PDO PHP Extension
 - Tokenizer PHP Extension
 - XML PHP Extension
+- Imagick PHP Extension
+- ionCube Loader®	v13.0
+
+The latest ionCube Loader version for your PHP version
 
 ::: warning
 On this project, we're using the latest Laravel version (currently 9.x). Please go to [Laravel documentation](https://laravel.com/docs) page for more information.
@@ -46,13 +50,14 @@ To install the CLI using npm, open a terminal/console window and enter the follo
 
 ```
 yarn global add @quasar/cli
+yarn global add @quasar/icongenie
 ```
 
 ::: warning
 On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar documentation](https://quasar.dev/start/quasar-cli) page for more information.
 :::
 
-## Create Subdomains
+## Create Subdomains/Aliases
 
 You will need to create there subdomain with document root `public_html/public` for api, admin and members as follows:
 
@@ -68,14 +73,14 @@ This different for different hosting service provider. Please go to [How to crea
 
 ## Build Application
 
-- Open a terminal/console window and enter the following command:
+1. Open a terminal/console window and enter the following command:
 
 ```
 cp .env.example .env
 cp .env.frontend .env.frontend.prod
 ```
 
-- Change `.env.frontend.prod`
+2. Change `.env.frontend.prod`
 
 ```
 APP_ENV=Production
@@ -88,7 +93,7 @@ TERMS_URL=https://your_app_domain.com/terms
 STRIPE_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-- Build > Open a terminal/console window and enter the following command:
+3. Build > Open a terminal/console window and enter the following command:
 
 ```
 yarn install

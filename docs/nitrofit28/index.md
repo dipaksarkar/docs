@@ -9,7 +9,7 @@ By: `Coderstm`
 
 Email: `hello@coderstm.com`
 
-Version: `v2.1`
+Version: `v3.0`
 
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 
@@ -26,10 +26,16 @@ Password: `Gis0ra$$;`
 
 ## Features
 - Manage Member and Enquiry
+- Manage Subscriptions with Stripe and Offline Payment Method
+- Manage Attendance by QR Code Scanner
+- Multi Language Supported
+- Manage Invoice and Payment Methods
 - Massage System Between Member and Staff
+- Powerfull Shop Module with POS
+- Products with Stock Inventory Management (Multi Location)
 - Manage User and Permission
 - PDF and CSV Export
-- Monthly/Yearly Report
+- Daily/Monthly/Yearly Report
 - Android and iPhone App
 - Sell Simple or Variable Products
 - Beautiful theme is ready to use.
