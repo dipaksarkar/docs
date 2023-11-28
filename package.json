@@ -5,9 +5,9 @@
   "license": "MIT",
   "config": {
     "ssh": {
-      "user": "coderstm.com",
-      "server": "ssh.gb.stackcp.com",
-      "path": "~/docs.coderstm.com"
+      "user": "coderstm",
+      "server": "srv1.goazh.com",
+      "path": "~/web/docs.coderstm.com/public_html"
     }
   },
   "scripts": {
