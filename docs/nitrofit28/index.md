@@ -9,7 +9,7 @@ By: `Coderstm`
 
 Email: `hello@coderstm.com`
 
-Version: `v3.0`
+Version: `v3.11`
 
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 

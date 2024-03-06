@@ -59,12 +59,12 @@ On this project, we're using the latest Quasar version (currently 2.x). Please g
 
 ## Create Subdomains/Aliases
 
-You will need to create there subdomain with document root `public_html/public` for api, admin and members as follows:
+You will need to create there subdomain with document root `public_html` for api, admin and members as follows:
 
 ```
-api.your_app_domain.com
-admin.your_app_domain.com
-members.your_app_domain.com
+api.your-domain-name.com
+admin.your-domain-name.com
+members.your-domain-name.com
 ```
 
 ::: warning
@@ -77,23 +77,24 @@ This different for different hosting service provider. Please go to [How to crea
 
 ```
 cp .env.example .env
-cp .env.frontend .env.frontend.prod
+cp .env.frontend .env.frontend.prod (optional)
+cp .htaccess.example .htaccess
 ```
 
-2. Change `.env.frontend.prod`
+2. Change `.env.frontend.prod` (optional)
 
 ```
 APP_ENV=Production
 APP_NAME=NitroFIT28
 APP_DEBUG=false
 APP_CURRENCY=$
-API_URL=https://api.your_app_domain.com
-PRIVACY_URL=https://your_app_domain.com/privacy
-TERMS_URL=https://your_app_domain.com/terms
+API_URL=https://api.your-domain-name.com
+PRIVACY_URL=https://your-domain-name.com/privacy
+TERMS_URL=https://your-domain-name.com/terms
 STRIPE_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-3. Build > Open a terminal/console window and enter the following command:
+3. Build > Open a terminal/console window and enter the following command: (optional)
 
 ```
 yarn install
@@ -109,7 +110,7 @@ yarn build:prod
 - Create database and Upload all files into the root folder of your hosting (normally, it is public_html). Without followings:
   - `/dist`
   - `/node_modules`
-- Go to [your_app_domain.com/install] to start installation.
+- Go to [your-domain-name.com/install] to start installation.
 - Step by step to setup your database conntection, site information and administrator.
 - Login and setup your website on Welcome Board.
 
