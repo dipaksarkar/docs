@@ -100,8 +100,10 @@ yarn build:prod
 ## Install via GUI
 
 - Create database and Upload all files into the root folder of your hosting (normally, it is `public_html`). Without followings:
-  - `/dist`
-  - `/node_modules`
+  ```
+    /dist
+    /node_modules
+  ```
 - Go to [your-domain-name.com/install] to start installation.
 - Step by step to setup your database conntection, site information and administrator.
 - Login and setup your website on Welcome Board.
