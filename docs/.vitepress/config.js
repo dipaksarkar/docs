@@ -5,7 +5,8 @@ const NitroFIT28SideBar = [
     text: 'Getting Started',
     items: [
       { text: 'What is NitroFIT28?', link: '/nitrofit28/' },
-      { text: 'Installation', link: '/nitrofit28/installation' }
+      { text: 'Installation', link: '/nitrofit28/installation' },
+      { text: 'Build Mobile Apps', link: '/nitrofit28/build-apps' },
     ]
   },
   {

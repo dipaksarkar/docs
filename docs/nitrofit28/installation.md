@@ -1,19 +1,19 @@
 # Installation
 
-This section will help you build a basic NitroFIT28 documentation site from ground up.
+This section will guide you through setting up a basic NitroFIT28 documentation site from scratch.
 
 ## Prerequisites
 
-For getting started an Quasar application you needs two things as Prerequisites. 
+To get started with a Quasar application, you need to ensure you have the following prerequisites:
 
-1. Node 12+ for Quasar CLI with Webpack, Node 14+ for Quasar CLI with Vite.
-  - To check your node version, run `node -v` in a terminal/console window.
-2. Yarn v1 (strongly recommended), PNPM, or NPM.
-  - To check your yarn version, run `yarn -v` in a terminal/console window.
+1. **Node 12+ for Quasar CLI with Webpack**, or **Node 14+ for Quasar CLI with Vite**.
+   - To check your Node.js version, run `node -v` in a terminal/console window.
+2. **Yarn v1 (strongly recommended)**, PNPM, or NPM.
+   - To check your Yarn version, run `yarn -v` in a terminal/console window.
 
 ## Server Requirements
 
-The NitroFIT28 has a few system requirements. You should ensure that your web server has the following minimum PHP version and extensions:
+NitroFIT28 has specific system requirements. Ensure that your web server meets the following minimum PHP version and extensions:
 
 - Apache, nginx, or another compatible web server.
 - PHP >= 8.1
@@ -32,23 +32,20 @@ The NitroFIT28 has a few system requirements. You should ensure that your web se
 - Imagick PHP Extension
 - ionCube Loader®	v13.0
 
-The latest ionCube Loader version for your PHP version
+Ensure you have the latest ionCube Loader version for your PHP version.
 
 ::: warning
-On this project, we're using the latest Laravel version (currently 9.x). Please go to [Laravel documentation](https://laravel.com/docs) page for more information.
-
-It’s based on Laravel framework, the root folder for it is /public. You shouldn’t install it on a sub-folder, use sub-domain is better than sub-folder. (we won’t support to install our product on sub-folder).
+This project utilizes the latest Laravel version (currently 9.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
+The root folder for Laravel is `/public`. Do not install it in a sub-folder; using a sub-domain is preferable over a sub-folder. We do not support installing our product in a sub-folder.
 :::
 
 ## Installing Quasar CLI
 
-You use the Quasar CLI to create projects, generate application and library code, and perform a variety of ongoing development tasks as it is a progressive framework for building user interfaces.
+The Quasar CLI is used for project creation, generating application and library code, and various development tasks.
 
-Install the Quasar CLI globally.
+Install the Quasar CLI globally:
 
-To install the CLI using npm, open a terminal/console window and enter the following command:
-
-```
+```bash
 yarn global add @quasar/cli
 yarn global add @quasar/icongenie
 ```
@@ -59,7 +56,7 @@ On this project, we're using the latest Quasar version (currently 2.x). Please g
 
 ## Create Subdomains/Aliases
 
-You will need to create there subdomain with document root `public_html` for api, admin and members as follows:
+You will need to create three subdomains with document root `public_html` for api, admin, and members as follows:
 
 ```
 api.your-domain-name.com
@@ -73,28 +70,23 @@ This different for different hosting service provider. Please go to [How to crea
 
 ## Build Application
 
-1. Open a terminal/console window and enter the following command:
+1. Execute the following commands in a terminal/console window:
 
 ```
 cp .env.example .env
-cp .env.frontend .env.frontend.prod (optional)
 cp .htaccess.example .htaccess
 ```
 
-2. Change `.env.frontend.prod` (optional)
+2. (Optional) Modify `.env.frontend.prod`:
 
 ```
 APP_ENV=Production
 APP_NAME=NitroFIT28
-APP_DEBUG=false
-APP_CURRENCY=$
-API_URL=https://api.your-domain-name.com
-PRIVACY_URL=https://your-domain-name.com/privacy
-TERMS_URL=https://your-domain-name.com/terms
-STRIPE_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXX
+# (API_URL is optional, it will be generated using your app domain)
+API_URL=https://api.your-domain-name.com 
 ```
 
-3. Build > Open a terminal/console window and enter the following command: (optional)
+3. (Optional) Build the application by executing the following commands:
 
 ```
 yarn install
@@ -107,7 +99,7 @@ yarn build:prod
 
 ## Install via GUI
 
-- Create database and Upload all files into the root folder of your hosting (normally, it is public_html). Without followings:
+- Create database and Upload all files into the root folder of your hosting (normally, it is `public_html`). Without followings:
   - `/dist`
   - `/node_modules`
 - Go to [your-domain-name.com/install] to start installation.
@@ -125,6 +117,6 @@ ssh your_username@host_ip_address
 Type in your password and hit Enter.
 
 ```
-cd nitrofit28_root_path
+cd public_html
 php artisan migrate:fresh --force
 ```
