@@ -12,8 +12,20 @@ const NitroFIT28SideBar = [
   {
     text: 'Usage',
     items: [
+      { text: 'Enquiries', link: '/nitrofit28/enquiries' },
+      { text: 'Tasks', link: '/nitrofit28/tasks' },
+      { text: 'Members', link: '/nitrofit28/members' },
+      { 
+        text: 'Classes',
+        link: '/nitrofit28/classes',
+        items: [
+          { text: 'Templates', link: '/nitrofit28/classes/templates' },
+          { text: 'Locations', link: '/nitrofit28/classes/locations' },
+          { text: 'Week Schedules', link: '/nitrofit28/classes/schedules' },
+        ] 
+      },
       { text: 'Products', link: '/nitrofit28/products' },
-      { text: 'Settings', link: '/nitrofit28/app-settings' },
+      { text: 'Settings', link: '/nitrofit28/settings' },
     ]
   }
 ]

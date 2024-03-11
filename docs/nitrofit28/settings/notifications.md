@@ -16,12 +16,12 @@ To save time when you add a new notification, you can duplicate a similar notifi
 
 **Steps:**
 
-1.   From your admin, go to `Settings > Notifications`.
-2.   Click the `...` of the notification that you want to duplicate.
-3.   Click `Duplicate`.
-4.   Enter a title for the duplicate notification.
-5.   Optional: Select which notification details to duplicate.
-6.   Click `Save` notification.
+1.  From your admin, go to `Settings > Notifications`.
+2.  Click the `...` of the notification that you want to duplicate.
+3.  Click `Duplicate`.
+4.  Enter a title for the duplicate notification.
+5.  Optional: Select which notification details to duplicate.
+6.  Click `Save` notification.
 
 ##  Default notification
 There may be circumstances when you want to disable certain emails from sending.

@@ -9,13 +9,13 @@ You can add or update information about a product such as its price, variants, a
 1.   From your admin, go to `Products`.
 2.   From the `Products` page, click `Add product`.
 3.   Enter a title for your product, along with additional `details`.
-4.   Click Save.
+4.   Click `Save`.
 
 ::: warning
 If you have over 50 store locations, then you need to save your product first before adding inventory quantities.
 :::   
 
-## Duplicate a product
+<!-- ## Duplicate a product
 To save time when you add a new product, you can duplicate a similar product. If you want to add options to an existing product, such as color or size, then add a variant to the product instead of duplicating the product.
 
 When you choose to duplicate an existing product, you have the option to make the following adjustments before creating the duplicate: * Set a new title. * Set the product status to `active` or `draft`. * Select which other product details to duplicate from a specific set of options.
@@ -29,12 +29,13 @@ All other product details except 3D models and videos are automatically copied f
 **Steps:**
 
 1.   From your admin, go to `Products`.
-2.   Click the name of the product that you want to duplicate.
+2.   Click the `...` of the product that you want to delete.
 3.   Click `Duplicate`.
+4.   Click `Confirm`.
 4.   Enter a title for the duplicate product.
 5.   Optional: Select which product details to duplicate.
 6.   Optional: Set the product status to `active` to publish the product on all sales channels, or keep the product status as `draft`.
-7.   Click `Duplicate` product.
+7.   Click `Save` product. -->
 
 ##  Edit a product
 After you've created products, you can edit them to change their descriptions, prices, and any other product details.
@@ -79,23 +80,12 @@ Click Save.
 The URL and handle are automatically generated when you create a new product. You can edit the handle to make it match your product title, but don't edit it too often or the product might not display in search engine results.
 :::
 
-
-##  Archive a product
-If you no longer want to display a product in your online store, but you don’t want to permanently delete the product, then you can archive the product instead. You can archive a single product, or archive multiple products at the same time using a bulk action. If you archive a product, then the product is moved to the `Archived` tab of the `Products` page.
-
-To archive a product:
-
-1.  From your admin, go to `Products`.
-2.  Click the product that you want to archive.
-3.  On the product details page, click `Archive product`.
-4.  Click `Archive product`.
-
 ##  Delete a product
-You can delete a single product, or delete multiple products at the same time using a bulk action. When you delete a product, it's permanently removed from `NitroFIT28`. Deleted products can be restored. If you run out of stock or no longer want to display a product for any reason, but don’t want to permanently delete it from your store, then you can archive the product instead.
+You can delete a single product, or delete multiple products at the same time using a bulk action. When you delete a product, it's temporary removed from `NitroFIT28`. Deleted products can be restored.
 
-To permanently delete a product:
+To delete a product:
 
 1.  From your admin, go to `Products`.
-2.  Click the product that you want to delete.
-3.  On the product details page, click `Delete product`.
-4.  Click `Delete product`.
+2.  Click the `...` of the product that you want to delete.
+3.  Click `Delete`.
+4.  Click `Confirm`.

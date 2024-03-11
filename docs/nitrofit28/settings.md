@@ -77,7 +77,7 @@ A location is any physical place or an app where you do any or all of the follow
 
 You can set up multiple locations in your store so that you can track inventory and fulfill orders at your locations. Your locations can be retail stores, warehouses, or any other place where you manage or stock inventory. With multiple locations, you have better visibility into your inventory across your business.
 
-[Setting up your locations](/nitrofit28/locations)
+[Setting up your locations](/nitrofit28/settings/locations)
 
 ## Payments
 Make sure that you understand the payment process. When a customer checks out, they can choose to pay for their order using any of the methods that you've activated in the Payment providers area of your admin. You can activate a variety of payment methods.
@@ -88,7 +88,7 @@ There are also several ways for customers to pay online without using a credit c
 
 **In this section**
 
--   [Setting up your payments](/nitrofit28/payments)
+-   [Setting up your payments](/nitrofit28/settings/payments)
 -   Stripe
 -   Razorpay (Coming soon...)
 -   PayPal Express (Coming soon...)
@@ -102,7 +102,7 @@ Notification templates allow you to customise the messages that go out to your c
 
 You can access this feature at Settings > Notification Templates.
 
-[Setting up your notification](/nitrofit28/notifications)
+[Setting up your notification](/nitrofit28/settings/notifications)
 
 
 ##  Taxes
@@ -110,4 +110,4 @@ You might need to charge taxes on your sales, and then report and remit those ta
 
 You can access this feature at Settings > Taxes.
 
-[Setting up your taxes](/nitrofit28/taxes)
+[Setting up your taxes](/nitrofit28/settings/taxes)
