@@ -39,7 +39,7 @@ NitroFIT28 has specific system requirements. Ensure that your web server meets t
 Ensure you have the latest ionCube Loader version for your PHP version.
 
 ::: warning
-This project utilizes the latest Laravel version (currently 9.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
+This project utilizes the latest Laravel version (currently 10.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
 The root folder for Laravel is `/public`. Do not install it in a sub-folder; using a sub-domain is preferable over a sub-folder. We do not support installing our product in a sub-folder.
 :::
 
