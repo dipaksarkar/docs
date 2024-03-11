@@ -47,12 +47,12 @@ API_URL=https://api.your-domain-name.com
 
 ```bash [Android]
 yarn install
-yarn build:android --env=prod
+npm run build:android --env=prod
 ```
 
 ```bash [IOS]
 yarn install
-yarn build:ios --env=prod
+npm run build:ios --env=prod
 ```
 
 :::
