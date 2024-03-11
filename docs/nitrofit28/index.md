@@ -3,13 +3,10 @@
 ## Introduction
 NitroFIT28 is an easy-to-use gym and fitness management system. It helps you to keep track of the records of your members and their memberships, and allows easy communication between admin and your.
 
-Created: `Oct 1st, 2022`
-
-By: `Coderstm`
-
-Email: `hello@coderstm.com`
-
-Version: `v3.11`
+Created: `Oct 1st, 2022`<br>
+By: `Coderstm`<br>
+Email: `hello@coderstm.com`<br>
+Version: `v3.12`
 
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 
