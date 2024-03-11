@@ -2,6 +2,10 @@
 
 This section will guide you through setting up a basic NitroFIT28 documentation site from scratch.
 
+::: warning
+Configuring your Stripe account is essential to make the subscription system functional. However, if you choose not to accept payments via credit card, you must still configure your Stripe account for other payment methods or functionality.
+:::
+
 ## Prerequisites
 
 To get started with a Quasar application, you need to ensure you have the following prerequisites:
@@ -107,11 +111,6 @@ yarn build:prod
 - Go to [your-domain-name.com/install] to start installation.
 - Step by step to setup your database conntection, site information and administrator.
 - Login and setup your website on Welcome Board.
-
-
-::: warning
-Configuring your Stripe account is essential to make the subscription system functional. However, if you choose not to accept payments via credit card, you must still configure your Stripe account for other payment methods or functionality.
-:::
 
 ## Remove Dummy Data
 
