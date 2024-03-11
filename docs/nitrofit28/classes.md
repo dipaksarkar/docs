@@ -1,12 +1,19 @@
 #   Classes
 Classes section allows you to manage various classes offered by your gym or fitness center.
 
+
 **Fields:**
 -   `Name` - The name of the class.
 -   `Capacity` - Maximum number of participants allowed in the class.
 -   `Description` - Brief description of the class.
 -   `URLs` - Additional URLs related to the class.
 -   `Active` - Indicates whether the class is currently active or not.
+
+### In this section
+-   [Templates](/nitrofit28/classes/templates)
+-   [Locations](/nitrofit28/classes/locations)
+-   [Week Schedules](/nitrofit28/classes/schedules)
+
   
 ## Add a new class
 

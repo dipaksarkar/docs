@@ -83,7 +83,7 @@ The URL and handle are automatically generated when you create a new product. Yo
 ##  Delete a product
 You can delete a single product, or delete multiple products at the same time using a bulk action. When you delete a product, it's temporary removed from `NitroFIT28`. Deleted products can be restored.
 
-To delete a product:
+**To delete a product:**
 
 1.  From your admin, go to `Products`.
 2.  Click the `...` of the product that you want to delete.

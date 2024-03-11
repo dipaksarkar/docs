@@ -7,19 +7,15 @@ If you make sales from physical locations using the POS, then you can add a loca
 
 **Steps:**
 
-1.  From your admin, go to Settings > Locations.
-2.  Click Add location.
+1.  From your admin, go to `Settings > Locations`.
+2.  Click `Add location`.
 3.  Enter a unique name and an address for the location.
 4.  Click `Done`.
 
 ##  Deactivate a location
 You can deactivate a location temporarily or permanently if you don't want to sell, fulfill, or stock inventory at that location.
 
-When you deactivate a location, it’s no longer shown on filters and menus, you can no longer manage or transfer inventory in the location, and you can't use it as your default location. You always need to have at least one active location.
-
-Deactivated locations don’t count towards your locations limit.
-
-You can’t deactivate a location that's a private or third-party app. Instead, remove the app.
+When you deactivate a location, it’s no longer shown on filters and menus, you can no longer manage inventory in the location, and you can't use it as your default location. You always need to have at least one active location.
 
 You can’t deactivate the location that's currently set as your default location. You first need to change the default location to another location.
 
@@ -27,7 +23,7 @@ Before you deactivate a location, you need to complete all orders and transfers 
 
 **Steps:**
 
-1.  From your admin, go to Settings > Locations.
+1.  From your admin, go to `Settings > Locations`.
 2.  Click the location that you want to deactivate.
 3.  Uncheck the box labeled `Active`.
 4.  If any inventory, orders, or transfers are assigned to this location, then select another location to move the inventory to.
@@ -38,7 +34,7 @@ You can reactivate a location that you previously deactivated and continue fulfi
 
 **Steps:**
 
-1.  From your admin, go to Settings > Locations.
+1.  From your admin, go to `Settings > Locations`.
 2.  Click the location that you want to reactivate.
 3.  Check the box labeled `Active`.
 5.  Click `Done`.

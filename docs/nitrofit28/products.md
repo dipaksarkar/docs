@@ -6,7 +6,7 @@ When you are adding or updating a product, you can make the product available to
 
 You view, add, update, and organize all of your products and variants from the Products page in the NitroFIT28 admin.
 
-## In this section
+### In this section
 
 -   [Adding and updating products](/nitrofit28/products/add-update)
 -   [Managing inventory](/nitrofit28/products/inventory)
