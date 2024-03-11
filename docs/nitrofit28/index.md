@@ -11,14 +11,10 @@ Version: `v3.12`
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 
 ## Demo
-Homepage: https://nitrofit28.coderstm.com
-
-Admin Area: https://admin.nitrofit28.coderstm.com
-
-Member Area: https://members.nitrofit28.coderstm.com
-
-Username: `hello@coderstm.com`
-
+Homepage: https://nitrofit28.coderstm.com<br>
+Admin Area: https://admin.nitrofit28.coderstm.com<br>
+Member Area: https://members.nitrofit28.coderstm.com<br>
+Username: `hello@coderstm.com`<br>
 Password: `Gis0ra$$;`
 
 ## Features
