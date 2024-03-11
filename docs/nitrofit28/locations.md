@@ -29,7 +29,7 @@ Before you deactivate a location, you need to complete all orders and transfers 
 
 1.  From your admin, go to Settings > Locations.
 2.  Click the location that you want to deactivate.
-3.  Uncheck `Active`.
+3.  Uncheck the box labeled `Active`.
 4.  If any inventory, orders, or transfers are assigned to this location, then select another location to move the inventory to.
 5.  Click `Done`.
 
@@ -40,5 +40,5 @@ You can reactivate a location that you previously deactivated and continue fulfi
 
 1.  From your admin, go to Settings > Locations.
 2.  Click the location that you want to reactivate.
-3.  Check `Active`.
+3.  Check the box labeled `Active`.
 5.  Click `Done`.

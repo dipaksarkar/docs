@@ -3,15 +3,15 @@
 Here you can configure your timezone and date formatting that will apply to all of the control panel.
 
 **Available Fields**
-Company name - Appears on your website
-Email - This is the default email address that will appear as the sender on all of the email that sends to you and your customers.
-Phone
-Country
-Timezone
-Language
-Currency
-Selling product online?
-Logo - Appears on your website and invoices
+-   `Company name` - Appears on your website
+-   `Email` - This is the default email address that will appear as the sender on all of the email that sends to you and your customers.
+-   `Phone` - Contact number associated with your business.
+-   `Country` - Location of your business.
+-   `Timezone` - Time zone setting for your control panel.
+-   `Language` - Language preference for your control panel.
+-   `Currency` - Currency used for transactions and invoices. Cannot be changed after the first sale.
+-   `Selling product online?` - Indicates whether your business sells products online. Disabling this disables the shop feature in the app.
+-   `Logo` - Appears on your website and invoices
 
 ## Opening Times
 
@@ -30,13 +30,13 @@ Now you can see that changes on https://your-domain.com/opening-times
 The Billing Information section serves as the hub for managing crucial details regarding your gym's legal identity. Here, you can input and update the legal business name and address, which are essential components for generating accurate and professional invoices. Additionally, this information seamlessly integrates into email footers, ensuring that all communications maintain a polished and legally compliant appearance. Keeping this information up-to-date in the Billing Information section guarantees accuracy in financial transactions and reinforces your gym's commitment to transparency and professionalism.
 
 **Available Fields**
--   Legal business name - Will be appear on Invoice
--   Address line 1
--   Address line 2 (Optional)
--   Country/region
--   City
--   State
--   Postal code
+-   `Legal business name` - Will be appear on Invoice.
+-   `Address line 1` - Primary address line.
+-   `Address line 2` - Secondary address line (optional).
+-   `Country/region` - Location of the business.
+-   `City` - City where the business is located.
+-   `State` - State or province where the business is located.
+-   `Postal code` - Postal code for the business location.
 
 **Steps to Updating Billing:**
 
@@ -95,3 +95,19 @@ There are also several ways for customers to pay online without using a credit c
 -   Third-party payment providers (Coming soon...)
 -   Additional payment methods
 -   Manual payment methods
+
+
+## Notification Templates
+Notification templates allow you to customise the messages that go out to your customers when actions occur inside `NitroFIT28`. You can customize every email that goes out to a customer here.
+
+You can access this feature at Settings > Notification Templates.
+
+[Setting up your notification](/nitrofit28/notifications)
+
+
+##  Taxes
+You might need to charge taxes on your sales, and then report and remit those taxes to your government. Although tax laws and regulations are complex and can change often, you can set up NitroFIT28 to automatically handle most common sales tax calculations. You can also set up tax overrides to address unique tax laws and situations.
+
+You can access this feature at Settings > Taxes.
+
+[Setting up your taxes](/nitrofit28/taxes)
