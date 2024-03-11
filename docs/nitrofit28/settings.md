@@ -89,7 +89,7 @@ There are also several ways for customers to pay online without using a credit c
 **In this section**
 
 -   [Setting up your payments](/nitrofit28/settings/payments)
--   Stripe
+-   [Stripe](/nitrofit28/settings/payments.html#setup-stripe)
 -   Razorpay (Coming soon...)
 -   PayPal Express (Coming soon...)
 -   Third-party payment providers (Coming soon...)

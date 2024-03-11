@@ -108,6 +108,11 @@ yarn build:prod
 - Step by step to setup your database conntection, site information and administrator.
 - Login and setup your website on Welcome Board.
 
+
+::: warning
+Configuring your Stripe account is essential to make the subscription system functional. However, if you choose not to accept payments via credit card, you must still configure your Stripe account for other payment methods or functionality.
+:::
+
 ## Remove Dummy Data
 
 Open the SSH terminal on your machine and run the following command: 
