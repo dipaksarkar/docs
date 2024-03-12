@@ -25,7 +25,7 @@ This feature allows you to assign or remove instructor roles for staff members w
 **Steps:**
 
 1.  From your admin, go to `Staff`.
-2.  Click the `...` of the staff that you want to block.
+2.  Click the (`...`) of the staff that you want to block.
 3.  Click `Mark as Instructor` or `Remove from Instructor`.
 4.  Click `Confirm`.
 
@@ -35,6 +35,6 @@ You can delete a single staff, or delete multiple staff at the same time using a
 **Steps:**
 
 1.  From your admin, go to `Staff`.
-2.  Click the `...` of the staff that you want to delete.
+2.  Click the (`...`) of the staff that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

@@ -19,6 +19,6 @@ You can delete a single questionnaire, or delete multiple questionnaires at the 
 **To delete a questionnaire:**
 
 1.  From your admin, go to `Questionnaires`.
-2.  Click the `...` of the questionnaire that you want to delete.
+2.  Click the (`...`) of the questionnaire that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

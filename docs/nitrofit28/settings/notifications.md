@@ -17,7 +17,7 @@ To save time when you add a new notification, you can duplicate a similar notifi
 **Steps:**
 
 1.  From your admin, go to `Settings > Notifications`.
-2.  Click the `...` of the notification that you want to duplicate.
+2.  Click the (`...`) of the notification that you want to duplicate.
 3.  Click `Duplicate`.
 4.  Enter a title for the duplicate notification.
 5.  Optional: Select which notification details to duplicate.
@@ -29,7 +29,7 @@ There may be circumstances when you want to disable certain emails from sending.
 To making default a notification:
 
 1.  From your admin, go to `Settings > Notifications`.
-2.  Click the `...` of the notification that you want to default.
+2.  Click the (`...`) of the notification that you want to default.
 3.  Click `Mark as Default`.
 
 ##  Delete a notification
@@ -38,7 +38,7 @@ You can delete a single notification, or delete multiple notifications at the sa
 To permanently delete a notification:
 
 1.  From your admin, go to `Settings > Notifications`.
-2.  Click the `...` of the notification that you want to delete.
+2.  Click the (`...`) of the notification that you want to delete.
 3.  Click `Delete`.
   
 ::: warning

@@ -21,7 +21,7 @@ To save time when you add a new template, you can duplicate a similar template.
 **Steps:**
 
 1.   From your admin, go to `Classes > Templates`.
-2.   Click the `...` of the template that you want to duplicate.
+2.   Click the (`...`) of the template that you want to duplicate.
 3.   Click `Duplicate`.
 4.   Click `Confirm`.
 5.   Enter a label for the duplicate template.
@@ -33,6 +33,6 @@ You can delete a single template, or delete multiple templates at the same time 
 **Steps:**
 
 1.  From your admin, go to `Classes > Templates`.
-2.  Click the `...` of the template that you want to delete.
+2.  Click the (`...`) of the template that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

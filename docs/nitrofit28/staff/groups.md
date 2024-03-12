@@ -21,6 +21,6 @@ You can delete a single group, or delete multiple groups at the same time using 
 **Steps:**
 
 1.  From your admin, go to `Staff > Groups`.
-2.  Click the `...` of the group that you want to delete.
+2.  Click the (`...`) of the group that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

@@ -42,6 +42,6 @@ You can delete a single instructor, or delete multiple instructors at the same t
 **Steps:**
 
 1.  From your admin, go to `Instructors`.
-2.  Click the `...` of the instructor that you want to delete.
+2.  Click the (`...`) of the instructor that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

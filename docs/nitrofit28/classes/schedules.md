@@ -7,6 +7,8 @@ Please be careful when assigning templates. If you remove a week's template or r
 
 ## Edit Weeks Schedules
 
+**Steps:**
+
 1.  From your admin, go to `Classes > Week Schedules`.
 2.  Click `Edit/View Weeks` from the page `Week Schedules`.
 3.  Assign [Template](/nitrofit28/classes/templates) to the weeks.

@@ -10,6 +10,7 @@ Although you can change your product details at any time, the changes can affect
 
 ##  Title and description
 `Title` - The name for your product that you want to display to your customers.
+
 `Description` - The description for your product. This area uses the rich text editor so that you can format your text. Describe your products in detail to inform and market to your potential customers. If you're a reseller, then don't use a manufacturer's exact description, because you want your products to be unique to search engines.
 
 
@@ -18,8 +19,11 @@ The images, 3D models, and video demonstrate to your customers what the product 
 
 ##  Pricing
 `Price` - The price that you're charging for the product. You can set your store's currency on the General settings page. If the product is taxable, then set up location-based taxes.
+
 `Compare-at price` - The original price for a product that is on sale. When you enter a compare-at price, the product displays a sale price.
+
 `Cost per item` - How much it costs you for the product or variant. For example, if you resell a product, then you can enter the price that you paid the manufacturer, excluding taxes, shipping, or other costs. If you create the product yourself, then you can enter a value that is based on your labor and material costs.
+
 For products that have a `Cost per item` entered—unless you include taxes in your prices—the projected margin is displayed below the Price field on the product details page. The margin is calculated as ([price - cost] / price) × 100. For example, if your price is $50 and your cost is $30, then the margin (calculated as ([50 - 30] / 50) × 100) is 40%.
 
 You can access reports to analyze your product costs and margins. You can also find your cost of goods sold (COGS).
@@ -28,8 +32,11 @@ Entering the cost per item is optional. If you choose to enter your costs, then 
 
 ##  Inventory
 `SKU (stock keeping unit)` - The code that identifies the product within your business. For effective tracking and sales reporting, each SKU needs to be unique.
+
 SKUs are optional. You can create your own SKU format. For more information about SKUs, refer to SKU formats.
+
 `Barcode (ISBN, UPC, GTIN)` - Barcodes are typically used by resellers. The identifier needs to be a new or existing Global Trade Item Number (GTIN). Some sales channels require a GTIN before a product can be published using the channel.
+
 GTINs are unique identifiers used internationally to store and locate product information. Examples of GTINs are UPCs, EANs, and ISBNs, which can vary in length depending on the product type. You can find the GTIN above or below the barcode on the packaging for your product.
 
 `Available` - The number of units in stock. If you are managing your inventory across multiple locations, then the quantity is displayed for each location.
@@ -50,8 +57,8 @@ For newly created products, the product status is set as `Active` by default. Pr
 You can set the following statuses:
 
 `Active`: the product details are complete and the product is ready to be sold.
+
 `Draft`: the product details need to be completed before it can be sold.
-`Archived`: the product details are complete, but the product is no longer for sale. Archiving a product hides it from your admin and any customers. To archive a product, scroll to the bottom of the product page and click Archive product.
 
 ##  Organization
 

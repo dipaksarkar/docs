@@ -20,6 +20,6 @@ You can delete a single location, or delete multiple locations at the same time 
 **Steps:**
 
 1.  From your admin, go to `Classes > Locations`.
-2.  Click the `...` of the location that you want to delete.
+2.  Click the (`...`) of the location that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

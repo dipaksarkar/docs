@@ -41,7 +41,7 @@ Allows you to block or unblock a user from booking new class schedules. Accessib
 **Steps:**
 
 1.  From your admin, go to `Members`.
-2.  Click the `...` of the member that you want to block.
+2.  Click the (`...`) of the member that you want to block.
 3.  Click `Block` or `Unblock`.
 4.  Click `Confirm`.
 
@@ -51,7 +51,7 @@ Where you can update the PARQ status. On Request PARQ, members need to update th
 **Steps:**
 
 1.  From your admin, go to `Members`.
-2.  Click the `...` of the member that you want to block.
+2.  Click the (`...`) of the member that you want to block.
 3.  Click `Request PARQ` or `PARQ Received`.
 4.  Click `Confirm`.
 
@@ -61,7 +61,7 @@ Where you can update the Avatar status. On Request Avatar, members need to uploa
 **Steps:**
 
 1.  From your admin, go to `Members`.
-2.  Click the `...` of the member that you want to block.
+2.  Click the (`...`) of the member that you want to block.
 3.  Click `Request Avatar` or `Avatar Received`.
 4.  Click `Confirm`.
 
@@ -71,6 +71,6 @@ You can delete a single member, or delete multiple members at the same time usin
 **Steps:**
 
 1.  From your admin, go to `Members`.
-2.  Click the `...` of the member that you want to delete.
+2.  Click the (`...`) of the member that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

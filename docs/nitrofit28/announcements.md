@@ -22,6 +22,6 @@ You can delete a single announcement, or delete multiple announcements at the sa
 **Steps:**
 
 1.  From your admin, go to `Announcements`.
-2.  Click the `...` of the announcement that you want to delete.
+2.  Click the (`...`) of the announcement that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

@@ -29,7 +29,7 @@ All other product details except 3D models and videos are automatically copied f
 **Steps:**
 
 1.   From your admin, go to `Products`.
-2.   Click the `...` of the product that you want to delete.
+2.   Click the (`...`) of the product that you want to delete.
 3.   Click `Duplicate`.
 4.   Click `Confirm`.
 4.   Enter a title for the duplicate product.
@@ -86,6 +86,6 @@ You can delete a single product, or delete multiple products at the same time us
 **To delete a product:**
 
 1.  From your admin, go to `Products`.
-2.  Click the `...` of the product that you want to delete.
+2.  Click the (`...`) of the product that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

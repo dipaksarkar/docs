@@ -25,6 +25,6 @@ You can delete a single plan, or delete multiple plans at the same time using a 
 **To delete a plan:**
 
 1.  From your admin, go to `Plans`.
-2.  Click the `...` of the plan that you want to delete.
+2.  Click the (`...`) of the plan that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.

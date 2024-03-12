@@ -27,6 +27,6 @@ You can delete a single coupon, or delete multiple coupons at the same time usin
 **To delete a coupon:**
 
 1.  From your admin, go to `Coupons`.
-2.  Click the `...` of the coupon that you want to delete.
+2.  Click the (`...`) of the coupon that you want to delete.
 3.  Click `Delete`.
 4.  Click `Confirm`.
