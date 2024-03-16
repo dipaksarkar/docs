@@ -111,3 +111,24 @@ You might need to charge taxes on your sales, and then report and remit those ta
 You can access this feature at Settings > Taxes.
 
 [Setting up your taxes](/nitrofit28/settings/taxes)
+
+## [Whatsapp and Push] Notifications
+
+Prerequisites
+-   `Set up a Firebase Project` - An active Firebase project. If you haven’t already created one, head over to the Firebase Console (https://console.firebase.google.com/) and create a new project.
+-   `Set up a Twilio Account` - First, you need to sign up for a Twilio account (if you don’t have one already) at https://www.twilio.com/try-twilio. After creating an account, you’ll get your Account SID and Auth Token, which are essential for API authentication.
+
+**Enable Push Notification**
+
+1. Navigate to the Firebase Console, select your project, and go to `Project Settings > Service` accounts. Generate a new private key and download the JSON file containing your service account credentials.
+2. Place this JSON file in your hosting `public_html/storage/firebase-credentials.json`.
+3. From your admin, go to `Settings > Push/Whatsapp Alert`.
+4. Check the box labeled `App Push Notification`.
+5. Click `Save`.
+  
+**Enable Whatsapp Notification**
+
+1. From your admin, go to `Settings > Push/Whatsapp Alert`.
+2. Check the box labeled `Whatsapp Notification`.
+3. Fill Twillo Sid, Twillo Token, and Sender
+4. Click `Save`.
