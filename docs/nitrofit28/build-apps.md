@@ -41,6 +41,10 @@ APP_MODE=app
 API_URL=https://api.your-domain-name.com
 ```
 
+::: warning
+To send push notifications to your users you need to [Configure Firebase](./firebase) to make it work.
+:::
+
 #### Build the andorid application by executing the following commands
 
 ::: code-group
