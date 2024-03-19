@@ -7,7 +7,7 @@ If you have a blank new app you should now see `Get started by adding Firebase t
 
 The dialog looks basically the same for both iOS and Android like in the image below, and the only import thing here is to use your `package id` for the apps!
 
-![Get started by adding Firebase to your app](/firebase.webp)
+![Get started by adding Firebase to your app](/firebase.jpg)
 
 After the initial step you can download a file, which you can for now simply download anywhere. The files are:
 
@@ -32,7 +32,7 @@ Now you could create a Certificate for push notifications, but the easier way is
 
 So create a new key and enable the `Apple Push Notifications service (APNs)`. If you have already reached the maximum amount of keys, you can also use an existing key or use a certificate instead, but the process then is a bit more complicated.
 
-![Apple Push Notifications service (APNs)](/apple-certificate.webp)
+![Apple Push Notifications service (APNs)](/apple-certificate.jpg)
 
 After downloading this .p8 file, we need to upload it to Firebase.
 
