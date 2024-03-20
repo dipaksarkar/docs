@@ -112,6 +112,18 @@ yarn build:prod
 - Step by step to setup your database conntection, site information and administrator.
 - Login and setup your website on Welcome Board.
 
+## Add Cron Jobs
+Cron jobs are scheduled tasks that run at predefined times or intervals on your server. They are essential for automating repetitive tasks such as running scripts, maintenance tasks, or triggering specific actions at set times.
+
+```bash
+# Run Laravel scheduler
+* * * * * /usr/bin/php8.1 {project-root}/artisan schedule:run >> /dev/null 2>&1
+
+# Process Laravel queues
+*/2 * * * * /usr/bin/php8.1 {project-root}/artisan queue:work --timeout=36000 --stop-when-empty
+```
+
+
 ## Remove Dummy Data
 
 Open the SSH terminal on your machine and run the following command: 
