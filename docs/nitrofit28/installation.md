@@ -124,7 +124,6 @@ Cron jobs are scheduled tasks that run at predefined times or intervals on your 
 */2 * * * * /usr/bin/php8.1 {project-root}/artisan queue:work --timeout=36000 --stop-when-empty
 ```
 
-
 ## Remove Dummy Data
 
 Open the SSH terminal on your machine and run the following command: 
