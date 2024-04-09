@@ -118,21 +118,24 @@ Cron jobs are scheduled tasks that run at predefined times or intervals on your 
 
 ```bash
 # Run Laravel scheduler
-* * * * * /usr/bin/php8.1 {project-root}/artisan schedule:run >> /dev/null 2>&1
+* * * * * /usr/bin/php8.2 {project-root}/artisan schedule:run >> /dev/null 2>&1
 
 # Process Laravel queues
-*/2 * * * * /usr/bin/php8.1 {project-root}/artisan queue:work --timeout=36000 --stop-when-empty
+*/2 * * * * /usr/bin/php8.2 {project-root}/artisan queue:work --timeout=36000 --stop-when-empty
 ```
 
 ## Remove Dummy Data
 
-Open the SSH terminal on your machine and run the following command: 
+1. Open the SSH terminal on your machine and run the following command: 
 
 ```
 ssh your_username@host_ip_address
 ```
+::: warning
+Please ask your hsoting provider to getting all the information related to ssh.
+:::
 
-Type in your password and hit Enter.
+2. Type in your password and hit Enter. Then run following commands:
 
 ```
 cd public_html

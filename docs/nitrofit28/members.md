@@ -64,6 +64,19 @@ Where you can update the Avatar status. On Request Avatar, members need to uploa
 2.  Click the (`...`) of the member that you want to block.
 3.  Click `Request Avatar` or `Avatar Received`.
 4.  Click `Confirm`.
+   
+
+## Collect Due Payment
+
+If you prefer to use a manual payment method for a member, follow these steps to collect the payment:
+
+**Steps:**
+
+1. Navigate to the `Members` section in your admin dashboard.
+2. Select the name of the member for whom you need to collect payment.
+3. Locate the `Current Plan` section and click on `Mark as Paid`.
+4. Click `Confirm`.
+
 
 ##  Delete a member
 You can delete a single member, or delete multiple members at the same time using a bulk action. When you delete a member, it's temporary removed from `NitroFIT28`. Deleted members can be restored.
