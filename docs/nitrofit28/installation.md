@@ -2,6 +2,10 @@
 
 This section will guide you through setting up a basic NitroFIT28 documentation site from scratch.
 
+::: info
+For upgrading your existing NitroFIT28 installation, please refer to the [Upgrade Guide](/nitrofit28/upgrade) for detailed instructions.
+:::
+
 ::: warning
 Configuring your Stripe account is essential to make the subscription system functional. However, if you choose not to accept payments via credit card, you must still configure your Stripe account for other payment methods or functionality.
 :::

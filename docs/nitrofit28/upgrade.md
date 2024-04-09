@@ -28,7 +28,7 @@ readme.html
 Please be aware that these steps will overwrite any customizations you have made.
 :::
 
-## Migrate App Database & Data
+## Migrate Databases & Data
 
 1. Access your server via SSH by opening a terminal and running the following command, replacing `your_username` with your SSH username and `host_ip_address` with your server's IP address:
 
