@@ -50,8 +50,7 @@ cd public_html
 
 ```
 php artisan migrate --force
-php artisan db:seed --class=NotificationSeeder
-php artisan db:seed --class=FeatureSeeder
+php artisan db:seed --class=UpgradeSeeder
 ```
 
 ::: danger
