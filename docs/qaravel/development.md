@@ -53,15 +53,6 @@ cp qaravel.config.example.js qaravel.config.js
 
 ```
 
-## Configuration for Laravel Sanctum
-
-We have used Laravel Sanctum SPA authentication. Laravel Sanctum provides a featherweight
-authentication system for SPAs (single page applications), mobile applications, and simple, token
-based APIs. Sanctum allows each user of your application to generate multiple API tokens for their
-account. These tokens may be granted abilities / scopes which specify which actions the tokens are
-allowed to perform. Please check laravel default
-[sanctum configuration](https://laravel.com/docs/11.x/sanctum#api-token-authentication)
-
 ## Migrate the Database
 
 Add your database details on .env
@@ -76,11 +67,22 @@ DB_PASSWORD=password
 ```
 
 ```bash
-yarn fresh:dev
+yarn fresh
 ```
 
 ## Start the app in development mode (hot-code reloading, error reporting, etc.)
 
 ```bash
 yarn start:web
+```
+
+## Generate Modules
+
+::: info
+For Qaravel config, please refer to the [Config Guide](/qaravel/config) for detailed instructions.
+:::
+
+```bash
+yarn qaravel generate // skip already generated
+yarn qaravel generate --force // replace already generated
 ```
