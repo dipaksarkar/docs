@@ -15,6 +15,9 @@ hero:
     - theme: alt
       text: NitroFTI28
       link: /nitrofit28/
+    - theme: alt
+      text: Qaravel
+      link: /qaravel/
 
 # features:
 #   - title: "Web Development"
