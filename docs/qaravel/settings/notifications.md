@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 #   Adding and updating notifications
 
 You can add or update information about a notification such as its content, and default from the `Settings > Notifications` page in your admin.

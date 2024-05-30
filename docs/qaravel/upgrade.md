@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 # Upgrade Guide
 
 This section will guide you through upgrading your Qaravel application to the latest version.

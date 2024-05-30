@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 # Settings
 
 Here you can configure your timezone and date formatting that will apply to all of the control panel.

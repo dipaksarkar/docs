@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Locations
 Locations section allows you to manage different locations associated with your gym or fitness center.
 

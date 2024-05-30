@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 # Class schedules
 Class Schedules section allows you to manage the schedules for various classes offered by your gym or fitness center. Template class schedules can be used to efficiently change bulk week class schedules.
 

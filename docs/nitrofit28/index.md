@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 # Gym & Fitness Management System
 
 ## Introduction

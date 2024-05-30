@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 #   Tasks
 
 Tasks are created, when members faces any problem or has any questions in any where in the system. Staff can also add tasks on any issues and assign other member to solve the issue.

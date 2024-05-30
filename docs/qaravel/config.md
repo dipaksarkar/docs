@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 # Config
 
 Config is where you can define the module settings of the application.

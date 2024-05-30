@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Groups
 The Groups section allows you to create and manage groups within your store, enabling you to organize users with similar roles or permissions.
 

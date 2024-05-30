@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 # Installation
 
 This section will guide you through setting up a basic Qaravel documentation site from scratch.

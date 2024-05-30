@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Setting up your locations
 To make sure your inventory quantities are accurate, online orders and in-person sales are assigned to locations. If some of your inventory is out of stock at one location, but it’s in stock at another location, then you can use to split the order so that it can be fulfilled from multiple locations.
 

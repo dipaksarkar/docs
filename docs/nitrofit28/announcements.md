@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Announcements
 Announcements provide important information regarding changes in opening times or schedules. These announcements are listed on the website's opening times page to inform visitors and users.
 

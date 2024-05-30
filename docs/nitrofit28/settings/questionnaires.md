@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Questionnaires
 The Questionnaires section allows you to create and manage various questionnaires to gather information from members or users. Questionnaires can be used for various purposes such as gathering feedback, conducting surveys, or collecting important information from members.
 

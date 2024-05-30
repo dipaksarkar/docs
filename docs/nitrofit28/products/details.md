@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Product details
 The details that you provide for a product affect the way that the product is displayed to customers, make it easier for you to organize your products, and help customers find the product. You don't have to provide every detail for each product.
 

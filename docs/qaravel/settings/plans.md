@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 #   Plans
 The plan's general information section manages membership fees and descriptions for effective communication with potential and existing members.
 

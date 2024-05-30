@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #  Managing inventory
 Inventory is the quantity of a particular product that is available for sale.
 

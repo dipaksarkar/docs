@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 # Setting up your payments
 
 You can manage your payment methods to receive payments for subscriptions and online sales.

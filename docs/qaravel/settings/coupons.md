@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 #   Setting up your coupons
 Coupons can be used to discount invoices, subscriptions, or entire customer accounts.
 

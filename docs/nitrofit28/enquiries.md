@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Enquiries
 
 Enquiries are created, when members faces any problem or has any questions in any where in the system. Staff can also add enquiries on any issues and assign other member to solve the issue.

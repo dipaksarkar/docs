@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Templates
 Templates section allows you to manage template schedules for templatees. These templates can be used to change bulk week template schedules efficiently.
 

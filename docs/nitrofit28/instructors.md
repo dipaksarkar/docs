@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Instructors
 The Instructors section allows you to manage details about instructors associated with your gym or fitness center.
 

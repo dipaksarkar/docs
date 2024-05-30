@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Classes
 Classes section allows you to manage various classes offered by your gym or fitness center.
 

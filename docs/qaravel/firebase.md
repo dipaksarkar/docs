@@ -1,3 +1,7 @@
+---
+titleTemplate: Qaravel
+---
+
 # Firebase Configuration
 Get started by [creating a new Firebase project](https://firebase.google.com/) or use an existing project that you already created for your app.
 

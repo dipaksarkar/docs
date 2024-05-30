@@ -96,7 +96,6 @@ const QaravelSideBar = [
     text: "App Settings",
     items: [
       { text: "Settings", link: "/qaravel/settings" },
-      { text: "Locations", link: "/qaravel/settings/locations" },
       { text: "Payments", link: "/qaravel/settings/payments" },
       { text: "Notification", link: "/qaravel/settings/notifications" },
       { text: "Taxes", link: "/qaravel/settings/taxes" },
@@ -121,7 +120,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: "/logo.png",
+    logo: { light: '/logo-dark.png', dark: '/logo-light.png' }, //"/logo.png"
     siteTitle: false,
     nav: [
       { text: "About Us", link: "https://coderstm.com/" },

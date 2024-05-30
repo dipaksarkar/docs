@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Adding and updating taxess
 
 You can add or update information about a tax such as its country, state, and rate from the `Settings > Taxes` page in your admin.

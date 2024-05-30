@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 # Build Apps
 
 This section will guide you through setting up a basic NitroFIT28 documentation site from scratch.

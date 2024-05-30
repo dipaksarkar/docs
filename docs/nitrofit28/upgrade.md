@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 # Upgrade Guide
 
 This section will guide you through upgrading your NitroFIT28 application to the latest version.

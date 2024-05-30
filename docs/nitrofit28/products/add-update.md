@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Adding and updating products
 
 You can add or update information about a product such as its price, variants, and availability from the `Products` page in your admin.

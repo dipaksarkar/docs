@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Week Schedules
 The Week Schedules section displays the current status of bookings for the week. This section allows you to manage all class schedules, add users to classes, and view class reports. Additionally, you can generate reports in PDF format for further analysis.
 

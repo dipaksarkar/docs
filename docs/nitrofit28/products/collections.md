@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Collections
 You can group your products into collections to make it easier for customers to find them by category. Here are a few examples of collections that you might create:
 

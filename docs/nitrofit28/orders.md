@@ -1,3 +1,7 @@
+---
+titleTemplate: NitroFIT28
+---
+
 #   Orders
 After a customer places an order using any of your active sales channels, it displays in the Orders area. You can also create orders manually in your admin to record orders that you've to send your customers invoices.
 
