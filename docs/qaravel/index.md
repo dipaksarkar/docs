@@ -2,7 +2,7 @@
 titleTemplate: Qaravel
 ---
 
-# Combination of Laravel and Quasar
+# Subscription Boilerplate with Laravel & Quasar
 
 ## Introduction
 Qaravel is a subscription boilerplate designed to streamline the management of member records and memberships, facilitating seamless communication between administrators and members. You can quickly generate a complete project using the qaravel-cli from a JSON configuration.
