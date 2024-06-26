@@ -66,20 +66,6 @@ yarn global add @quasar/icongenie
 On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar documentation](https://quasar.dev/start/quasar-cli) page for more information.
 :::
 
-## Create Subdomains/Aliases
-
-You will need to create three subdomains with document root `public_html` for api, admin, and members as follows:
-
-```
-api.your-domain-name.com
-admin.your-domain-name.com
-members.your-domain-name.com
-```
-
-::: warning
-This different for different hosting service provider. Please go to [How to create a subdomain](https://www.namecheap.com/support/knowledgebase/article.aspx/9190/29/how-to-create-a-subdomain-in-cpanel/) for cPanel based hosting provider.
-:::
-
 ## Build Application
 
 1. Execute the following commands in a terminal/console window:
@@ -95,7 +81,7 @@ cp .htaccess.example .htaccess
 APP_ENV=Production
 APP_NAME=NitroFIT28
 # (API_URL is optional, it will be generated using your app domain)
-API_URL=https://api.your-domain-name.com 
+API_URL=https://your-domain-name.com/api
 ```
 
 3. (Optional) Build the application by executing the following commands:
@@ -104,10 +90,6 @@ API_URL=https://api.your-domain-name.com
 yarn install
 yarn build:prod
 ```
-
-## Install Procedure (Video)
-
-<iframe width="100%" height="360" src="https://www.youtube-nocookie.com/embed/QIC4nNRFogY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Install via GUI
 

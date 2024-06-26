@@ -22,7 +22,7 @@ Please note that these steps will replace any customizations you have made, incl
 
 ```
 /documentation
-/nitrofit28_v4.2 // Main files
+/nitrofit28_v4.4 // Main files
 readme.html
 ```
 

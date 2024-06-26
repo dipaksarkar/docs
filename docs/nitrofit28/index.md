@@ -10,14 +10,14 @@ NitroFIT28 is an easy-to-use gym and fitness management system. It helps you to 
 Created: `Oct 1st, 2022`<br>
 By: `Coderstm`<br>
 Email: `hello@coderstm.com`<br>
-Version: `v4.2`
+Version: `v4.4`
 
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 
 ## Demo
 Homepage: https://nitrofit28.coderstm.com<br>
-Admin Area: https://admin.nitrofit28.coderstm.com<br>
-Member Area: https://members.nitrofit28.coderstm.com<br>
+Admin Area: https://nitrofit28.coderstm.com/admin<br>
+Member Area: https://nitrofit28.coderstm.com/user<br>
 Username: `hello@coderstm.com`<br>
 Password: `Gis0ra$$;`
 
