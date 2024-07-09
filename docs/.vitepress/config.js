@@ -16,6 +16,7 @@ const NitroFIT28SideBar = [
       { text: "Enquiries", link: "/nitrofit28/enquiries" },
       { text: "Tasks", link: "/nitrofit28/tasks" },
       { text: "Members", link: "/nitrofit28/members" },
+      { text: "Reports", link: "/nitrofit28/reports" },
       { text: "Instructors", link: "/nitrofit28/instructors" },
       { text: "Week Schedules", link: "/nitrofit28/week-schedules" },
       { text: "Orders", link: "/nitrofit28/orders" },
@@ -120,7 +121,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: { light: '/logo-dark.png', dark: '/logo-light.png' }, //"/logo.png"
+    logo: { light: "/logo-dark.png", dark: "/logo-light.png" }, //"/logo.png"
     siteTitle: false,
     nav: [
       { text: "About Us", link: "https://coderstm.com/" },
