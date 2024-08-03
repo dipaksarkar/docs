@@ -33,10 +33,6 @@ For Qaravel installation, please refer to the [Installation Guide](/qaravel/inst
 For upgrading your existing Qaravel installation, please refer to the [Upgrade Guide](/qaravel/upgrade) for detailed instructions.
 :::
 
-::: warning
-Configuring your Stripe account is essential to make the subscription system functional. However, if you choose not to accept payments via credit card, you must still configure your Stripe account for other payment methods or functionality.
-:::
-
 ## Install the dependencies
 
 ```bash

@@ -10,10 +10,6 @@ This section will guide you through setting up a basic Qaravel documentation sit
 For upgrading your existing Qaravel installation, please refer to the [Upgrade Guide](/qaravel/upgrade) for detailed instructions.
 :::
 
-::: warning
-Configuring your Stripe account is essential to make the subscription system functional. However, if you choose not to accept payments via credit card, you must still configure your Stripe account for other payment methods or functionality.
-:::
-
 ## Prerequisites
 
 To get started with a Quasar application, you need to ensure you have the following prerequisites:

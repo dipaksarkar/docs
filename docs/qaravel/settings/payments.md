@@ -9,10 +9,6 @@ You can manage your payment methods to receive payments for subscriptions and on
 ## Setup Stripe
 Millions of businesses of all sizes—from startups to large enterprises—use Stripe’s software and APIs to accept payments, send payouts, and manage their businesses online.
 
-::: warning
-Configuring your Stripe account is essential to make the subscription system functional. However, if you choose not to accept payments via credit card, you must still configure your Stripe account for other payment methods or functionality.
-:::
-
 -   `Publishable Key` - The publishable key provided by Stripe.
 -   `Secret Key` - The secret key provided by Stripe.
 -   `Webhook Secret` - Secret key for webhook verification.
