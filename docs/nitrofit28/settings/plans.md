@@ -7,8 +7,7 @@ The plan's general information section manages membership fees and descriptions 
 
 -   `Label` - Name or label of the plan.
 -   `Custom Billing Period` - Option to set a custom billing period for the plan.
--   `Monthly Fee` - Monthly fee for the plan. Once the plan is created, the monthly fee cannot be changed.
--   `Yearly Fee` - Yearly fee for the plan. Once the plan is created, the yearly fee cannot be changed.
+-   `Renewal fee` - Renewal fee for the plan. Once the plan is created, the monthly fee cannot be changed.
 -   `Description` - Brief description of the plan.
 -   `Note` - Additional notes or comments about the plan.
 -   `Active` - Indicates whether the plan is currently active or not.
