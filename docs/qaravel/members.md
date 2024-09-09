@@ -40,7 +40,7 @@ Manage account information, change their subscription plan, and update billing i
 
 
 ##  Block/Unblock a member
-Allows you to block or unblock a user from booking new class schedules. Accessible from `members.your-domain-name.com/classes/bookable` or `App > Book a Class`.
+Allows you to block or unblock a user from booking new class schedules. Accessible from `your-domain-name.com/user/classes/bookable` or `App > Book a Class`.
 
 **Steps:**
 
@@ -50,7 +50,7 @@ Allows you to block or unblock a user from booking new class schedules. Accessib
 4.  Click `Confirm`.
 
 ##  Member PARQ Received/Request
-Where you can update the PARQ status. On Request PARQ, members need to update the Pre-Activity Readiness Questionnaire (PAR-Q) from `members.your-domain-name.com` or `App`.
+Where you can update the PARQ status. On Request PARQ, members need to update the Pre-Activity Readiness Questionnaire (PAR-Q) from `your-domain-name.com/user` or `App`.
 
 **Steps:**
 
@@ -60,7 +60,7 @@ Where you can update the PARQ status. On Request PARQ, members need to update th
 4.  Click `Confirm`.
 
 ##  Request/Received Member Avatar
-Where you can update the Avatar status. On Request Avatar, members need to upload their profile photo from `members.your-domain-name.com` or `App`.
+Where you can update the Avatar status. On Request Avatar, members need to upload their profile photo from `your-domain-name.com/user` or `App`.
 
 **Steps:**
 

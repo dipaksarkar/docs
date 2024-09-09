@@ -69,7 +69,7 @@ You will need to create three subdomains with document root `public_html` for ap
 
 ```
 api.your-domain-name.com
-admin.your-domain-name.com
+your-domain-name.com/admin
 app.your-domain-name.com
 ```
 
