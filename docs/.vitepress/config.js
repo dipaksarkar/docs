@@ -7,7 +7,6 @@ const NitroFIT28SideBar = [
       { text: "What is NitroFIT28?", link: "/nitrofit28/" },
       { text: "Installation", link: "/nitrofit28/installation" },
       { text: "Upgrade Guide", link: "/nitrofit28/upgrade" },
-      { text: "Build Mobile Apps", link: "/nitrofit28/build-apps" },
     ],
   },
   {
@@ -63,6 +62,13 @@ const NitroFIT28SideBar = [
       { text: "Taxes", link: "/nitrofit28/settings/taxes" },
       { text: "Plans", link: "/nitrofit28/settings/plans" },
       { text: "Coupons", link: "/nitrofit28/settings/coupons" },
+    ],
+  },
+  {
+    text: "Developer Docs",
+    items: [
+      { text: "Build Mobile Apps", link: "/nitrofit28/development/build-apps" },
+      { text: "Theme Development", link: "/nitrofit28/development/themes" },
     ],
   },
 ];
