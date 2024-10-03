@@ -67,8 +67,10 @@ const NitroFIT28SideBar = [
   {
     text: "Developer Docs",
     items: [
+      { text: "Getting Started", link: "/nitrofit28/development/setup" },
       { text: "Build Mobile Apps", link: "/nitrofit28/development/build-apps" },
       { text: "Theme Development", link: "/nitrofit28/development/themes" },
+      { text: "Scripts", link: "/nitrofit28/development/scripts" },
     ],
   },
 ];

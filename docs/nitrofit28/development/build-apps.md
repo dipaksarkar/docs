@@ -24,6 +24,7 @@ Install the Quasar CLI globally:
 ```bash
 yarn global add @quasar/cli
 yarn global add @quasar/icongenie
+yarn global add https://github.com/dipaksarkar/quasalang
 ```
 
 ::: warning
