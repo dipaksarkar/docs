@@ -7,6 +7,7 @@ const NitroFIT28SideBar = [
       { text: "What is NitroFIT28?", link: "/nitrofit28/" },
       { text: "Installation", link: "/nitrofit28/installation" },
       { text: "Upgrade Guide", link: "/nitrofit28/upgrade" },
+      { text: "Changelog", link: "/nitrofit28/changelog" },
     ],
   },
   {
