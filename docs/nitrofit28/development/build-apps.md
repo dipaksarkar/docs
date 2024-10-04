@@ -27,7 +27,7 @@ yarn global add @quasar/icongenie
 yarn global add https://github.com/dipaksarkar/quasalang
 ```
 
-::: warning
+::: tip
 On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar Capacitor documentation](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/introduction) page for more information.
 :::
 

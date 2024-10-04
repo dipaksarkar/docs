@@ -27,7 +27,7 @@ yarn global add @quasar/icongenie
 yarn global add https://github.com/dipaksarkar/quasalang
 ```
 
-::: warning
+::: tip
 On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar Capacitor documentation](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/introduction) page for more information.
 :::
 
@@ -36,6 +36,7 @@ Set up your environment files by copying the example files:
 ```bash
 yarn
 yarn gen:env
+yarn make:ssl
 ```
 
 Update your `.env.frontend.dev` file with your details:
@@ -67,36 +68,3 @@ To start the app in development mode with hot-code reloading and error reporting
 ```bash
 yarn start:web
 ```
-## Generate Language Files with `yarn gen:lang`
-
-The `yarn gen:lang` command is used to generate language files for your application. It runs a series of commands provided by the **quasalang** package to ensure that your localization files are up-to-date and properly structured. This command performs three main tasks:
-
-1. **Generate the language structure**.
-2. **Translate existing phrases**.
-3. **Compile the generated language files**.
-
-### Command Definition
-
-In your `package.json`, the `gen:lang` script is defined as follows:
-
-```json
-"gen:lang": "quasalang p && quasalang t && quasalang g --force"
-```
-
-### Breakdown of the Command
-
-- `quasalang p`: This command prepares the necessary files and directories for the language structure.
-- `quasalang t`: This command translates existing phrases in your application to the desired languages. Make sure your source phrases are defined before running this command.
-- `quasalang g --force`: This command generates the final language files, overriding any existing files if necessary due to the `--force` flag.
-
-### Usage
-
-To run the command and generate your language files, execute the following in your terminal:
-
-```bash
-yarn gen:lang
-```
-
-### Additional Information
-
-For more details on the **quasalang** package and its functionalities, please refer to the [quasalang README](https://github.com/dipaksarkar/quasalang/blob/master/README.md).

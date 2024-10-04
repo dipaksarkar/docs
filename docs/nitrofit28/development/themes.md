@@ -6,7 +6,7 @@ titleTemplate: NitroFIT28
 
 This guide provides a detailed breakdown of the theme architecture, covering shortcodes, includes, asset management, and commands for building the theme in both development and production environments. The default theme is **Foundation**.
 
-## 1. **Theme Structure**
+## **Theme Structure**
 
 The theme structure is organized as follows. The default theme is **Foundation**.
 
@@ -53,7 +53,53 @@ The theme structure is organized as follows. The default theme is **Foundation**
     └── config.js
 ```
 
-## 2. **Shortcodes in the Theme**
+## **Laravel Blade Template Overview**
+
+Laravel's Blade templating engine is used throughout the theme for dynamic content rendering, component creation, and layout structuring. Blade allows you to include reusable sections, extend layouts, and integrate logic seamlessly into your theme.
+
+::: tip
+Blade’s simple yet powerful features are designed to make writing views easier. You can read more about Blade and its core features in the [Laravel Blade Introduction](https://laravel.com/docs/11.x/blade#introduction).
+:::
+
+
+### **Blade Directives**
+
+Blade comes with various built-in directives to make templating more flexible:
+
+- `@include`: Used to include Blade views (like partials or includes).
+  
+  **Example:**
+  ```blade
+  @include('includes.footer-script')
+  ```
+
+- `@yield` and `@section`: Used to define sections that can be overridden in child templates.
+
+  **Example:**
+  ```blade
+  @section('content')
+      <p>This is the content section.</p>
+  @endsection
+  ```
+
+### **Extending Layouts**
+
+The Blade templates within `/views/layouts/` provide base layouts that can be extended in your theme. This ensures consistency across pages.
+
+**Example of extending the `page.blade.php` layout:**
+
+```blade
+@extends('layouts.page')
+
+@section('content')
+    <h1>Welcome to NitroFIT28</h1>
+    <p>This is a customizable page using the Foundation theme.</p>
+@endsection
+```
+
+This example will inject the content into the `page.blade.php` layout.
+
+## **Shortcodes in the Theme**
 
 The predefined shortcodes in the **Foundation** theme allow you to easily reuse common components across the site.
 
@@ -86,7 +132,7 @@ The predefined shortcodes in the **Foundation** theme allow you to easily reuse 
 
 These shortcodes are predefined in the theme and cannot be removed or created, but they can be customized by editing the corresponding Blade files.
 
-## 3. **Includes in the Theme**
+## **Includes in the Theme**
 
 The **Foundation** theme also has a set of predefined **includes**, which are reusable content blocks that can be incorporated into different templates. The available includes are stored in the `includes/` directory.
 
@@ -100,7 +146,7 @@ The **Foundation** theme also has a set of predefined **includes**, which are re
 
 These files can be referenced and included in any Blade templates across your theme using Blade's `@include` directive.
 
-## 4. **config.js Structure**
+## **config.js Structure**
 
 The `config.js` file holds the metadata for the theme and allows the inclusion of custom styles and scripts in the editor.
 
@@ -130,7 +176,7 @@ The `config.js` file holds the metadata for the theme and allows the inclusion o
 The `editor` section allows custom CSS and JavaScript to be loaded for editing purposes without affecting the public-facing theme.
 
 
-## 5. **Variables in Layouts**
+## **Variables in Layouts**
 
 Both `page.blade.php` and `error.blade.php` use a set of customizable variables for flexibility in layout and content presentation.
 
@@ -156,9 +202,9 @@ Both `page.blade.php` and `error.blade.php` use a set of customizable variables 
 | `styles`             | string  | Any additional styles or CSS to be used on the error page (via `@yield('style')`).           | None (can be overridden)                   |
 | `message`            | string  | The main error message content (via `@yield('message')`).                                    | No default value (must be provided)        |
 
-## 6. **Helper Function: `theme()`**
+## **Helper Function: `theme()`**
 
-The `theme()` helper function is used to load assets from the theme's `assets/` directory.
+The `theme()` helper function is used to load assets from the theme's `public/themes/foundation/` directory.
 
 ```php
 theme($path, $themeName)
@@ -172,9 +218,9 @@ theme($path, $themeName)
 <link rel="stylesheet" href="{{ theme('css/app.css', 'foundation') }}">
 ```
 
-This will load the `app.css` file from the `assets/css/` directory of the **Foundation** theme.
+This will load the `app.css` file from the `public/themes/foundation/css/` directory of the **Foundation** theme.
 
-## 7. **Building the Theme**
+## **Building the Theme**
 
 To build and manage theme assets, use the following commands:
 
