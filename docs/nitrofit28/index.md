@@ -22,29 +22,63 @@ Username: `hello@coderstm.com`<br>
 Password: `Gis0ra$$;`
 
 ## Features
-- Manage Member and Enquiry
-- Manage Subscriptions with Stripe and Offline Payment Method
-- Manage Attendance by QR Code Scanner
-- Multi Language Supported
-- Manage Invoice and Payment Methods
-- Massage System Between Member and Staff
-- Powerfull Shop Module with POS
-- Products with Stock Inventory Management (Multi Location)
-- Manage User and Permission
-- PDF and CSV Export
-- Daily/Monthly/Yearly Report
-- Android and iPhone App
-- Sell Simple or Variable Products
-- Beautiful theme is ready to use.
-- Easy to Setup
-- Responsive layout design
-- Unique effects and functionality
-- Free Update
-- Clean Code
-- Free Lifetime Updates
-- Classes Timetable
-- Flaticons Icons
-- Quick, Dedicated &amp; Professional Support
+- **Membership Management**
+  - Manage member profiles and track memberships.
+  - Automated membership renewals and reminders.
+  - Flexible membership plans (monthly, yearly, etc.).
+  - Online signups with automated onboarding and secure payments.
+  - Role-based access control for secure staff and member management.
+  - Online payment integration (Stripe, PayPal, Razorpay, etc.).
+
+- **Billing & Invoicing**
+  - Integrated payment gateways for seamless billing.
+  - Automated invoicing and payment reminders.
+
+- **Class & Appointment Scheduling**
+  - Online class booking and appointment scheduling.
+  - Automated booking confirmations and waitlist management.
+  - Class capacity and calendar view.
+  - Assign trainers to classes and personal sessions.
+  - Track trainer availability and performance.
+
+- **Attendance & Access Control**
+  - Check-in system using QR codes or biometrics.
+  - Real-time attendance reports and trends.
+  - Manage attendance with QR code scanner.
+  - Monitor member access in real-time.
+
+- **Analytics & Reporting**
+  - Membership growth and revenue reports.
+  - Booking trends and class attendance analytics.
+  - Exportable reports for easy data management.
+
+- **Communication Tools**
+  - SMS and email notifications for reminders, promotions, and updates.
+  - Push notifications for mobile app users.
+
+- **Multi-Location & Branch Management**
+  - Centralized management for multiple gym locations.
+  - Products with stock inventory management (multi-location support).
+
+- **Multi-Theme Frontend (New)**
+  - Offer multiple theme options for the gym’s website and member portal.
+  - Easy theme switching with customizable colors, fonts, and layouts.
+  - Gym owners can personalize their frontend to match their brand identity.
+  - Mobile-responsive themes that look great on any device.
+
+- **Mobile App Support**
+  - iOS and Android apps for members and admins.
+
+- **E-commerce & POS Integration**
+  - Powerful shop module with POS system.
+  - Sell simple or variable products with stock inventory management.
+
+- **Additional Features**
+  - Multi-language support.
+  - Easy to set up.
+  - Clean, well-organized code.
+  - Free lifetime updates.
+  - Quick, dedicated, and professional support.
 
 ## Coderstm Team
 Visit us at https://coderstm.com
