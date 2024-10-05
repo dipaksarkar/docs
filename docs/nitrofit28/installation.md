@@ -23,27 +23,45 @@ To get started with a Quasar application, you need to ensure you have the follow
 
 NitroFIT28 has specific system requirements. Ensure that your web server meets the following minimum PHP version and extensions:
 
-- Apache, nginx, or another compatible web server.
-- PHP >= 8.1
-- BCMath PHP Extension
-- Ctype PHP Extension
-- cURL PHP Extension
-- DOM PHP Extension
-- Fileinfo PHP Extension
-- JSON PHP Extension
-- Mbstring PHP Extension
-- OpenSSL PHP Extension
-- PCRE PHP Extension
-- PDO PHP Extension
-- Tokenizer PHP Extension
-- XML PHP Extension
-- Imagick PHP Extension
-- ionCube Loader®	v13.0
+- **Apache**, **nginx**, or another compatible web server.
+- **PHP >= 8.1**
+- **BCMath** PHP Extension
+- **Ctype** PHP Extension
+- **cURL** PHP Extension
+- **DOM** PHP Extension
+- **Fileinfo** PHP Extension
+- **JSON** PHP Extension
+- **Mbstring** PHP Extension
+- **OpenSSL** PHP Extension
+- **PCRE** PHP Extension
+- **PDO** PHP Extension
+- **Tokenizer** PHP Extension
+- **XML** PHP Extension
+- **Imagick** PHP Extension
+- **ionCube Loader® v13.0**
 
 Ensure you have the latest ionCube Loader version for your PHP version.
 
+### Theme Building on Server
+
+If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
+
+::: tip
+Ensure that your server has the following tools installed for building themes:
+- **Node.js >= 14.x** (which includes `npm`)
+- **npm** or **yarn**
+
+To install Node.js and npm:
+```bash
+sudo apt install nodejs npm
+```
+
+You can then build or edit themes by running the appropriate build commands (e.g., `npm run theme:build --name={theme-name}`).
+:::
+
 ::: warning
 This project utilizes the latest Laravel version (currently 10.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
+
 The root folder for Laravel is `/public`. Do not install it in a sub-folder; using a sub-domain is preferable over a sub-folder. We do not support installing our product in a sub-folder.
 :::
 
