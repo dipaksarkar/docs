@@ -10,6 +10,9 @@
       "path": "~/web/docs.coderstm.com/public_html"
     }
   },
+  "bin": {
+    "docs-server": "./bin/index.js"
+  },
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
@@ -18,7 +21,17 @@
     "push": "clear && git config core.ignorecase false && branch=\"$(git symbolic-ref -q HEAD)\" || \"dev\" && branch=${branch##refs/heads/} && branch=${branch:-HEAD} && echo Pushing to Branch \"$branch\" && echo Please type your commit message && read msg && clear && git add . && git commit -m \"$msg\" && git push origin \"$branch\""
   },
   "devDependencies": {
+    "express": "^4.21.1",
     "vitepress": "^1.0.0-alpha.32",
     "vue": "^3.2.45"
+  },
+  "dependencies": {
+    "global": "^4.4.0",
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": [
+      "docs/.vitepress/dist/**/*"
+    ]
   }
 }
