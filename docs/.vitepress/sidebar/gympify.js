@@ -4,7 +4,7 @@ export default [
     items: [
       { text: "What is Gympify?", link: "/gympify/" },
       { text: "Installation", link: "/gympify/installation" },
-      { text: "Upgrade Guide", link: "/gympify/upgrade" },
+      // { text: "Upgrade Guide", link: "/gympify/upgrade" },
       { text: "Changelog", link: "/gympify/changelog" },
     ],
   },

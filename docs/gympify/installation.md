@@ -10,9 +10,9 @@ This section will guide you through setting up a basic **Gympify** instance from
 Gympify **cannot be installed on shared hosting**. You will need a **VPS (Virtual Private Server)** or a **dedicated server** to run Gympify, as it requires server-level configuration that shared hosting environments do not provide. If you're unsure how to set up a VPS, contact your hosting provider or use a managed VPS service.
 :::
 
-::: tip Info
+<!-- ::: tip Info
 For upgrading your existing Gympify installation, please refer to the [Upgrade Guide](/gympify/upgrade) for detailed instructions.
-:::
+::: -->
 
 ## Prerequisites
 
