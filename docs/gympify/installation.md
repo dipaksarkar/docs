@@ -1,3 +1,7 @@
+---
+titleTemplate: Gympify
+---
+
 # Installation
 
 This section will guide you through setting up a basic **Gympify** instance from scratch.
@@ -6,7 +10,7 @@ This section will guide you through setting up a basic **Gympify** instance from
 Gympify **cannot be installed on shared hosting**. You will need a **VPS (Virtual Private Server)** or a **dedicated server** to run Gympify, as it requires server-level configuration that shared hosting environments do not provide. If you're unsure how to set up a VPS, contact your hosting provider or use a managed VPS service.
 :::
 
-::: tip Info Info
+::: tip Info
 For upgrading your existing Gympify installation, please refer to the [Upgrade Guide](/gympify/upgrade) for detailed instructions.
 :::
 
@@ -46,7 +50,7 @@ Ensure you have the latest ionCube Loader version for your PHP version.
 
 If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
 
-::: tip Info Info
+::: tip Info
 Ensure that your server has the following tools installed for building themes:
 - **Node.js >= 14.x** (which includes `npm`)
 - **npm** or **yarn**
@@ -84,14 +88,14 @@ On this project, we're using the latest Quasar version (currently 2.x). Please g
 
 1. Execute the following commands in a terminal/console window:
 
-```
+```bash
 cp .env.example .env
 cp .htaccess.example .htaccess
 ```
 
 2. (Optional) Modify `.env.frontend.prod`:
 
-```
+```bash
 APP_ENV=Production
 APP_NAME=Gympify
 # (API_URL is optional, it will be generated using your app domain)
@@ -100,7 +104,7 @@ API_URL=https://your-domain-name.com/api
 
 3. (Optional) Build the application by executing the following commands:
 
-```
+```bash
 yarn install
 yarn build:prod
 ```
@@ -115,6 +119,30 @@ yarn build:prod
 - Go to [your-domain-name.com/install] to start the installation process.
 - Follow the step-by-step instructions to set up your database connection, site information, and administrator account.
 - Login and configure your website using the Welcome Board.
+
+## Enable Tenant Theme Builder
+
+To enable the tenant theme builder, you need to run `yarn install` in the `public_html` directory:
+
+1. **Access your server** via SSH:
+
+```bash
+ssh your_username@host_ip_address
+```
+
+2. **Navigate to the `public_html` directory**:
+
+```bash
+cd public_html
+```
+
+3. **Run the following command** to install the necessary packages:
+
+```bash
+yarn install
+```
+
+This will ensure that all dependencies are installed correctly for theme building.
 
 ## Add Cron Jobs
 
@@ -185,7 +213,7 @@ sudo systemctl start gympify-queues
 
 ## Remove Dummy Data
 
-1. Open the SSH terminal on your machine and run the following command: 
+1. Open the SSH terminal on your machine and run the following command:
 
 ```bash
 ssh your_username@host_ip_address
