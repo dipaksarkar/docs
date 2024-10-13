@@ -11,7 +11,7 @@ export default [
   {
     text: "Usage",
     items: [
-      { text: "Dashboard", link: "/nitrofit28/dashboard" },
+      { text: "Dashboard KPI", link: "/nitrofit28/dashboard" },
       { text: "Enquiries", link: "/nitrofit28/enquiries" },
       { text: "Tasks", link: "/nitrofit28/tasks" },
       { text: "Members", link: "/nitrofit28/members" },

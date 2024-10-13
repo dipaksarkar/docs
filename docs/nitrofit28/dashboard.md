@@ -2,9 +2,7 @@
 titleTemplate: Gympify
 ---
 
-# Dashboard
-
-## KPI Documentation
+# Dashboard KPI
 
 This documentation outlines the KPI metrics displayed on the dashboard and describes how each metric is calculated, along with the comparison logic.
 
