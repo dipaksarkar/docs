@@ -1,25 +1,29 @@
 ---
 titleTemplate: Gympify
+
 ---
 
 # Build Apps
 
-This section will guide you through setting up a basic Gympify documentation site from scratch.
+This section provides a step-by-step guide to setting up a basic Gympify app using Quasar from scratch.
 
 ## Prerequisites
 
-To get started with a Quasar application, you need to ensure you have the following prerequisites:
+Before you begin, make sure you have the following tools installed:
 
-1. **Node 12+ for Quasar CLI with Webpack**, or **Node 14+ for Quasar CLI with Vite**.
-   - To check your Node.js version, run `node -v` in a terminal/console window.
-2. **Yarn v1 (strongly recommended)**, PNPM, or NPM.
-   - To check your Yarn version, run `yarn -v` in a terminal/console window.
+1. **Node.js**:
+   - **Node.js 12+** (for Quasar CLI with Webpack) or **Node.js 14+** (for Quasar CLI with Vite).
+   - To verify your Node.js version, run the command: `node -v`.
+
+2. **Package Manager**:
+   - **Yarn v1** (strongly recommended), PNPM, or NPM.
+   - To check your Yarn version, run: `yarn -v`.
 
 ## Installing Quasar CLI
 
-The Quasar CLI is used for project creation, generating application and library code, and various development tasks.
+The Quasar CLI is a powerful tool for creating projects, generating application and library code, and managing development tasks.
 
-Install the Quasar CLI globally:
+To install Quasar CLI globally, run the following commands:
 
 ```bash
 yarn global add @quasar/cli
@@ -28,29 +32,50 @@ yarn global add https://github.com/dipaksarkar/quasalang
 ```
 
 ::: tip Info
-On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar Capacitor documentation](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/introduction) page for more information.
+We are using the latest version of Quasar (currently 2.x). For more detailed guidance, visit the official [Quasar Capacitor documentation](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/introduction).
 :::
 
-## Build Apps
+## Configuring the Application
 
-#### Modify `.env.frontend.app-prod`
+### Modify the `.env.frontend.app-prod` File
 
-```
-# This is your .env.frontend.app-prod file
-# The data added here will be propagated to the client
-# example:
-# PORT=9000
+You will need to update the `.env.frontend.app-prod` file to configure environment-specific settings for your app:
+
+```plaintext
+# .env.frontend.app-prod
+# These values will be accessible in the client application.
+
 APP_ENV="Production"
 APP_NAME="Gympify"
 APP_MODE=app
-API_URL=https://fitpro.gympify.com/api
+API_URL=https://fitpro.gympify.com/api # API endpoint of the tenant you're building the app for.
 ```
 
-::: warning
-To send push notifications to your users you need to [Configure Firebase](./firebase) to make it work.
+Here’s the updated section with the note added for clarity:
+
+```plaintext
+# .env.frontend.app-prod
+# These values will be accessible in the client application.
+
+APP_ENV="Production"
+APP_NAME="Gympify"
+APP_MODE=app
+API_URL=https://fitpro.gympify.com/api # API endpoint of the tenant you're building the app for.
+```
+
+::: tip Info
+In the `API_URL`, `{fitpro}` represents the primary domain of the tenant, and `{gympify.com}` is the domain where the Gympify app is installed. Make sure to replace these with the actual tenant and app domains you're working with.
 :::
 
-#### Build the andorid application by executing the following commands
+::: warning
+To enable push notifications for your app, you'll need to [Configure Firebase](./firebase). Ensure you have it set up correctly to make notifications work.
+:::
+
+## Building the Mobile Application
+
+### Android & iOS Build Instructions
+
+To build the app for Android or iOS, follow these steps:
 
 ::: code-group
 
@@ -59,14 +84,15 @@ yarn install
 npm run build:android --env=prod
 ```
 
-```bash [IOS]
+```bash [iOS]
 yarn install
 npm run build:ios --env=prod
 ```
 
 :::
 
-
 ::: warning
-Before we dive in to the actual development, we need to do some preparation work. Please go to [Preparation for Capacitor App](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/preparation) page for more information.
+Before proceeding with the actual development, ensure you’ve completed the necessary preparation. Visit [Preparation for Capacitor App](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/preparation) for more details.
 :::
+
+This improved version simplifies the instructions, enhances readability, and ensures the user follows a structured approach from setup to building the application.

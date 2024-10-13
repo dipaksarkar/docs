@@ -11,6 +11,7 @@ export default [
   {
     text: "Usage",
     items: [
+      { text: "Dashboard", link: "/gympify/dashboard" },
       { text: "Enquiries", link: "/gympify/enquiries" },
       { text: "Tasks", link: "/gympify/tasks" },
       { text: "Members", link: "/gympify/members" },
