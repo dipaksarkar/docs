@@ -16,6 +16,9 @@ hero:
       text: NitroFTI28
       link: /nitrofit28/
     - theme: alt
+      text: Gympify
+      link: /gympify/
+    - theme: alt
       text: Qaravel
       link: /qaravel/
 
