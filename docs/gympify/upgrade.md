@@ -6,11 +6,11 @@ titleTemplate: Gympify
 
 This section will guide you through upgrading your Gympify application to the latest version.
 
-::: danger
+::: danger WARNING
 Before proceeding, it's crucial to take a backup of your database and files. This precautionary measure helps prevent any potential data loss during the upgrade process.
 :::
 
-::: danger
+::: danger WARNING
 Please note that these steps will replace any customizations you have made, including logo, frontend view files, and other modifications. If you are a developer, we recommend using version control (e.g., Git) to track your changes.
 :::
 
@@ -28,7 +28,7 @@ readme.html
 
 3. Move all files from `gympify_v1.0` to your server's `public_html` directory, replacing existing files.
 
-::: danger
+::: danger WARNING
 Please be aware that these steps will overwrite any customizations you have made.
 :::
 
@@ -57,7 +57,7 @@ php artisan migrate --force
 php artisan db:seed --class=UpgradeSeeder
 ```
 
-::: danger
+::: danger WARNING
 It's highly recommended to take a backup of your database before proceeding with these commands to prevent any potential data loss.
 :::
 

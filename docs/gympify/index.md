@@ -2,84 +2,88 @@
 titleTemplate: Gympify
 ---
 
-# Gym & Fitness Management System
+# The Ultimate SaaS Solution for Fitness Management
 
 ## Introduction
-Gympify is an easy-to-use gym and fitness management system. It helps you to keep track of the records of your members and their memberships, and allows easy communication between admin and your.
 
-Created: `Oct 1st, 2022`<br>
+Gympify is a comprehensive SaaS solution designed for managing gyms and fitness centers. It offers features to track member records, manage memberships, and facilitate communication between admins and members. 
+
+With **custom subdomain support** and **custom top-level domain integration (coming soon)**, Gympify allows gyms to personalize their online presence and streamline operations. 
+
+**Important Note:** Gympify requires a **VPS** for installation. **Shared hosting is not supported**, as the application needs specific server resources and configurations.
+
+Created: `Oct 15th, 2024`<br>
 By: `Coderstm`<br>
 Email: `hello@coderstm.com`<br>
-Version: `v4.5.8`
+Version: `v1.0`
 
-Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
+Thank you for purchasing Gympify! If you have any questions beyond this help file, please email us via our user page contact form for quick support. Thank you!
 
 ## Demo
-Homepage: https://gympify.coderstm.com<br>
-Admin Area: https://gympify.coderstm.com/admin<br>
-Member Area: https://gympify.coderstm.com/user<br>
-Username: `hello@coderstm.com`<br>
-Password: `Gis0ra$$;`
+- **Homepage:** [https://gympify.com](https://gympify.com)
+- **Admin Area:** [https://admin.gympify.com](https://admin.gympify.com)
+- **Member Area:** [https://fitpro.gympify.com/user](https://fitpro.gympify.com/user)  
+  Username: `hello@coderstm.com`  
+  Password: `Gis0ra$$;`
 
-## Features
-- **Membership Management**
-  - Manage member profiles and track memberships.
-  - Automated membership renewals and reminders.
-  - Flexible membership plans (monthly, yearly, etc.).
-  - Online signups with automated onboarding and secure payments.
-  - Role-based access control for secure staff and member management.
-  - Online payment integration (Stripe, PayPal, Razorpay, etc.).
+## Key Features
 
-- **Billing & Invoicing**
-  - Integrated payment gateways for seamless billing.
-  - Automated invoicing and payment reminders.
+### **Membership Management**
+- Manage member profiles and memberships.
+- Automated membership renewals and reminders.
+- Online signups with secure payment gateways.
 
-- **Class & Appointment Scheduling**
-  - Online class booking and appointment scheduling.
-  - Automated booking confirmations and waitlist management.
-  - Class capacity and calendar view.
-  - Assign trainers to classes and personal sessions.
-  - Track trainer availability and performance.
+### **Billing & Invoicing**
+- Integrated payment gateways (Stripe, PayPal, Razorpay).
+- Automated invoicing and payment reminders.
 
-- **Attendance & Access Control**
-  - Check-in system using QR codes or biometrics.
-  - Real-time attendance reports and trends.
-  - Manage attendance with QR code scanner.
-  - Monitor member access in real-time.
+### **Class & Appointment Scheduling**
+- Online booking with automated confirmations.
+- Class capacity management and trainer assignment.
 
-- **Analytics & Reporting**
-  - Membership growth and revenue reports.
-  - Booking trends and class attendance analytics.
-  - Exportable reports for easy data management.
+### **Attendance & Access Control**
+- Check-in via QR codes or biometrics.
+- Real-time attendance and member access monitoring.
 
-- **Communication Tools**
-  - SMS and email notifications for reminders, promotions, and updates.
-  - Push notifications for mobile app users.
+### **Analytics & Reporting**
+- Detailed membership and revenue reports.
+- Exportable reports for easy data management.
 
-- **Multi-Location & Branch Management**
-  - Centralized management for multiple gym locations.
-  - Products with stock inventory management (multi-location support).
+### **Communication Tools**
+- SMS, email, and push notifications.
 
-- **Multi-Theme Frontend (New)**
-  - Offer multiple theme options for the gym’s website and member portal.
-  - Easy theme switching with customizable colors, fonts, and layouts.
-  - Gym owners can personalize their frontend to match their brand identity.
-  - Mobile-responsive themes that look great on any device.
+### **Multi-Location & Branch Management**
+- Centralized management for multiple locations.
+- Multi-location inventory support.
 
-- **Mobile App Support**
-  - iOS and Android apps for members and admins.
+### **Multi-Theme Frontend (New)**
+- Customizable themes for gym websites and member portals.
+- Easy theme switching for brand personalization.
 
-- **E-commerce & POS Integration**
-  - Powerful shop module with POS system.
-  - Sell simple or variable products with stock inventory management.
+### **Mobile App Support**
+- iOS and Android apps for members and admins.
 
-- **Additional Features**
-  - Multi-language support.
-  - Easy to set up.
-  - Clean, well-organized code.
-  - Free lifetime updates.
-  - Quick, dedicated, and professional support.
+### **E-commerce & POS Integration**
+- Integrated shop module with POS.
+- Support for variable products and stock management.
+
+### **Additional Features**
+- Multi-language support.
+- Free lifetime updates.
+- Quick, dedicated support.
+
+## Installation Requirements
+
+Gympify requires the following minimum server specifications:
+
+- **PHP >= 8.1** (with required extensions)
+- **Node.js >= 14.x**
+- **ionCube Loader v13.0**
+- **Apache, nginx, or another compatible web server**
+
+::: danger WARNING
+**Gympify cannot be installed on shared hosting.** A **VPS** with full server control is required to ensure proper setup and performance. Shared hosting does not provide the necessary resources or configurations.
+:::
 
 ## Coderstm Team
-Visit us at https://coderstm.com
-
+Visit us at [https://coderstm.com](https://coderstm.com)

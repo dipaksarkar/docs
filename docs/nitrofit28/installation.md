@@ -46,7 +46,7 @@ Ensure you have the latest ionCube Loader version for your PHP version.
 
 If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
 
-::: tip
+::: tip Info
 Ensure that your server has the following tools installed for building themes:
 - **Node.js >= 14.x** (which includes `npm`)
 - **npm** or **yarn**

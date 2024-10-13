@@ -2,7 +2,11 @@
 
 This section will guide you through setting up a basic **Gympify** instance from scratch.
 
-::: info
+::: danger WARNING
+Gympify **cannot be installed on shared hosting**. You will need a **VPS (Virtual Private Server)** or a **dedicated server** to run Gympify, as it requires server-level configuration that shared hosting environments do not provide. If you're unsure how to set up a VPS, contact your hosting provider or use a managed VPS service.
+:::
+
+::: tip Info Info
 For upgrading your existing Gympify installation, please refer to the [Upgrade Guide](/gympify/upgrade) for detailed instructions.
 :::
 
@@ -38,15 +42,11 @@ Gympify has specific system requirements. Ensure that your web server meets the 
 
 Ensure you have the latest ionCube Loader version for your PHP version.
 
-::: warning
-Gympify **cannot be installed on shared hosting**. You will need a **VPS (Virtual Private Server)** or a **dedicated server** to run Gympify, as it requires server-level configuration that shared hosting environments do not provide. If you're unsure how to set up a VPS, contact your hosting provider or use a managed VPS service.
-:::
-
 ### Theme Building on Server
 
 If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
 
-::: tip
+::: tip Info Info
 Ensure that your server has the following tools installed for building themes:
 - **Node.js >= 14.x** (which includes `npm`)
 - **npm** or **yarn**
