@@ -9,9 +9,13 @@ function rewriteLinksInFile(filePath, depth) {
   const relativePrefix = "../".repeat(depth);
 
   // Replace absolute URLs with dynamically calculated relative URLs
-  content = content.replace(/(href|src)="\/([^"]+)"/g, (match, p1, p2) => {
-    if (p1 === "href" && p2.endsWith("/")) {
-      p2 += "index.html";
+  content = content.replace(/(href|src)="\/([^"]*)"/g, (match, p1, p2) => {
+    if (p1 === "href" && p2 === "") {
+      // Special case for href="/", convert to href="/index.html"
+      return `${p1}="${relativePrefix}index.html"`;
+    } else if (p1 === "href" && p2.endsWith("/")) {
+      // Convert href="/path/" to href="/path/index.html"
+      return `${p1}="${relativePrefix}${p2}index.html"`;
     }
     return `${p1}="${relativePrefix}${p2}"`;
   });
