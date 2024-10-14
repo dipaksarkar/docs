@@ -57,18 +57,18 @@ The theme structure is organized as follows. The default theme is **Foundation**
 
 Laravel's Blade templating engine is used throughout the theme for dynamic content rendering, component creation, and layout structuring. Blade allows you to include reusable sections, extend layouts, and integrate logic seamlessly into your theme.
 
-::: tip Info
+::: tip
 Blade’s simple yet powerful features are designed to make writing views easier. You can read more about Blade and its core features in the [Laravel Blade Introduction](https://laravel.com/docs/11.x/blade#introduction).
 :::
-
 
 ### **Blade Directives**
 
 Blade comes with various built-in directives to make templating more flexible:
 
 - `@include`: Used to include Blade views (like partials or includes).
-  
+
   **Example:**
+
   ```blade
   @include('includes.footer-script')
   ```
@@ -76,6 +76,7 @@ Blade comes with various built-in directives to make templating more flexible:
 - `@yield` and `@section`: Used to define sections that can be overridden in child templates.
 
   **Example:**
+
   ```blade
   @section('content')
       <p>This is the content section.</p>
@@ -106,29 +107,31 @@ The predefined shortcodes in the **Foundation** theme allow you to easily reuse 
 **Shortcodes List**:
 
 1. **Footers**
-    - `footers/default.blade.php`: A default footer shortcode.
+
+   - `footers/default.blade.php`: A default footer shortcode.
 
 2. **Headers**
-    - `headers/classic.blade.php`: A classic header layout.
-    - `headers/overlay.blade.php`: An overlay-style header layout.
+
+   - `headers/classic.blade.php`: A classic header layout.
+   - `headers/overlay.blade.php`: An overlay-style header layout.
 
 3. **Miscellaneous Shortcodes**
-    - `announcements.blade.php`: For displaying announcements.
-    - `blog-tags.blade.php`: Displays blog tags.
-    - `blog.blade.php`: Displays an individual blog post.
-    - `blogs.blade.php`: Displays a list of blog posts.
-    - `calendar.blade.php`: Displays a calendar.
-    - `company-address.blade.php`: Shows the company’s address.
-    - `contact-form.blade.php`: Displays a contact form.
-    - `email.blade.php`: For email-based content.
-    - `menu.blade.php`: Displays a menu.
-    - `opening-times.blade.php`: Shows business opening hours.
-    - `phone.blade.php`: Displays a phone number.
-    - `plans.blade.php`: Displays available plans (e.g., subscription plans).
-    - `product.blade.php`: Displays an individual product.
-    - `products.blade.php`: Displays a list of products.
-    - `recent-blogs.blade.php`: Displays recent blog posts.
-    - `socials.blade.php`: Displays social media links.
+   - `announcements.blade.php`: For displaying announcements.
+   - `blog-tags.blade.php`: Displays blog tags.
+   - `blog.blade.php`: Displays an individual blog post.
+   - `blogs.blade.php`: Displays a list of blog posts.
+   - `calendar.blade.php`: Displays a calendar.
+   - `company-address.blade.php`: Shows the company’s address.
+   - `contact-form.blade.php`: Displays a contact form.
+   - `email.blade.php`: For email-based content.
+   - `menu.blade.php`: Displays a menu.
+   - `opening-times.blade.php`: Shows business opening hours.
+   - `phone.blade.php`: Displays a phone number.
+   - `plans.blade.php`: Displays available plans (e.g., subscription plans).
+   - `product.blade.php`: Displays an individual product.
+   - `products.blade.php`: Displays a list of products.
+   - `recent-blogs.blade.php`: Displays recent blog posts.
+   - `socials.blade.php`: Displays social media links.
 
 These shortcodes are predefined in the theme and cannot be removed or created, but they can be customized by editing the corresponding Blade files.
 
@@ -175,32 +178,31 @@ The `config.js` file holds the metadata for the theme and allows the inclusion o
 
 The `editor` section allows custom CSS and JavaScript to be loaded for editing purposes without affecting the public-facing theme.
 
-
 ## **Variables in Layouts**
 
 Both `page.blade.php` and `error.blade.php` use a set of customizable variables for flexibility in layout and content presentation.
 
 ### **`/layouts/page.blade.php`**
 
-| Variable            | Type    | Description                                                                                  | Default Value                              |
-|---------------------|---------|----------------------------------------------------------------------------------------------|--------------------------------------------|
-| `meta_keywords`      | string  | The meta keywords for SEO purposes.                                                          | Empty string                               |
-| `meta_description`   | string  | The meta description for SEO purposes.                                                       | Empty string                               |
-| `url`                | string  | The author URL (usually your site URL).                                                       | `config('app.url')`                        |
-| `meta_title`         | string  | The page title for SEO purposes.                                                             | `$title . ' | ' . config('app.name')`      |
-| `title`              | string  | The specific title of the page (used in the page's `<title>` tag if `meta_title` is missing). | No default value (must be provided)        |
-| `styles`             | string  | Custom inline CSS styles specific to the page.                                               | Empty string                               |
-| `body`               | string  | The main content of the page.                                                                | Empty string                               |
-| `scripts`            | string  | Custom inline JavaScript to be added to the page.                                             | Empty string                               |
+| Variable           | Type   | Description                                                                                   | Default Value                       |
+| ------------------ | ------ | --------------------------------------------------------------------------------------------- | ----------------------------------- | ----------------------- |
+| `meta_keywords`    | string | The meta keywords for SEO purposes.                                                           | Empty string                        |
+| `meta_description` | string | The meta description for SEO purposes.                                                        | Empty string                        |
+| `url`              | string | The author URL (usually your site URL).                                                       | `config('app.url')`                 |
+| `meta_title`       | string | The page title for SEO purposes.                                                              | `$title . '                         | ' . config('app.name')` |
+| `title`            | string | The specific title of the page (used in the page's `<title>` tag if `meta_title` is missing). | No default value (must be provided) |
+| `styles`           | string | Custom inline CSS styles specific to the page.                                                | Empty string                        |
+| `body`             | string | The main content of the page.                                                                 | Empty string                        |
+| `scripts`          | string | Custom inline JavaScript to be added to the page.                                             | Empty string                        |
 
 ### **`/layouts/error.blade.php`**
 
-| Variable            | Type    | Description                                                                                  | Default Value                              |
-|---------------------|---------|----------------------------------------------------------------------------------------------|--------------------------------------------|
-| `title`              | string  | The error page title (used in the page's `<title>` tag).                                      | No default value (must be provided)        |
-| `csrf_token`         | string  | The CSRF token for the error page.                                                           | `csrf_token()`                             |
-| `styles`             | string  | Any additional styles or CSS to be used on the error page (via `@yield('style')`).           | None (can be overridden)                   |
-| `message`            | string  | The main error message content (via `@yield('message')`).                                    | No default value (must be provided)        |
+| Variable     | Type   | Description                                                                        | Default Value                       |
+| ------------ | ------ | ---------------------------------------------------------------------------------- | ----------------------------------- |
+| `title`      | string | The error page title (used in the page's `<title>` tag).                           | No default value (must be provided) |
+| `csrf_token` | string | The CSRF token for the error page.                                                 | `csrf_token()`                      |
+| `styles`     | string | Any additional styles or CSS to be used on the error page (via `@yield('style')`). | None (can be overridden)            |
+| `message`    | string | The main error message content (via `@yield('message')`).                          | No default value (must be provided) |
 
 ## **Helper Function: `theme()`**
 
@@ -214,6 +216,7 @@ theme($path, $themeName)
 - **$themeName**: The name of the theme (e.g., `foundation`).
 
 **Example**:
+
 ```blade
 <link rel="stylesheet" href="{{ theme('css/app.css', 'foundation') }}">
 ```
@@ -225,15 +228,17 @@ This will load the `app.css` file from the `public/themes/foundation/css/` direc
 To build and manage theme assets, use the following commands:
 
 1. **Build for Production**:
-    ```
-    npm run theme:build --name=foundation
-    ```
-    Compiles the theme assets for production (minified, optimized).
+
+   ```
+   npm run theme:build --name=foundation
+   ```
+
+   Compiles the theme assets for production (minified, optimized).
 
 2. **Build for Development**:
-    ```
-    npm run theme:dev --name=foundation
-    ```
-    Compiles the theme assets for development, including source maps for debugging.
+   ```
+   npm run theme:dev --name=foundation
+   ```
+   Compiles the theme assets for development, including source maps for debugging.
 
 Ensure to pass the correct theme name with the `--name` argument.

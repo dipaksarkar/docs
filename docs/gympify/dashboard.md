@@ -7,6 +7,7 @@ titleTemplate: Gympify
 This documentation outlines the KPI metrics displayed on the dashboard and describes how each metric is calculated, along with the comparison logic.
 
 ## **New Members This Month**
+
 - **Description**: Displays the number of new members who joined during the current month compared to the previous month.
 - **Calculation**:
   - **Current Month**: The count of new members from the 1st of the current month to today.
@@ -18,8 +19,8 @@ This documentation outlines the KPI metrics displayed on the dashboard and descr
   - Previous: 40 members (same period last month)
   - **Display**: 25% increase.
 
-
 ## **Visits Today**
+
 - **Description**: Shows the number of successful member check-ins (visits) today compared to the same time yesterday.
 - **Calculation**:
   - **Today**: The count of check-ins from midnight today to the current time.
@@ -31,8 +32,8 @@ This documentation outlines the KPI metrics displayed on the dashboard and descr
   - Previous: 80 check-ins (same time yesterday)
   - **Display**: 25% increase.
 
-
 ## **Member Visits This Month**
+
 - **Description**: Shows the total number of visits (check-ins) this month compared to the same period in the previous month.
 - **Calculation**:
   - **Current Month**: The count of check-ins from the 1st of the current month to today.
@@ -44,8 +45,8 @@ This documentation outlines the KPI metrics displayed on the dashboard and descr
   - Previous: 400 visits (same period last month)
   - **Display**: 25% increase.
 
-
 ## **Bookings This Month**
+
 - **Description**: Displays the number of bookings this month compared to the same period last month.
 - **Calculation**:
   - **Current Month**: The count of bookings from the 1st of the current month to today.
@@ -57,8 +58,8 @@ This documentation outlines the KPI metrics displayed on the dashboard and descr
   - Previous: 25 bookings (same period last month)
   - **Display**: 20% increase.
 
-
 ## **Online Signups This Month**
+
 - **Description**: Displays the number of online signups (members who registered via the website or app) this month compared to the same period in the previous month.
 - **Calculation**:
   - **Current Month**: The count of online signups from the 1st of the current month to today.
@@ -70,8 +71,8 @@ This documentation outlines the KPI metrics displayed on the dashboard and descr
   - Previous: 10 signups (same period last month)
   - **Display**: 50% increase.
 
-
 ## **Online Bookings This Month**
+
 - **Description**: Shows the number of online bookings (bookings made through the website or app) this month compared to the same period in the previous month.
 - **Calculation**:
   - **Current Month**: The count of online bookings from the 1st of the current month to today.
@@ -83,12 +84,13 @@ This documentation outlines the KPI metrics displayed on the dashboard and descr
   - Previous: 20 online bookings (same period last month)
   - **Display**: 25% increase.
 
-::: tip Info
-- **Percentage Change Formula**: 
-  - If the previous period value is greater than 0, the formula is `((current - previous) / previous) * 100`. 
+::: tip
+
+- **Percentage Change Formula**:
+  - If the previous period value is greater than 0, the formula is `((current - previous) / previous) * 100`.
   - If the previous period value is 0, the percentage change is set to 0 to avoid division by zero errors.
 - **Negative Trends**: A negative trend is highlighted when the current value is less than the previous value, and it will display a downward indicator.
-:::
+  :::
 
 ## **Members Breakdown**
 

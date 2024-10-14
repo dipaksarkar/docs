@@ -46,12 +46,14 @@ Ensure you have the latest ionCube Loader version for your PHP version.
 
 If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
 
-::: tip Info
+::: tip
 Ensure that your server has the following tools installed for building themes:
+
 - **Node.js >= 14.x** (which includes `npm`)
 - **npm** or **yarn**
 
 To install Node.js and npm:
+
 ```bash
 sudo apt install nodejs npm
 ```
@@ -130,11 +132,12 @@ Cron jobs are scheduled tasks that run at predefined times or intervals on your 
 
 ## Remove Dummy Data
 
-1. Open the SSH terminal on your machine and run the following command: 
+1. Open the SSH terminal on your machine and run the following command:
 
 ```
 ssh your_username@host_ip_address
 ```
+
 ::: warning
 Please ask your hsoting provider to getting all the information related to ssh.
 :::

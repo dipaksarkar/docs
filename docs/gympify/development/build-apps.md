@@ -1,6 +1,5 @@
 ---
 titleTemplate: Gympify
-
 ---
 
 # Build Apps
@@ -12,6 +11,7 @@ This section provides a step-by-step guide to setting up a basic Gympify app usi
 Before you begin, make sure you have the following tools installed:
 
 1. **Node.js**:
+
    - **Node.js 12+** (for Quasar CLI with Webpack) or **Node.js 14+** (for Quasar CLI with Vite).
    - To verify your Node.js version, run the command: `node -v`.
 
@@ -31,7 +31,7 @@ yarn global add @quasar/icongenie
 yarn global add https://github.com/dipaksarkar/quasalang
 ```
 
-::: tip Info
+::: tip
 We are using the latest version of Quasar (currently 2.x). For more detailed guidance, visit the official [Quasar Capacitor documentation](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/introduction).
 :::
 
@@ -63,7 +63,7 @@ APP_MODE=app
 API_URL=https://fitpro.gympify.com/api # API endpoint of the tenant you're building the app for.
 ```
 
-::: tip Info
+::: tip
 In the `API_URL`, `{fitpro}` represents the primary domain of the tenant, and `{gympify.com}` is the domain where the Gympify app is installed. Make sure to replace these with the actual tenant and app domains you're working with.
 :::
 

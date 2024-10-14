@@ -4,7 +4,7 @@ titleTemplate: NitroFIT28
 
 # NitroFIT28 Developer Documentation
 
-We use [Laravel Valet](https://laravel.com/docs/11.x/valet) for local deployment. Laravel Valet is a development environment for Mac minimalists that allows you to run sites without the hassle of Vagrant or modifying the `/etc/hosts` file. 
+We use [Laravel Valet](https://laravel.com/docs/11.x/valet) for local deployment. Laravel Valet is a development environment for Mac minimalists that allows you to run sites without the hassle of Vagrant or modifying the `/etc/hosts` file.
 
 ## Prerequisites
 
@@ -27,12 +27,14 @@ yarn global add @quasar/icongenie
 yarn global add https://github.com/dipaksarkar/quasalang
 ```
 
-::: tip Info
+::: tip
 On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar Capacitor documentation](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/introduction) page for more information.
 :::
 
 ## Add Configuration
+
 Set up your environment files by copying the example files:
+
 ```bash
 yarn
 yarn gen:env
@@ -40,6 +42,7 @@ yarn make:ssl
 ```
 
 Update your `.env.frontend.dev` file with your details:
+
 ```
 APP_ENV=Development
 APP_NAME="NitroFIT28"
@@ -49,7 +52,9 @@ PORT=9001
 ```
 
 ## Migrate the Database
+
 Update your `.env` file with your database details:
+
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -58,13 +63,17 @@ DB_DATABASE=nitrofit28
 DB_USERNAME=root
 DB_PASSWORD=password
 ```
+
 Then, run the following command to migrate the database:
+
 ```bash
 yarn fresh:dev
 ```
 
 ## Start the App in Development Mode
+
 To start the app in development mode with hot-code reloading and error reporting, use:
+
 ```bash
 yarn start:web
 ```

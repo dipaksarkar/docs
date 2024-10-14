@@ -27,7 +27,7 @@ yarn global add @quasar/icongenie
 yarn global add https://github.com/dipaksarkar/quasalang
 ```
 
-::: tip Info
+::: tip
 On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar Capacitor documentation](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/introduction) page for more information.
 :::
 
@@ -65,7 +65,6 @@ npm run build:ios --env=prod
 ```
 
 :::
-
 
 ::: warning
 Before we dive in to the actual development, we need to do some preparation work. Please go to [Preparation for Capacitor App](https://quasar.dev/quasar-cli-vite/developing-capacitor-apps/preparation) page for more information.

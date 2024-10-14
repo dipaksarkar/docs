@@ -81,7 +81,7 @@ Gympify requires the following minimum server specifications:
 - **ionCube Loader v13.0**
 - **Apache, nginx, or another compatible web server**
 
-::: danger WARNING
+::: danger
 **Gympify cannot be installed on shared hosting.** A **VPS** with full server control is required to ensure proper setup and performance. Shared hosting does not provide the necessary resources or configurations.
 :::
 
