@@ -72,17 +72,6 @@ The Documents section is your centralized repository for managing essential file
 4.  Click `Done`.
 
 
-## Locations
-A location is any physical place or an app where you do any or all of the following activities:
-
--   sell products
--   manage plan & subscription
--   stock inventory
-
-You can set up multiple locations in your store so that you can track inventory and fulfill orders at your locations. Your locations can be retail stores, warehouses, or any other place where you manage or stock inventory. With multiple locations, you have better visibility into your inventory across your business.
-
-[Setting up your locations](/qaravel/settings/locations)
-
 ## Payments
 Make sure that you understand the payment process. When a customer checks out, they can choose to pay for their order using any of the methods that you've activated in the Payment providers area of your admin. You can activate a variety of payment methods.
 
