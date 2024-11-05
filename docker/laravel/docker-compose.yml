@@ -1,0 +1,32 @@
+services:
+  app:
+    image: php:8.1-fpm
+    container_name: oomph-crm-app
+    restart: always
+    working_dir: /var/www/oomph-crm
+    volumes:
+      - .:/var/www/oomph-crm # Mount current directory
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini # Custom PHP configuration (optional)
+    networks:
+      - app-network
+
+  web:
+    image: nginx:alpine
+    container_name: oomph-crm-web
+    restart: always
+    volumes:
+      - .:/var/www/oomph-crm # Mount current directory
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf # Nginx configuration
+    ports:
+      - '80:80' # Serve on port 80
+    networks:
+      - app-network
+
+  # Use the shared MySQL service from the core setup
+  mysql:
+    external: true # Reference the external MySQL service
+    name: mysql # Name of the external MySQL container
+
+networks:
+  app-network:
+    external: true # Use the external network created in core services

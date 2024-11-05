@@ -1,0 +1,133 @@
+networks:
+  web:
+    external: true
+
+services:
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--providers.file.directory=/etc/traefik/dynamic_conf"
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Add this line to expose the dashboard
+    networks:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Map the static conf into the container
+      - ./tools/traefik.yml:/etc/traefik/traefik.yml:ro
+      # Map the dynamic conf into the container
+      - ./tools/config.yml:/etc/traefik/config.yml:ro
+      # Map the certificats into the container
+      - ./certs:/etc/certs:ro
+      # - /var/run/docker.sock:/var/run/docker.sock
+
+    labels:
+      # Enable this container to be mapped by traefik
+      # For more information, see: https://docs.traefik.io/providers/docker/#exposedbydefault
+      - "traefik.enable=true"
+      # Use "traefik" router configuration defined into the dynamic config file: ./traefik/config.yml
+      - "traefik.http.routers.traefik=true"
+
+  whoami:
+    # A container that exposes an API to show its IP address
+    image: containous/whoami
+    networks:
+      - web
+    # Here we define our settings for traefik how to proxy our service.
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.whoami.loadbalancer.server.port=80"
+      - "traefik.http.routers.whoami.tls=true"
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password # Change to a strong password
+    volumes:
+      - db_data:/var/lib/mysql # Persist data in Docker volume
+    networks:
+      - web
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-p password" ]
+      retries: 3
+      timeout: 5s
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    networks:
+      - web
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql # Hostname of the MySQL container
+      PMA_PORT: 3306 # MySQL port
+      PMA_USER: root # MySQL root user
+      PMA_PASSWORD: password # MySQL root password (same as MYSQL_ROOT_PASSWORD)
+    networks:
+      - web
+    ports:
+      - '8081:80'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.docker.localhost`)"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.phpmyadmin.loadbalancer.server.port=80"
+      - "traefik.http.routers.phpmyadmin.tls=true"
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpit
+    restart: always
+    networks:
+      - web
+    ports:
+      - '8025:8025'
+      - '1025:1025'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailpit.rule=Host(`mailpit.docker.localhost`)"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.mailpit.loadbalancer.server.port=8025"
+      - "traefik.http.routers.mailpit.tls=true"
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    restart: always
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+      MINIO_SERVER_URL: http://localhost:9000
+      MINIO_BROWSER_REDIRECT_URL: http://localhost:9000
+    ports:
+      - '9000:9000'
+    command: server /data
+    networks:
+      - web
+
+volumes:
+  db_data:
+  minio_data:
