@@ -16,8 +16,8 @@ cd traefik
 # If it's the firt install of mkcert, run
 mkcert -install
 
-# Generate certificate for domain "docker.localhost", "domain.local" and their sub-domains
-mkcert -cert-file certs/local-cert.pem -key-file certs/local-key.pem "docker.localhost" "*.docker.localhost" "domain.local" "*.domain.local"
+# Generate certificate for domain "docker.localhost" and their sub-domains
+mkcert -cert-file certs/local-cert.pem -key-file certs/local-key.pem "docker.localhost" "*.docker.localhost"
 
 # Start traefik container 
 docker-compose up -d
@@ -83,7 +83,7 @@ services:
             - 'traefik.docker.network=web'
             - 'traefik.http.services.laravel-app.loadbalancer.server.port=80'
             # Activation of TLS
-            - "traefik.http.routers.whoami.tls=true"
+            - "traefik.http.routers.laravel-app.tls=true"
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1

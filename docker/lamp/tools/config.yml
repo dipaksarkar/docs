@@ -8,9 +8,6 @@ http:
           - main: "docker.localhost"
             sans:
               - "*.docker.localhost"
-          - main: "coderstm.localhost"
-            sans:
-              - "*.coderstm.localhost"
 tls:
   certificates:
     - certFile: "/etc/certs/local-cert.pem"
