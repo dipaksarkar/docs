@@ -77,12 +77,13 @@ Thank you for purchasing Gympify! If you have any questions beyond this help fil
 Gympify requires the following minimum server specifications:
 
 - **PHP >= 8.1** (with required extensions)
+- **MySQL (minimum MySQL 5.7 or MariaDB 10.2)**
 - **Node.js >= 14.x**
 - **ionCube Loader v13.0**
 - **Apache, nginx, or another compatible web server**
 
-::: danger
-**Gympify cannot be installed on shared hosting.** A **VPS** with full server control is required to ensure proper setup and performance. Shared hosting does not provide the necessary resources or configurations.
+::: warning
+While Gympify **can be installed on shared hosting**, for optimal performance and scalability, we highly recommend using a **VPS** or a **dedicated server**. Shared hosting lacks the advanced configuration capabilities required for certain Gympify features.
 :::
 
 ## Coderstm Team
