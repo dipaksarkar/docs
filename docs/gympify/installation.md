@@ -146,6 +146,12 @@ yarn install
 
 This will ensure that all dependencies are installed correctly for theme building.
 
+## Setup Database User
+
+This section explains how to set up a database user on both VPS and cPanel hosting environments. The instructions include creating a database user, granting privileges, and updating your `.env` file for Laravel configuration.
+
+<!--@include: ./database.md-->
+
 ## Add Cron Jobs
 
 Cron jobs are essential for automating tasks like running scripts or triggering specific actions at set times. Add the following cron jobs to your server:
@@ -163,7 +169,7 @@ This section provides instructions on how to set up queue workers for processing
 
 ### 1. Add Cron Jobs for Laravel Queues
 
-If you're using shared hosting, you can set up a cron job to run Laravel queues. This allows your application to process background jobs at regular intervals. Add the following cron job configuration:
+If you're using **cPanel** sahred hosting, you can set up a cron job to run Laravel queues. This allows your application to process background jobs at regular intervals. Add the following cron job configuration:
 
 ```bash
 # Run Laravel queues every minute
@@ -187,7 +193,7 @@ Follow these steps to set up a systemd service:
 Start by creating a new service file for your Laravel queue worker:
 
 ```bash
-sudo nano /etc/systemd/system/queues.service
+sudo nano /etc/systemd/system/gympify-queues.service
 ```
 
 #### Step 2. Add the Service Configuration
