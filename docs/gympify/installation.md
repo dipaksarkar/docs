@@ -6,8 +6,8 @@ titleTemplate: Gympify
 
 This section will guide you through setting up a basic **Gympify** instance from scratch.
 
-::: danger
-Gympify **cannot be installed on shared hosting**. You will need a **VPS (Virtual Private Server)** or a **dedicated server** to run Gympify, as it requires server-level configuration that shared hosting environments do not provide. If you're unsure how to set up a VPS, contact your hosting provider or use a managed VPS service.
+::: warning
+Gympify **can be installed on shared hosting**. But, For better performance will need a **VPS (Virtual Private Server)** or a **dedicated server** to run Gympify, as it requires server-level configuration that shared hosting environments do not provide. If you're unsure how to set up a VPS, contact your hosting provider or use a managed VPS service.
 :::
 
 <!-- ::: tip
@@ -155,30 +155,57 @@ Cron jobs are essential for automating tasks like running scripts or triggering 
 * * * * * /usr/bin/php8.2 {project-root}/artisan schedule:run >> /dev/null 2>&1
 ```
 
-## Setting Up a Systemd Service for Laravel Queues
+Make sure to replace {project-root} with the actual path to your Laravel project.
 
-Start by creating a service file in the desired location, for example:
+## Setup Queue Worker
+
+This section provides instructions on how to set up queue workers for processing background jobs in Laravel. You’ll learn how to set up cron jobs on shared hosting and systemd services on a VPS for efficient queue processing.
+
+### 1. Add Cron Jobs for Laravel Queues
+
+If you're using shared hosting, you can set up a cron job to run Laravel queues. This allows your application to process background jobs at regular intervals. Add the following cron job configuration:
+
+```bash
+# Run Laravel queues every minute
+* * * * * /usr/bin/php8.2 {project-root}/artisan queue:manager
+```
+
+Make sure to replace {project-root} with the actual path to your Laravel project.
+
+### 2. Setting Up a Systemd Service for Laravel Queues
+
+If you're hosting your Laravel application on a VPS, it's recommended to use systemd to manage your queue workers. Systemd provides more robust control over the service, including automatic restarts and easier management.
+
+::: warning 
+  This step is not required if you have already set up [Cron Jobs for Laravel Queues](#add-cron-jobs-for-laravel-queues).
+:::
+
+Follow these steps to set up a systemd service:
+
+#### Step 1: Create the Service File
+
+Start by creating a new service file for your Laravel queue worker:
 
 ```bash
 sudo nano /etc/systemd/system/queues.service
 ```
 
-### Add the Service Configuration
+#### Step 2. Add the Service Configuration
 
 Add the following configuration to the service file:
 
 ```
-# This systemd service is responsible for managing the queue workers for the CRM project.
+# This systemd service is responsible for managing the queue workers for gympify.
 
 [Unit]
 Description=Gympify Queues
 After=network.target
 
 [Service]
-User=gympify
-Group=gympify
+User=www-data
+Group=www-data
 Restart=always
-ExecStart=/usr/bin/php /home/gympify/gympify.com/artisan queue:work --sleep=3 --tries=3 --max-time=3600
+ExecStart=/usr/bin/php8.2 {project-root}/artisan queue:work --sleep=3 --tries=3 --max-time=3600
 RestartSec=5
 StandardOutput=syslog
 StandardError=syslog
@@ -188,30 +215,27 @@ SyslogIdentifier=gympify-queues
 WantedBy=multi-user.target
 ```
 
-Save and exit the file.
+Make sure to replace `{project-root}` with the path to your Laravel project.
 
-### Reload Systemd
+- **User and Group:** Ensure that the `User` and `Group` are set to the user that your web server runs under (commonly `www-data`).
 
-Reload the systemd daemon to recognize the new service:
+
+#### Step 3: Enable and Start the Service
+
+After creating the service file, run the following commands to reload systemd, enable the service to start at boot, and start the queue worker:
 
 ```bash
 sudo systemctl daemon-reload
-```
-
-### Enable the Service
-
-Enable the service so that it starts automatically at boot:
-
-```bash
 sudo systemctl enable gympify-queues
+sudo systemctl start gympify-queues
 ```
 
-### Start the Service
+#### Step 4: Check the Status
 
-Start the service manually:
+To ensure the queue worker is running properly, check its status:
 
 ```bash
-sudo systemctl start gympify-queues
+sudo systemctl status gympify-queues
 ```
 
 ## Remove Dummy Data
