@@ -40,7 +40,7 @@ DB_USERNAME=your-database-username
 DB_PASSWORD=your-password
 
 # cPanel Service
-CPANEL_URL=https://s12.my-control-panel.com:2083
+CPANEL_URL=https://your-cpanel-server.com:2083
 CPANEL_USER=your-cpanel-username
 CPANEL_TOKEN=your-cpanel-token
 
