@@ -10,125 +10,107 @@ This section will guide you through setting up a basic NitroFIT28 documentation 
 For upgrading your existing NitroFIT28 installation, please refer to the [Upgrade Guide](/nitrofit28/upgrade) for detailed instructions.
 :::
 
-## Prerequisites
-
-To get started with a Quasar application, you need to ensure you have the following prerequisites:
-
-1. **Node 12+ for Quasar CLI with Webpack**, or **Node 14+ for Quasar CLI with Vite**.
-   - To check your Node.js version, run `node -v` in a terminal/console window.
-2. **Yarn v1 (strongly recommended)**, PNPM, or NPM.
-   - To check your Yarn version, run `yarn -v` in a terminal/console window.
-
 ## Server Requirements
 
-NitroFIT28 has specific system requirements. Ensure that your web server meets the following minimum PHP version and extensions:
+To run **NitroFIT28** efficiently, ensure that your server meets the following requirements. These include the web server, PHP version, necessary extensions, and database requirements.
 
-- **Apache**, **nginx**, or another compatible web server.
-- **PHP >= 8.1**
-- **BCMath** PHP Extension
-- **Ctype** PHP Extension
-- **cURL** PHP Extension
-- **DOM** PHP Extension
-- **Fileinfo** PHP Extension
-- **JSON** PHP Extension
-- **Mbstring** PHP Extension
-- **OpenSSL** PHP Extension
-- **PCRE** PHP Extension
-- **PDO** PHP Extension
-- **Tokenizer** PHP Extension
-- **XML** PHP Extension
-- **Imagick** PHP Extension
-- **ionCube Loader® v13.0**
+#### Web Server
+- **Apache**, **nginx**, or any other compatible web server.
 
-Ensure you have the latest ionCube Loader version for your PHP version.
+#### PHP Requirements
+- **PHP Version**: >= 8.2 (Recommended: Latest stable release of PHP 8.2 or 8.3)
+- **Required PHP Extensions**:
+  - **BCMath**
+  - **Ctype**
+  - **cURL**
+  - **DOM**
+  - **Fileinfo**
+  - **JSON**
+  - **Mbstring**
+  - **OpenSSL**
+  - **PCRE**
+  - **PDO**
+  - **Tokenizer**
+  - **XML**
+  - **Imagick** (for image processing and manipulation)
+  - **ionCube Loader® v13.0** (Ensure the latest version is installed and compatible with your PHP version)
 
-### Theme Building on Server
-
-If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
-
-::: tip
-Ensure that your server has the following tools installed for building themes:
-
-- **Node.js >= 14.x** (which includes `npm`)
-- **npm** or **yarn**
-
-To install Node.js and npm:
-
-```bash
-sudo apt install nodejs npm
-```
-
-You can then build or edit themes by running the appropriate build commands (e.g., `npm run theme:build --name={theme-name}`).
+::: warning 
+The ionCube Loader is critical for running encrypted files. Make sure to download and install the appropriate loader for your server's PHP version.
 :::
 
+#### Database
+- **MySQL**: Latest version recommended (minimum MySQL 5.7 or MariaDB 10.2)
+
+#### Additional Software (Optional)
+- **Node.js**: Latest LTS version (required for frontend dependencies and build processes). 
+
+::: warning 
+If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
+:::
+
+#### Recommended Configurations
+For optimal performance:
+- Use **nginx** as the web server for faster performance and scalability.
+- Enable **Opcache** to improve PHP execution speed.
+- Allocate sufficient memory (`memory_limit`) in your `php.ini` file (e.g., 256M or higher).
+
+#### Verify Your Server Setup
+Run the following command to check your PHP environment and confirm required extensions are enabled:
+
+```bash
+php -m
+```
+
+This command will list all installed PHP modules. Cross-check it with the list above to ensure compatibility.
+
 ::: warning
-This project utilizes the latest Laravel version (currently 10.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
+This project utilizes the latest Laravel version (currently 11.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
 
 The root folder for Laravel is `/public`. Do not install it in a sub-folder; using a sub-domain is preferable over a sub-folder. We do not support installing our product in a sub-folder.
 :::
 
-## Installing Quasar CLI
-
-The Quasar CLI is used for project creation, generating application and library code, and various development tasks.
-
-Install the Quasar CLI globally:
-
-```bash
-yarn global add @quasar/cli
-yarn global add @quasar/icongenie
-```
-
-::: warning
-On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar documentation](https://quasar.dev/start/quasar-cli) page for more information.
-:::
-
-## Build Application
-
-1. Execute the following commands in a terminal/console window:
-
-```
-cp .env.example .env
-cp .htaccess.example .htaccess
-```
-
-2. (Optional) Modify `.env.frontend.prod`:
-
-```
-APP_ENV=Production
-APP_NAME=NitroFIT28
-# (API_URL is optional, it will be generated using your app domain)
-API_URL=https://your-domain-name.com/api
-```
-
-3. (Optional) Build the application by executing the following commands:
-
-```
-yarn install
-yarn build:prod
-```
-
 ## Install via GUI
 
-- Create database and Upload all files into the root folder of your hosting (normally, it is `public_html`). Without followings:
-  ```
+1. **Create Database and Upload Files**
+  - Upload all files into the root folder of your hosting (typically `public_html`), excluding the following directories:
+    ```
     /dist
     /node_modules
-  ```
-- Go to [your-domain-name.com/install] to start installation.
-- Step by step to setup your database conntection, site information and administrator.
-- Login and setup your website on Welcome Board.
+    /src
+    /src-capacitor
+    /statics
+    ```
+
+2. **Rename Configuration Files**
+  - Rename the following files:
+    ```
+    .env.example -> .env
+    .htaccess.example -> .htaccess
+    ```
+
+3. **Start Installation**
+  - Navigate to `[your-domain-name.com/install]` to begin the installation process.
+
+4. **Setup Database and Site Information**
+  - Follow the step-by-step instructions to configure your database connection, site information, and administrator account.
+
+5. **Login and Setup Website**
+  - Log in and set up your website using the Welcome Board.
+
 
 ## Add Cron Jobs
 
-Cron jobs are scheduled tasks that run at predefined times or intervals on your server. They are essential for automating repetitive tasks such as running scripts, maintenance tasks, or triggering specific actions at set times.
+Cron jobs are scheduled tasks that run at predefined times or intervals on your server. They are essential for automating repetitive tasks such as running scripts, performing maintenance, or triggering specific actions at set times.
+
+To set up cron jobs for NitroFIT28, add the following lines to your server's crontab:
 
 ```bash
-# Run Laravel scheduler
 * * * * * /usr/bin/php8.2 {project-root}/artisan schedule:run >> /dev/null 2>&1
-
-# Process Laravel queues
-*/2 * * * * /usr/bin/php8.2 {project-root}/artisan queue:work --timeout=36000 --stop-when-empty
+* * * * * /usr/bin/php8.2 {project-root}/artisan queue:manager start
 ```
+
+Replace `{project-root}` with the actual path to your NitroFIT28 project.
 
 ## Remove Dummy Data
 

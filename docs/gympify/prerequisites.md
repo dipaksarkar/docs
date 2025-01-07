@@ -30,7 +30,7 @@ To run **Gympify** efficiently, ensure that your server meets the following requ
 - **Apache**, **nginx**, or any other compatible web server.
 
 #### PHP Requirements
-- **PHP Version**: >= 8.1 (Recommended: Latest stable release of PHP 8.1 or 8.2)
+- **PHP Version**: >= 8.2 (Recommended: Latest stable release of PHP 8.2 or 8.3)
 - **Required PHP Extensions**:
   - **BCMath**
   - **Ctype**
