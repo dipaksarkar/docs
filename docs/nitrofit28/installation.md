@@ -114,7 +114,7 @@ Replace `{project-root}` with the actual path to your NitroFIT28 project.
 
 ## Post Installation
 
-After completing the installation, refer to the [Post Installation Guide](/nitrofit28/post-installation) for additional setup steps and best practices to ensure your NitroFIT28 site runs smoothly.
+After completing the installation, refer to the [Post Installation Guide](./post-installation.md) for additional setup steps and best practices to ensure your NitroFIT28 site runs smoothly.
 
 
 ## Remove Dummy Data

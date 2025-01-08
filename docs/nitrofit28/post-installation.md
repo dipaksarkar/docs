@@ -4,7 +4,7 @@ titleTemplate: NitroFIT28
 
 # Post Installation
 
-Before proceeding with the post-installation steps, ensure that you have completed the initial installation process successfully. You can find the installation instructions [here](../installation.md).
+Before proceeding with the post-installation steps, ensure that you have completed the initial installation process successfully. You can find the installation instructions [here](./installation.md).
 
 ## Changing the Favicon
 
