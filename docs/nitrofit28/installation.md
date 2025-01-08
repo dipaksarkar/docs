@@ -112,6 +112,11 @@ To set up cron jobs for NitroFIT28, add the following lines to your server's cro
 
 Replace `{project-root}` with the actual path to your NitroFIT28 project.
 
+## Post Installation
+
+After completing the installation, refer to the [Post Installation Guide](/nitrofit28/post-installation) for additional setup steps and best practices to ensure your NitroFIT28 site runs smoothly.
+
+
 ## Remove Dummy Data
 
 1. Open the SSH terminal on your machine and run the following command:
