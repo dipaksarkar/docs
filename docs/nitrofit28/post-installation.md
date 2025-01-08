@@ -85,9 +85,10 @@ Your `views/layouts/page.blade.php` file should now look like this:
     {{-- App Style --}}
     <link rel="stylesheet" type="text/css" href="{{ theme('css/app.css', 'foundation') }}" />
 
+    <!-- theme variables -->
     <style type="text/css">
         :root {
-            --blue: #007bff;
+            --blue:#f30b4d;
             --indigo: #6574cd;
             --purple: #9561e2;
             --pink: #f66d9b;
@@ -100,7 +101,7 @@ Your `views/layouts/page.blade.php` file should now look like this:
             --white: #fff;
             --gray: #6c757d;
             --gray-dark: #343a40;
-            --primary: #007bff;
+            --primary: #f30b4d;
             --secondary: #6c757d;
             --success: #38c172;
             --info: #6cb2eb;
