@@ -1,32 +1,38 @@
 ## Install via GUI
 
-- Upload all files into the root folder of your hosting (normally, it is `public_html`). Exclude the following folders:
-  ```
+1. Upload all files to the root folder of your hosting (usually `public_html`). Exclude the following folders:
+    ```
     /dist
     /node_modules
     /src
     /src-capacitor
     /statics
-  ```
-- Go to [your-domain-name.com/install] to start the installation process.
-- Follow the step-by-step instructions to set up your database connection, site information, and administrator account.
-- Login and configure your website using the Welcome Board.
+    ```
+2. Visit [your-domain-name.com/install] to begin the installation process.
+3. Follow the step-by-step instructions to set up your database connection, site information, and administrator account.
+4. Log in and configure your website using the Welcome Board.
 
 ## Enable Tenant Theme Builder
 
-To enable the tenant theme builder, you need to run `npm install` in the `public_html` directory:
+To enable the tenant theme builder, run `npm install` in the `public_html` directory:
 
-1. Open the SSH terminal on your machine and run the following command:
+1. Open the SSH terminal on your machine and run:
 
-```bash
-ssh username@your-domain.com
-```
+    ```bash
+    ssh username@your-domain.com
+    ```
 
-2. **Run the following command** to install the necessary packages:
+2. Navigate to the `public_html` directory and install the necessary packages:
 
-```bash
-cd public_html
-npm install
-```
+    ```bash
+    cd public_html
+    npm install
+    ```
 
-This will ensure that all dependencies are installed correctly for theme building.
+3. Update the NPM bin path in the `.env` file:
+
+    ```bash
+    NPM_BIN_PATH=your-path-to-npm-bin 
+    ```
+
+    Replace `your-path-to-npm-bin` with the actual path to the npm bin directory (e.g., `/home/username/.nvm/versions/node/v18.20.3/bin`).
