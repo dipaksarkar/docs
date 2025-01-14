@@ -22,7 +22,7 @@ While Gympify **can be installed on shared hosting**, for optimal performance an
 
 <!--@include: ./gui-install.md-->
 
-<!--@include: ./cron-job.md-->
+<!--@include: ./cpanel/cron-job.md-->
 
 <!--@include: ./cpanel/queues.md-->
 
