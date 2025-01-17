@@ -10,7 +10,7 @@ NitroFIT28 is an easy-to-use gym and fitness management system. It helps you to 
 Created: `Oct 1st, 2022`<br>
 By: `Coderstm`<br>
 Email: `hello@coderstm.com`<br>
-Version: `v4.5.8`
+Version: `v5.3.2`
 
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 
@@ -33,6 +33,7 @@ Password: `Gis0ra$$;`
 - **Billing & Invoicing**
   - Integrated payment gateways for seamless billing.
   - Automated invoicing and payment reminders.
+  - Automatic payment collection and recurring billing. (Add-on)
 
 - **Class & Appointment Scheduling**
   - Online class booking and appointment scheduling.
@@ -42,7 +43,8 @@ Password: `Gis0ra$$;`
   - Track trainer availability and performance.
 
 - **Attendance & Access Control**
-  - Check-in system using QR codes or biometrics.
+  - Check-in system using QR codes.
+  - Check-in system using biometric devices. (Add-on)
   - Real-time attendance reports and trends.
   - Manage attendance with QR code scanner.
   - Monitor member access in real-time.
