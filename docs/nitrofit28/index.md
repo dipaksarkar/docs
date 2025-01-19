@@ -14,6 +14,13 @@ Version: `v5.3.2`
 
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 
+::: tip 🎉 **Exciting News!** 🎉
+
+We are thrilled to announce the launch of **Gympify**, our latest SaaS offering derived from NitroFIT28! Gympify is designed to streamline gym and fitness management, providing enhanced features for both administrators and members.
+
+👉 Check it out here: [Gympify](https://coderstm.gumroad.com/l/gympify)
+:::
+
 ## Demo
 Homepage: https://nitrofit28.coderstm.com<br>
 Admin Area: https://nitrofit28.coderstm.com/admin<br>
