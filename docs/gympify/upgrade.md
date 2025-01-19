@@ -16,8 +16,12 @@ Please note that these steps will replace any customizations you have made, incl
 
 ## Replace Old Files
 
-1. Download the latest version of Gympify from [GitHub Release](https://github.com/coders-tm/gympify/releases/tag/v2.3).
-   
+1. Download the latest version of Gympify from the [GitHub Release](https://github.com/coders-tm/gympify/releases/tag/v2.3) page.
+
+    Ensure you are logged in with the correct account and have access to the repository. If you do not have access, please contact the repository owner.
+
+    Navigate to **Assets** and download **Gympify_v2.3.zip**.
+
     ![Download Gympify](/gympify/upgrade.jpg)
 
 2. Extract the downloaded zip file to a temporary location on your machine. You will find the following file structure:
