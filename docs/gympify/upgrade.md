@@ -26,10 +26,10 @@ Please note that these steps will replace any customizations you have made, incl
 
 2. Extract the downloaded zip file to a temporary location on your machine. You will find the following file structure:
 
-```
-/gympify_v2.3 // Main files
-readme.html
-```
+    ```
+    /gympify_v2.3 // Main files
+    readme.html
+    ```
 
 3. Move all files from `gympify_v2.3` to your server's `public_html` directory, replacing existing files. Exclude the following folders:
     ```
@@ -40,56 +40,57 @@ readme.html
     /statics
     ```
 
-::: danger
-Please be aware that these steps will overwrite any customizations you have made.
-:::
+    ::: danger
+    Please be aware that these steps will overwrite any customizations you have made.
+    :::
 
 ## Migrate Databases & Data
 
 1. Access your server via SSH by opening a terminal and running the following command, replacing `username` with your SSH username and `your-domain.com` with your server's IP address:
 
-```
-ssh username@your-domain.com
-```
+    ```
+    ssh username@your-domain.com
+    ```
 
-::: warning
-If you are unsure about SSH access details, please contact your hosting provider for assistance.
-:::
+    ::: warning
+    If you are unsure about SSH access details, please contact your hosting provider for assistance.
+    :::
 
 2. Enter your password when prompted and press Enter. Once logged in, navigate to the `public_html` directory by running the following command:
 
-```
-cd public_html
-```
+    ```
+    cd public_html
+    ```
 
 3. Run the following commands to migrate the database schema and seed necessary data:
 
-```
-php artisan optimize:clear
-php artisan migrate --force
-php artisan db:seed --class=CentralUpgradeSeeder --force
-php artisan tenants:migrate --force
-php artisan tenants:seed --class=UpgradeSeeder --force
-```
+    ```
+    php artisan optimize:clear
+    php artisan migrate --force
+    php artisan db:seed --class=CentralUpgradeSeeder --force
+    php artisan tenants:migrate --force
+    php artisan tenants:seed --class=UpgradeSeeder --force
+    ```
+    
+    These commands will update your database schema and populate any required seed data.
 
 4. After running these commanda, you will need to restart your queue worker by running the following command:
 
-::: code-group
+    ::: code-group
 
-```bash [VPS]
-sudo systemctl restart gympify-queues
-```
+    ```bash [VPS]
+    sudo systemctl restart gympify-queues
+    ```
 
-```bash [cPanel]
-php artisan queue:manager restart
-```
+    ```bash [cPanel]
+    php artisan queue:manager restart
+    ```
 
-:::
+    :::
 
-::: danger
-It's highly recommended to take a backup of your database before proceeding with these commands to prevent any potential data loss.
-:::
+    ::: danger
+    It's highly recommended to take a backup of your database before proceeding with these commands to prevent any potential data loss.
+    :::
 
-These commands will update your database schema and populate any required seed data.
 
 By following these steps, you can successfully upgrade your Gympify application to the latest version. If you encounter any issues during the upgrade process, please refer to the documentation or contact support for assistance.
