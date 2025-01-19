@@ -21,12 +21,18 @@ Please note that these steps will replace any customizations you have made, incl
 2. Extract the downloaded zip file to a temporary location on your machine. You will find the following file structure:
 
 ```
-/documentation
-/gympify_v1.0 // Main files
+/gympify_v2.3 // Main files
 readme.html
 ```
 
-3. Move all files from `gympify_v1.0` to your server's `public_html` directory, replacing existing files.
+3. Move all files from `gympify_v2.3` to your server's `public_html` directory, replacing existing files. Exclude the following folders:
+    ```
+    /dist
+    /node_modules
+    /src
+    /src-capacitor
+    /statics
+    ```
 
 ::: danger
 Please be aware that these steps will overwrite any customizations you have made.
@@ -34,10 +40,10 @@ Please be aware that these steps will overwrite any customizations you have made
 
 ## Migrate Databases & Data
 
-1. Access your server via SSH by opening a terminal and running the following command, replacing `your_username` with your SSH username and `host_ip_address` with your server's IP address:
+1. Access your server via SSH by opening a terminal and running the following command, replacing `username` with your SSH username and `your-domain.com` with your server's IP address:
 
 ```
-ssh your_username@host_ip_address
+ssh username@your-domain.com
 ```
 
 ::: warning
@@ -53,9 +59,26 @@ cd public_html
 3. Run the following commands to migrate the database schema and seed necessary data:
 
 ```
+php artisan optimize:clear
 php artisan migrate --force
-php artisan db:seed --class=UpgradeSeeder
+php artisan db:seed --class=CentralUpgradeSeeder --force
+php artisan tenants:migrate --force
+php artisan tenants:seed --class=UpgradeSeeder --force
 ```
+
+4. After running these commanda, you will need to restart your queue worker by running the following command:
+
+::: code-group
+
+```bash [VPS]
+sudo systemctl restart gympify-queues
+```
+
+```bash [cPanel]
+php artisan queue:manager restart
+```
+
+:::
 
 ::: danger
 It's highly recommended to take a backup of your database before proceeding with these commands to prevent any potential data loss.
