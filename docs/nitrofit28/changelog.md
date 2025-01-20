@@ -6,7 +6,49 @@ titleTemplate: NitroFIT28
 
 This document provides a detailed history of changes, improvements, and fixes across various versions of the application, helping track progress and new feature releases.
 
-## v5.0 - 15 Oct 2024 (Upcoming)
+## 5.3.5 - 21 Jan 2025
+-   [Fix] Translation loading issue
+
+## 5.3.4 - 20 Jan 2025
+-   [Added] OpenAI Settings Area
+-   [Fix] Some Important Bugs
+
+## 5.3.3 - 19 Jan 2025
+-   [Added] Translation Manager, providing more control over translations.
+-   [Refactor] Translation loading now uses API service for fetching languages.
+
+## 5.3.2 - 17 Jan 2025
+-   [Fix] Addon Activation Issue
+-   [Fix] Frontend Page Url Issue
+-   [Refactor] Base Notifications System Issue
+-   [Fix] Some Important Bugs
+-   [Updated] Addon Installer and Performance Issue
+
+## 5.3.1 - 05 Jan 2025
+-   [Fix] Addon Activation Issue
+-   [Implement] feature usage management in subscription components
+
+## 5.3 - 03 Jan 2025
+-   [Add] base-addon component: Integrated into LinksList and BaseItem; enhanced styling and notification display.
+-   [Implement] subscription update functionality: Added payment model and event listeners for subscription management.
+-   [Add] QueueWorkerManager command: For managing queue workers.
+-   [Remove] Block Feature: Added restriction on revert usages for late cancellation.
+-   [Fix] Reset subscriptions usages issue: Resolved issue.
+-   [Updated] Dialog Thumbnail: Improved thumbnail display.
+
+## 5.2.3 - 17 Nov 2024
+-   [Fix] Payment method's webhook issue
+-   [Fix] Class Addons Module
+
+## 5.2 - 15 Nov 2024
+-   [Fix] Subscription Renewal Bugs
+-   [Add] Class Addons Module
+
+## 5.1.2 - 30 Oct 2024
+-   [Fix] Some Important Bugs
+-   [Improved] Push Notification System
+
+## v5.0 - 15 Oct 2024
 -   [Added] Enhanced User Dashboard with Custom Widgets
 -   [Improved] Performance Optimization for Mobile Devices
 -   [Added] Custom Theme Feature: More control over frontend appearance
