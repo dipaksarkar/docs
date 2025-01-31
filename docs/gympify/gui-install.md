@@ -2,8 +2,6 @@
 
 1. Upload all files to the root folder of your hosting (usually `public_html`). Exclude the following folders:
     ```
-    /dist
-    /node_modules
     /src
     /src-capacitor
     /statics

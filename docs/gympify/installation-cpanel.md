@@ -20,7 +20,7 @@ While Gympify **can be installed on shared hosting**, for optimal performance an
 
 <!--@include: ./prerequisites.md-->
 
-<!--@include: ./build-frontend.md-->
+<!--@include: ./download.md-->
 
 <!--@include: ./cpanel/database.md-->
 

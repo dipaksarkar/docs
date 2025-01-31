@@ -16,7 +16,7 @@ If you're looking to install Gympify on **cPanel shared hosting**, refer to the 
 
 <!--@include: ./prerequisites.md-->
 
-<!--@include: ./build-frontend.md-->
+<!--@include: ./download.md-->
 
 <!--@include: ./vps/database.md-->
 

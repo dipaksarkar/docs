@@ -33,8 +33,6 @@ Please note that these steps will replace any customizations you have made, incl
 
 3. Move all files from `gympify_v2.3` to your server's `public_html` directory, replacing existing files. Exclude the following folders:
     ```
-    /dist
-    /node_modules
     /src
     /src-capacitor
     /statics
