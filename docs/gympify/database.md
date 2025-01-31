@@ -1,7 +1,7 @@
 
 ### 1. Create Database User on VPS
 
-Follow these steps to create a MySQL user with appropriate privileges for managing the database using Laravel.
+Follow these steps to create a MySQL user with appropriate privileges for managing the database using Gympify.
 
 #### Step 1: Login to MySQL
 
@@ -32,7 +32,7 @@ Replace `'your-password'` with your desired password.
 
 #### Step 3: Update `.env` File
 
-After creating the user, update the `.env` file in your Laravel project to include the database credentials:
+After creating the user, update the `.env` file in your Gympify project to include the database credentials:
 
 ```bash
 DB_DATABASE=gympify_admin
@@ -44,7 +44,7 @@ Ensure that the credentials match the values you used in the previous step.
 
 ### 2. Create Database User on cPanel Hosting
 
-Follow these steps to create a MySQL user and database on cPanel, which can be used to manage your Laravel application's database.
+Follow these steps to create a MySQL user and database on cPanel, which can be used to manage your Gympify application's database.
 
 #### Step 1: Generate an API Token
 
@@ -104,7 +104,7 @@ Replace the placeholders with the actual values:
 
 - For **VPS environments**, ensure MySQL is configured to allow connections from external hosts, if necessary.
 - For **cPanel hosting**, verify that your hosting plan supports MySQL database creation and API access.
-- After updating the `.env` file, clear the Laravel config cache to apply the changes:
+- After updating the `.env` file, clear the Gympify config cache to apply the changes:
 
   ```bash
   php artisan config:clear

@@ -6,7 +6,7 @@ Follow these steps to set up a systemd service:
 
 #### Step 1: Create the Service File
 
-Start by creating a new service file for your Laravel queue worker:
+Start by creating a new service file for your Gympify queue worker:
 
 ```bash
 sudo nano /etc/systemd/system/gympify-queues.service
@@ -37,7 +37,7 @@ SyslogIdentifier=gympify-queues
 WantedBy=multi-user.target
 ```
 
-Make sure to replace `{project-root}` with the path to your Laravel project.
+Make sure to replace `{project-root}` with the path to your Gympify project.
 
 - **User and Group:** Ensure that the `User` and `Group` are set to the user that your web server runs under (commonly `www-data`).
 

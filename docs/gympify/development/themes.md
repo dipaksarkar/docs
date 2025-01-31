@@ -53,9 +53,9 @@ The theme structure is organized as follows. The default theme is **Foundation**
     └── config.js
 ```
 
-## **Laravel Blade Template Overview**
+## **Gympify Blade Template Overview**
 
-Laravel's Blade templating engine is used throughout the theme for dynamic content rendering, component creation, and layout structuring. Blade allows you to include reusable sections, extend layouts, and integrate logic seamlessly into your theme.
+Gympify's Blade templating engine is used throughout the theme for dynamic content rendering, component creation, and layout structuring. Blade allows you to include reusable sections, extend layouts, and integrate logic seamlessly into your theme.
 
 ::: tip
 Blade’s simple yet powerful features are designed to make writing views easier. You can read more about Blade and its core features in the [Laravel Blade Introduction](https://laravel.com/docs/11.x/blade#introduction).

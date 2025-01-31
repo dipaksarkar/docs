@@ -1,6 +1,6 @@
 ## Setup Database & User
 
-Follow these steps to create a MySQL user and database on cPanel, which can be used to manage your Laravel application's database.
+Follow these steps to create a MySQL user and database on cPanel, which can be used to manage your Gympify application's database.
 
 #### Step 1: Generate an API Token
 

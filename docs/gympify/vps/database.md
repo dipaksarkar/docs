@@ -1,7 +1,7 @@
 
 ## Setup Database & User
 
-Follow these steps to create a MySQL user with appropriate privileges for managing the database using Laravel.
+Follow these steps to create a MySQL user with appropriate privileges for managing the database using Gympify.
 
 #### Step 1: Login to MySQL
 
@@ -32,7 +32,7 @@ Replace `'your-password'` with your desired password.
 
 #### Step 3: Update `.env` File
 
-After creating the user, update the `.env` file in your Laravel project to include the database credentials:
+After creating the user, update the `.env` file in your Gympify project to include the database credentials:
 
 ```bash
 DB_DATABASE=gympify_admin
