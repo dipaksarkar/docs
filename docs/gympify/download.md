@@ -10,7 +10,7 @@ To set up the application on your development machine, follow these steps:
     
     Navigate to **Assets** and download **Gympify_v2.3.zip**.
     
-    ![Download Gympify](/gympify/upgrade.jpg)
+    ![Download Gympify](/gympify/upgrade.png)
 
 2. **Extract the downloaded zip file:**
    
