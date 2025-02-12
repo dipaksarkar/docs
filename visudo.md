@@ -79,3 +79,49 @@ sudo systemctl start nobounch-queues
 ```
 
 This method keeps the main `sudoers` file clean while still granting the necessary permissions. 🚀
+
+
+To register the aliases globally (for all users, not just your user), follow these steps:
+
+---
+
+### **1️⃣ Add the Aliases to a Global Profile File**
+Edit the global profile file:
+```sh
+sudo nano /etc/profile.d/nobounch-aliases.sh
+```
+Add the following lines:
+```sh
+alias nobounch-restart='/usr/bin/supervisorctl restart nobounch-worker:*'
+alias nobounch-status='/usr/bin/supervisorctl status nobounch-worker:*'
+```
+Save and exit (**CTRL + X**, then **Y**, then **ENTER**).
+
+---
+
+### **2️⃣ Make the File Executable**
+Run:
+```sh
+sudo chmod +x /etc/profile.d/nobounch-aliases.sh
+```
+
+---
+
+### **3️⃣ Apply the Changes**
+To apply immediately, run:
+```sh
+source /etc/profile.d/nobounch-aliases.sh
+```
+
+For new sessions, it will load automatically.
+
+---
+
+### **4️⃣ Verify**
+Open a new terminal and test:
+```sh
+nobounch-restart
+nobounch-status
+```
+
+✅ Now the aliases are available system-wide for all users! 🚀

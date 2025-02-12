@@ -16,6 +16,26 @@ Millions of businesses of all sizes—from startups to large enterprises—use S
 -   `Active` - Indicates if the Stripe integration is active.
 -   `Test Mode` - Indicates if the integration is in test mode.
 
+## Webhook Events
+
+Stripe sends various webhook events to notify you about changes in your account and transactions. Here are some important events you might want to handle:
+
+- `invoice.payment_succeeded` - Triggered when an invoice payment succeeds.
+- `payment_intent.requires_action` - Triggered when a payment intent requires further action.
+- `setup_intent.succeeded` - Triggered when a setup intent succeeds.
+- `charge.succeeded` - Triggered when a charge is successful.
+- `payment_intent.succeeded` - Triggered when a payment intent succeeds.
+- `customer.subscription.created` - Triggered when a customer subscription is created.
+- `customer.subscription.updated` - Triggered when a customer subscription is updated.
+- `customer.subscription.deleted` - Triggered when a customer subscription is deleted.
+- `customer.updated` - Triggered when a customer is updated.
+- `customer.deleted` - Triggered when a customer is deleted.
+- `payment_method.automatically_updated` - Triggered when a payment method is automatically updated.
+- `payment_method.card_automatically_updated` - Triggered when a card payment method is automatically updated.
+- `invoice.payment_action_required` - Triggered when an invoice requires a payment action.
+
+For more details on each event, refer to the [Stripe Webhook Documentation](https://stripe.com/docs/webhooks).
+
 To get those credentials of stripe account [click here](https://stripe.com/docs/keys) or check on Stripe Documentation.
 
 **Steps:**
