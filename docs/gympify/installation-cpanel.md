@@ -24,6 +24,10 @@ While Gympify **can be installed on shared hosting**, for optimal performance an
 
 <!--@include: ./cpanel/database.md-->
 
+## How to Get a License
+
+To use Gympify, you need to obtain a valid license. Please refer to the [How to Get a License Guide](/nitrofit28/how-to-get-license) for detailed instructions on acquiring and activating your license.
+
 <!--@include: ./gui-install.md-->
 
 <!--@include: ./cpanel/cron-job.md-->

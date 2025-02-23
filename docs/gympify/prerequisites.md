@@ -54,13 +54,6 @@ The ionCube Loader is critical for running encrypted files. Make sure to downloa
 #### Database
 - **MySQL**: Latest version recommended (minimum MySQL 5.7 or MariaDB 10.2)
 
-#### Additional Software
-- **Node.js**: Latest LTS version (required for frontend dependencies and build processes). 
-
-::: warning 
-If you want to **build or modify themes on the server**, you will need to have **npm** installed to compile assets. Without **npm**, you can still edit template files (`views/**/*.blade.php`), but **you will not be able to modify or build any assets** (such as JavaScript, CSS, or images).
-:::
-
 #### Recommended Configurations
 For optimal performance:
 - Use **nginx** as the web server for faster performance and scalability.
