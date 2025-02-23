@@ -70,6 +70,10 @@ This project utilizes the latest Laravel version (currently 11.x). Refer to the 
 The root folder for Laravel is `/public`. Do not install it in a sub-folder; using a sub-domain is preferable over a sub-folder. We do not support installing our product in a sub-folder.
 :::
 
+## How to Get a License
+
+To use NitroFIT28, you need to obtain a valid license. Please refer to the [How to Get a License Guide](/nitrofit28/how-to-get-license) for detailed instructions on acquiring and activating your license.
+
 ## Install via GUI
 
 1. **Create Database and Upload Files**
@@ -115,23 +119,3 @@ Replace `{project-root}` with the actual path to your NitroFIT28 project.
 ## Post Installation
 
 After completing the installation, refer to the [Post Installation Guide](./post-installation.md) for additional setup steps and best practices to ensure your NitroFIT28 site runs smoothly.
-
-
-## Remove Dummy Data
-
-1. Open the SSH terminal on your machine and run the following command:
-
-```
-ssh your_username@host_ip_address
-```
-
-::: warning
-Please ask your hsoting provider to getting all the information related to ssh.
-:::
-
-2. Type in your password and hit Enter. Then run following commands:
-
-```
-cd public_html
-php artisan migrate:fresh --force
-```
