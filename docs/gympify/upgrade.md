@@ -22,7 +22,7 @@ Please note that these steps will replace any customizations you have made, incl
 
     Navigate to **Assets** and download **Gympify_v2.4.zip**.
 
-    ![Download Gympify](/gympify/release.jpg)
+    ![Download Gympify](/gympify/release.png)
 
 2. Extract the downloaded zip file to a temporary location on your machine. You will find the following file structure:
 
