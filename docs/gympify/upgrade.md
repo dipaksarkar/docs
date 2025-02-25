@@ -16,22 +16,22 @@ Please note that these steps will replace any customizations you have made, incl
 
 ## Replace Old Files
 
-1. Download the latest version of Gympify from the [GitHub Release](https://github.com/coders-tm/gympify/releases/tag/v2.3) page.
+1. Download the latest version of Gympify from the [GitHub Release](https://github.com/coders-tm/gympify/releases/latest) page.
 
     Ensure you are logged in with the correct account and have access to the repository. If you do not have access, please contact the repository owner.
 
-    Navigate to **Assets** and download **Gympify_v2.3.zip**.
+    Navigate to **Assets** and download **Gympify_v2.4.zip**.
 
-    ![Download Gympify](/gympify/upgrade.jpg)
+    ![Download Gympify](/gympify/release.jpg)
 
 2. Extract the downloaded zip file to a temporary location on your machine. You will find the following file structure:
 
     ```
-    /gympify_v2.3 // Main files
+    /gympify_v2.4 // Main files
     readme.html
     ```
 
-3. Move all files from `gympify_v2.3` to your server's `public_html` directory, replacing existing files. Exclude the following folders:
+3. Move all files from `gympify_v2.4` to your server's `public_html` directory, replacing existing files. Exclude the following folders:
     ```
     /src
     /src-capacitor
