@@ -8,15 +8,15 @@ To set up the application on your development machine, follow these steps:
     
     Ensure you are logged in with the correct account and have access to the repository. If you do not have access, please contact the repository owner.
     
-    Navigate to **Assets** and download **Gympify_v2.3.zip**.
+    Navigate to **Assets** and download **Gympify_v2.4.zip**.
     
-    ![Download Gympify](/gympify/upgrade.png)
+    ![Download Gympify](/gympify/release.png)
 
 2. **Extract the downloaded zip file:**
    
     Extract the zip file to a temporary location on your machine. You will find the following file structure:
     ```
-    gympify_v2.3
+    gympify_v2.4
     ├── app
     ├── bootstrap
     ├── config
