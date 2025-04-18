@@ -5,6 +5,7 @@ export default [
       { text: "What is BouncifyPro?", link: "/bouncifypro/" },
       { text: "Installation", link: "/bouncifypro/installation" },
       { text: "Upgrade Guide", link: "/bouncifypro/upgrade" },
+      { text: "Changelog", link: "/bouncifypro/changelog" },
     ],
   },
   {
