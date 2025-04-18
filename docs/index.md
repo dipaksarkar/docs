@@ -21,6 +21,9 @@ hero:
     - theme: alt
       text: Qaravel
       link: /qaravel/
+    - theme: alt
+      text: BouncifyPro
+      link: /bouncifypro/
 
 # features:
 #   - title: "Web Development"
