@@ -6,6 +6,10 @@ titleTemplate: BouncifyPro
 
 This section will guide you through setting up a basic BouncifyPro documentation site from scratch.
 
+::: danger WARNING
+BouncifyPro can't be installed on shared hosting. It requires a VPS or dedicated server with root access. If you are using shared hosting, please consider upgrading to a VPS or dedicated server.
+:::
+
 ::: info
 For upgrading your existing BouncifyPro installation, please refer to the [Upgrade Guide](/bouncifypro/upgrade) for detailed instructions.
 :::

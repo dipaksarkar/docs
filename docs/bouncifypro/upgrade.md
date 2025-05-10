@@ -6,11 +6,11 @@ titleTemplate: BouncifyPro
 
 This section will guide you through upgrading your BouncifyPro application to the latest version.
 
-::: danger
+::: danger WARNING
 Before proceeding, it's crucial to take a backup of your database and files. This precautionary measure helps prevent any potential data loss during the upgrade process.
 :::
 
-::: danger
+::: danger WARNING
 Please note that these steps will replace any customizations you have made, including logo, frontend view files, and other modifications. If you are a developer, we recommend using version control (e.g., Git) to track your changes.
 :::
 
