@@ -22,45 +22,52 @@ Please note that these steps will replace any customizations you have made, incl
    ```
    https://your-domain.com/admin/upgrade
    ```
-   ![Upgrade BouncifyPro](/bouncifypro/upgrade.png)
+   
+   When your software is up to date, you'll see a confirmation screen:
+   
+   ![No Updates Available](/bouncifypro/no-update.png)
+   
+   You can click the "Check for Updates" button anytime to manually verify if new versions are available.
 
 2. **Review Update Information**
    
-   When an update is available, you'll see:
-   - The new version number
+   When an update is available, you'll see detailed information about the new version:
+   
+   ![Update Available](/bouncifypro/upgrade.png)
+   
+   The update screen provides:
+   - The new version number (e.g., v2.1.0)
    - Release date
    - Update size
-   - Release notes with details about new features and fixes
+   - Comprehensive release notes with new features and improvements
 
 3. **Prepare for Upgrade**
    
-   Before starting the upgrade process:
-   - Make a backup of your database
-   - Make a backup of your files
-   - Inform users of scheduled downtime (the system will be temporarily unavailable during the upgrade)
+   Before proceeding with the installation:
+   - **Back up your database** - This is critical to prevent data loss
+   - **Back up your files** - Especially any customized templates or configurations
+   - **Inform your users** - The system will be temporarily unavailable during the upgrade
+   - **Schedule the update** - Choose a low-traffic time to minimize disruption
 
 4. **Initiate the Upgrade**
    
-   - Read the disclaimer and check the confirmation box
-   - Click the "Install Update" button to begin the upgrade process
-   - Do NOT close your browser during the upgrade process
-
-5. **Monitor Progress**
+   To begin the upgrade:
+   - Read the important disclaimer at the bottom of the page
+   - Check the confirmation box acknowledging you understand the process
+   - Click the "Install Update" button to start the upgrade
    
-   The upgrade process includes several steps:
-   - Downloading the update package
-   - Extracting update files
-   - Running database migrations
-   - Seeding any new database data
-   - Clearing application caches
-   - Restarting services
+   ::: warning
+   During the upgrade, you'll see a progress indicator showing the current status. **Do not close your browser** until the process completes.
+   :::
 
-6. **Post-Upgrade**
+5. **Complete the Upgrade**
    
-   Once the upgrade is complete:
-   - The page will automatically refresh
-   - Verify that all features are working correctly
-   - Check for any new configuration options that may have been added
+   Once the upgrade finishes successfully:
+   - A success dialog will appear confirming the update has been completed
+   - The page will refresh after you close this dialog
+   - You may need to log in again to access your updated dashboard
+   - Take a few minutes to verify all features are working correctly
+   - Explore any new functionality mentioned in the release notes
 
 ## Troubleshooting
 
