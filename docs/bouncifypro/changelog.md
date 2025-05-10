@@ -15,5 +15,4 @@ All notable changes to BouncifyPro will be documented in this file.
 -   [Feature] Developed detailed validation reporting with actionable insights
 -   [UI/UX] Created responsive admin interface with dark/light mode support
 -   [API] Released RESTful API for third-party integrations
--   [Mobile] Released iOS and Android companion apps
 -   [System] Multi-language support with 8 languages include
