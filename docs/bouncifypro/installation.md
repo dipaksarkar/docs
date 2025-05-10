@@ -60,9 +60,9 @@ The root folder for Laravel is `/public`. Do not install it in a sub-folder; usi
 
 ## How to Get a License
 
-To use BouncifyPro, you need to obtain a valid license. Please refer to the [How to Get a License Guide](/bouncifypro/how-to-get-license) for detailed instructions on acquiring and activating your license.
+To use BouncifyPro, you need to obtain a valid license directly from our website. We do not use Envato purchase codes. Please refer to the [How to Get a License Guide](/bouncifypro/how-to-get-license) for detailed instructions on acquiring and activating your license.
 
-## Install via GUI
+## Install via One-Click Installer
 
 1. **Create Database and Upload Files**
   - Upload all files into the root folder of your hosting (typically `public_html`), excluding the following directories:
@@ -74,27 +74,78 @@ To use BouncifyPro, you need to obtain a valid license. Please refer to the [How
     /statics
     ```
 
-2. **Rename Configuration Files**
-  - Rename the following files:
+2. **Copy Configuration Files**
+  - Copy the following files:
     ```
     .env.example -> .env
     .htaccess.example -> .htaccess
     ```
 
 3. **Start Installation**
-  - Navigate to `[your-domain-name.com/install]` to begin the installation process.
+  - Navigate to `your-domain-name.com/install` to begin the installation process.
+  - Follow the step-by-step installation wizard:
 
-4. **Setup Database and Site Information**
-  - Follow the step-by-step instructions to configure your database connection, site information, and administrator account.
+    ### Step 1: System and Requirements Check
 
-5. **Login and Setup Website**
-  - Log in and set up your website using the Welcome Board.
-    ```
-    Admin URL: [your-domain-name.com/admin]
-    Email: that you used in the installation
-    Password: Pa$$w0rd!
-    ```
+    In this first step, the installer performs two important checks:
 
+    **System Requirements**
+    - Verifies PHP version (8.2 or higher)
+    - Checks required PHP extensions
+    - Validates server configurations
+    
+    **Directory Permissions**
+    - Ensures critical directories are writable
+    - Confirms file permissions are correctly set
+    
+    All items should display a green checkmark. If you see any red indicators, you'll need to resolve these issues before continuing.
+
+    ![System Requirements Check](/bouncifypro/installer-1.png)
+
+    ### Step 2: Application & Database Setup
+
+    Here you'll configure the core settings for your application:
+
+    **Application Settings**
+    - **Application Name**: Choose a name for your BouncifyPro installation
+    - **Admin Email**: This will be your administrator login
+    - **License Key**: Enter your valid license key (purchased directly from our website)
+
+    **Database Configuration**
+    - **Database Name**: The name of your MySQL database
+    - **Database Username**: Your database username
+    - **Database Password**: Your database password
+    - **Host**: Usually "localhost" unless using a remote database
+    - **Port**: Default is 3306 for MySQL
+
+    ![Application and Database Configuration](/bouncifypro/installer-2.png)
+
+    ### Step 3: Installation Process
+
+    During this step, the installer will:
+    - Connect to your database
+    - Create required tables
+    - Import initial data
+    - Configure core settings
+    - Set up required services
+
+    The progress bar shows the current installation status. This process typically takes 30-60 seconds depending on your server.
+
+    ![Installation Progress](/bouncifypro/installer-3.png)
+
+    ### Step 4: Installation Complete
+
+    Upon successful completion, you'll see this confirmation screen with:
+    - Success message
+    - Admin login URL
+    - Your admin credentials (email and password)
+    - Additional important information
+
+    Be sure to save your admin password before navigating away from this page!
+
+    ![Installation Success](/bouncifypro/installer-4.png)
+
+    Click the "Go to Admin Dashboard" button to access your new BouncifyPro dashboard.
 
 ## Add Cron Jobs
 
@@ -105,10 +156,9 @@ To set up cron jobs for BouncifyPro, add the following lines to your server's cr
 ```bash
 # Find your PHP path using 'which php' command and replace as needed
 * * * * * /usr/bin/env php {project-root}/artisan schedule:run >> /dev/null 2>&1
-* * * * * /usr/bin/env php {project-root}/artisan horizon:manager
 ```
 
-Replace `{project-root}` with the actual path to your BouncifyPro project. The `/usr/bin/env php` approach works across most systems, but you can specify the full path to your PHP version if needed (e.g., `/usr/local/bin/php` or `/usr/bin/php8.3`).
+Replace `{project-root}` with the actual path to your BouncifyPro project. The `/usr/bin/env php` approach works across most systems, but you can specify the full path to your PHP version if needed (e.g., `/usr/local/bin/php` or `/usr/bin/php8.2`).
 
 ## Post Installation
 
