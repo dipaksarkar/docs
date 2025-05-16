@@ -29,15 +29,3 @@ FLUSH PRIVILEGES;
 ```
 
 Replace `'your-password'` with your desired password.
-
-#### Step 3: Update `.env` File
-
-After creating the user, update the `.env` file in your Gympify project to include the database credentials:
-
-```bash
-DB_DATABASE=gympify_admin
-DB_USERNAME=gympify_admin
-DB_PASSWORD=your-password
-```
-
-Ensure that the credentials match the values you used in the previous step.

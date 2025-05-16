@@ -8,47 +8,17 @@ To set up the application on your development machine, follow these steps:
     
     Ensure you are logged in with the correct account and have access to the repository. If you do not have access, please contact the repository owner.
     
-    Navigate to **Assets** and download **Gympify_v2.4.zip**.
+    Navigate to **Assets** and download **Gympify_v2.6.1.zip**.
     
     ![Download Gympify](/gympify/release.png)
 
-2. **Extract the downloaded zip file:**
-   
-    Extract the zip file to a temporary location on your machine. You will find the following file structure:
-    ```
-    gympify_v2.4
-    ├── app
-    ├── bootstrap
-    ├── config
-    ├── database
-    ├── lib
-    ├── modules
-    ├── public
-    ├── resources
-    ├── routes
-    ├── src
-    ├── src-capacitor
-    ├── statics
-    ├── storage
-    ├── tenant
-    ├── themes
-    ├── vendor
-    ├── .env.example
-    ├── .htaccess.example
-    ├── artisan
-    ├── composer.json
-    ├── composer.lock
-    ├── index.html
-    ├── package.json
-    ├── quasar.config.js
-    ├── quasar.extensions.json
-    ├── README.md
-    ├── webpack.mix.js
-    ├── webpack.quasar.mix.js
-    ├── webpack.theme.mix.js
-    └── yarn.lock
-    readme.html
-    ```
+2. **Upload the zipped file to your server:**
+    - Use an FTP client (like FileZilla) to upload the zipped file to your server.
+    - Unzip the file on your server. You can use the following command:
+        ```bash
+        unzip Gympify_v2.6.1.zip
+        ```
+    - If you are using cPanel, you can unzip the file directly from the File Manager.
 
 3. **Copy configuration files:**
    
@@ -63,4 +33,12 @@ To set up the application on your development machine, follow these steps:
     ```bash
     cp .htaccess.example .htaccess
     ```
-
+4. **Update the .env file:**
+   
+    Open the `.env` file in a text editor and update the following lines:
+    
+    ```bash
+    APP_DOMAIN=your-domain-name.com
+    ```
+    
+    Replace `your-domain-name.com` with your actual domain name.

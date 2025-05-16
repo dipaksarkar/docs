@@ -22,12 +22,10 @@ If you're looking to install Gympify on **cPanel shared hosting**, refer to the 
 
 ## How to Get a License
 
-To use Gympify, you need to obtain a valid license. Please refer to the [How to Get a License Guide](/nitrofit28/how-to-get-license) for detailed instructions on acquiring and activating your license.
+To use Gympify, you need to obtain a valid license. Please refer to the [How to Get a License Guide](/gympify/how-to-get-license) for detailed instructions on acquiring and activating your license.
 
 <!--@include: ./gui-install.md-->
 
 <!--@include: ./cron-job.md-->
 
 <!--@include: ./vps/queues.md-->
-
-<!--@include: ./post-install.md-->

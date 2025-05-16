@@ -33,5 +33,3 @@ To use Gympify, you need to obtain a valid license. Please refer to the [How to 
 <!--@include: ./cpanel/cron-job.md-->
 
 <!--@include: ./cpanel/queues.md-->
-
-<!--@include: ./post-install.md-->

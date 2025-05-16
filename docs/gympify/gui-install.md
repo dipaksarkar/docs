@@ -1,22 +1,35 @@
-## Install via GUI
+## One Click Installer
 
-1. Upload all files to the root folder of your hosting (usually `public_html`). Exclude the following folders:
-    ```
-    /src
-    /src-capacitor
-    /statics
-    ```
-2. Visit [your-domain-name.com/install] to begin the installation process.
-3. Follow the step-by-step instructions to set up your database connection, site information, and administrator account.
-4. Log in and configure your website using the Welcome Board.
-5. Now you can access tenant dashboard and central admin dashboard using following URLs:
-    ```
-    Tenant Dashboard: [admin.your-domain-name.com]
-    Central Admin Dashboard: [app.your-domain-name.com]
-    ```
-    
-    Credentials for the central admin dashboard are:
-    ```
-    Email: your email that you have used during installation
-    Password: Pa$$w0rd!
-    ```
+### **Start Installation**
+- Navigate to `your-domain-name.com/install` to begin the installation process.
+- Follow the step-by-step installation wizard:
+
+### **Step 1: System and Requirements Check**
+     
+In this first step, the installer performs important checks:
+- Verifies PHP version and required extensions
+- Validates server configurations
+- Ensures critical directories are writable
+
+All items should display a green checkmark. If you see any red indicators, you'll need to resolve these issues before continuing.
+     
+### **Step 2: Database and Site Information Setup**
+
+Here you'll configure your database connection and site information:
+- Database name, username, password, and host
+- Site name and administrator account details
+     
+### **Step 3: Installation Process**
+     
+During this step, the installer will:
+- Connect to your database
+- Create required tables
+- Import initial data
+- Configure core settings
+     
+### **Step 4: Installation Complete**
+     
+Upon successful completion, you'll see a confirmation screen with:
+- Success message
+- Login instructions
+- Your admin credentials

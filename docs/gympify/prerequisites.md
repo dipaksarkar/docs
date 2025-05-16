@@ -1,27 +1,3 @@
-## Prerequisites
-
-To get started with a Gympify application, ensure you have the following prerequisites for your development machine:
-
-1. **Node 14+ for Quasar CLI with Vite**.
-   - To check your Node.js version, run `node -v` in a terminal/console window.
-2. **Yarn v1 (strongly recommended)**, PNPM, or NPM.
-   - To check your Yarn version, run `yarn -v` in a terminal/console window.
-
-### Installing Quasar CLI
-
-The Quasar CLI is used for project creation, generating application and library code, and various development tasks.
-
-Install the Quasar CLI globally:
-
-```bash
-yarn global add @quasar/cli
-yarn global add @quasar/icongenie
-```
-
-::: warning
-On this project, we're using the latest Quasar version (currently 2.x). Please go to [Quasar documentation](https://quasar.dev/start/quasar-cli) page for more information.
-:::
-
 ## Server Requirements
 
 To run **Gympify** efficiently, ensure that your server meets the following requirements. These include the web server, PHP version, necessary extensions, and database requirements.
@@ -42,6 +18,7 @@ To run **Gympify** efficiently, ensure that your server meets the following requ
   - **OpenSSL**
   - **PCRE**
   - **PDO**
+  - **Redis** (for caching and session management)
   - **Tokenizer**
   - **XML**
   - **Imagick** (for image processing and manipulation)
@@ -71,7 +48,7 @@ This command will list all installed PHP modules. Cross-check it with the list a
 
 
 ::: warning
-This project utilizes the latest Laravel version (currently 11.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
+This project utilizes the latest Laravel version (currently 12.x). Refer to the [Laravel documentation](https://laravel.com/docs) for more information.
 
 The root folder for Laravel is `/public`. Do not install it in a sub-folder; using a sub-domain is preferable over a sub-folder. We do not support installing our product in a sub-folder.
 :::

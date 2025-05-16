@@ -32,13 +32,9 @@ To create the database and user:
 
 #### Step 3: Update `.env` File
 
-Update the `.env` file with the following details for the database, cPanel, and tenancy configuration:
+Update the `.env` file with the following details for the cPanel, and tenancy configuration:
 
 ```bash
-DB_DATABASE=your-database-name
-DB_USERNAME=your-database-username
-DB_PASSWORD=your-password
-
 # cPanel Service
 CPANEL_URL=https://your-cpanel-server.com:2083
 CPANEL_USER=your-cpanel-username
@@ -50,8 +46,5 @@ TENANCY_DB_PREFIX="${CPANEL_USER}_"
 ```
 
 Replace the placeholders with the actual values:
-- `your-database-name`: The name of the database you created.
-- `your-database-username`: The username for the new database user.
-- `your-password`: The password for the database user.
 - `your-cpanel-username`: Your cPanel username.
 - `your-cpanel-token`: The API token generated earlier.
