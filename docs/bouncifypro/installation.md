@@ -68,6 +68,17 @@ To use BouncifyPro, you need to obtain a valid license directly from our website
 
 ## Install via One-Click Installer
 
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 20px;">
+  <iframe 
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+      src="https://www.youtube-nocookie.com/embed/oQNQDTUpGQU?si=L2ydDl9MwPkcf3fN&amp;controls=0&amp;rel=0&amp;modestbranding=1&amp;showinfo=0" 
+      title="BouncifyPro Installation Guide" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+  </iframe>
+</div>
+
 1. **Create Database and Upload Files**
   - Upload all files into the root folder of your hosting (typically `public_html`), excluding the following directories:
     ```
