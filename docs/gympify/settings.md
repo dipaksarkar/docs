@@ -94,10 +94,9 @@ There are also several ways for customers to pay online without using a credit c
 
 -   [Setting up your payments](/gympify/settings/payments)
 -   [Stripe](/gympify/settings/payments.html#setup-stripe)
--   Razorpay (Coming soon...)
--   PayPal Express (Coming soon...)
--   Third-party payment providers (Coming soon...)
--   Additional payment methods
+-   [PayPal](/gympify/settings/payments.html#setup-paypal)
+-   [GoCardless](/gympify/settings/payments.html#setup-gocardless)
+-   [Razorpay](/gympify/settings/payments.html#setup-razorpay)
 -   Manual payment methods
 
 

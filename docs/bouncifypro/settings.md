@@ -47,10 +47,9 @@ There are also several ways for customers to pay online without using a credit c
 
 -   [Setting up your payments](/bouncifypro/settings/payments)
 -   [Stripe](/bouncifypro/settings/payments.html#setup-stripe)
--   Razorpay (Coming soon...)
--   PayPal Express (Coming soon...)
--   Third-party payment providers (Coming soon...)
--   Additional payment methods
+-   [PayPal](/bouncifypro/settings/payments.html#setup-paypal)
+-   [GoCardless](/bouncifypro/settings/payments.html#setup-gocardless)
+-   [Razorpay](/bouncifypro/settings/payments.html#setup-razorpay)
 -   Manual payment methods
 
 

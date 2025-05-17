@@ -97,8 +97,6 @@ There are also several ways for customers to pay online without using a credit c
 -   [PayPal](/nitrofit28/settings/payments.html#setup-paypal)
 -   [GoCardless](/nitrofit28/settings/payments.html#setup-gocardless)
 -   [Razorpay](/nitrofit28/settings/payments.html#setup-razorpay)
--   Third-party payment providers (Coming soon...)
--   Additional payment methods
 -   Manual payment methods
 
 
