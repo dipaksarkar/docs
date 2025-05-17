@@ -25,7 +25,7 @@ We are thrilled to announce the launch of **Gympify**, our latest SaaS offering 
 Homepage: https://nitrofit28.coderstm.com<br>
 Admin Area: https://nitrofit28.coderstm.com/admin<br>
 Member Area: https://nitrofit28.coderstm.com/user<br>
-Username: `hello@coderstm.com`<br>
+Username: `nitrofit28@coderstm.com`<br>
 Password: `Pa$$w0rd!`
 
 ## Features
