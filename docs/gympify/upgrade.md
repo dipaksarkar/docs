@@ -20,7 +20,7 @@ Please note that these steps will replace any customizations you have made, incl
    
    BouncifyPro automatically checks for updates once per day. However, you can manually check for updates at any time by visiting:
    ```
-   https://your-domain.com/admin/upgrade
+   https://app.your-domain.com/upgrade
    ```
    
    When your software is up to date, you'll see a confirmation screen:
