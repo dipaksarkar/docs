@@ -6,89 +6,76 @@ titleTemplate: Gympify
 
 This section will guide you through upgrading your Gympify application to the latest version.
 
-::: danger
+::: danger WARNING
 Before proceeding, it's crucial to take a backup of your database and files. This precautionary measure helps prevent any potential data loss during the upgrade process.
 :::
 
-::: danger
+::: danger WARNING
 Please note that these steps will replace any customizations you have made, including logo, frontend view files, and other modifications. If you are a developer, we recommend using version control (e.g., Git) to track your changes.
 :::
 
-## Replace Old Files
+## Upgrade Steps
 
-1. Download the latest version of Gympify from the [GitHub Release](https://github.com/coders-tm/gympify/releases/latest) page.
+1. **Check for Updates**
+   
+   BouncifyPro automatically checks for updates once per day. However, you can manually check for updates at any time by visiting:
+   ```
+   https://your-domain.com/admin/upgrade
+   ```
+   
+   When your software is up to date, you'll see a confirmation screen:
+   
+   ![No Updates Available](/bouncifypro/no-update.png)
+   
+   You can click the "Check for Updates" button anytime to manually verify if new versions are available.
 
-    Ensure you are logged in with the correct account and have access to the repository. If you do not have access, please contact the repository owner.
+2. **Review Update Information**
+   
+   When an update is available, you'll see detailed information about the new version:
+   
+   ![Update Available](/bouncifypro/upgrade.png)
+   
+   The update screen provides:
+   - The new version number (e.g., v2.6.2)
+   - Release date
+   - Update size
+   - Comprehensive release notes with new features and improvements
 
-    Navigate to **Assets** and download **Gympify_v2.4.zip**.
+3. **Prepare for Upgrade**
+   
+   Before proceeding with the installation:
+   - **Back up your database** - This is critical to prevent data loss
+   - **Back up your files** - Especially any customized templates or configurations
+   - **Inform your users** - The system will be temporarily unavailable during the upgrade
+   - **Schedule the update** - Choose a low-traffic time to minimize disruption
 
-    ![Download Gympify](/gympify/release.png)
+4. **Initiate the Upgrade**
+   
+   To begin the upgrade:
+   - Read the important disclaimer at the bottom of the page
+   - Check the confirmation box acknowledging you understand the process
+   - Click the "Install Update" button to start the upgrade
+   
+   ::: warning
+   During the upgrade, you'll see a progress indicator showing the current status. **Do not close your browser** until the process completes.
+   :::
 
-2. Extract the downloaded zip file to a temporary location on your machine. You will find the following file structure:
+5. **Complete the Upgrade**
+   
+   Once the upgrade finishes successfully:
+   - A success dialog will appear confirming the update has been completed
+   - The page will refresh after you close this dialog
+   - You may need to log in again to access your updated dashboard
+   - Take a few minutes to verify all features are working correctly
+   - Explore any new functionality mentioned in the release notes
 
-    ```
-    /gympify_v2.4 // Main files
-    readme.html
-    ```
+## Troubleshooting
 
-3. Move all files from `gympify_v2.4` to your server's `public_html` directory, replacing existing files. Exclude the following folders:
-    ```
-    /src
-    /src-capacitor
-    /statics
-    ```
+If the upgrade process fails:
+1. Review the error message displayed on the upgrade page
+2. You can attempt to resume the upgrade by clicking the "Resume Update" button
+3. If problems persist, restore from your backup and contact support
 
-    ::: danger
-    Please be aware that these steps will overwrite any customizations you have made.
-    :::
-
-## Migrate Databases & Data
-
-1. Access your server via SSH by opening a terminal and running the following command, replacing `username` with your SSH username and `your-domain.com` with your server's IP address:
-
-    ```
-    ssh username@your-domain.com
-    ```
-
-    ::: warning
-    If you are unsure about SSH access details, please contact your hosting provider for assistance.
-    :::
-
-2. Enter your password when prompted and press Enter. Once logged in, navigate to the `public_html` directory by running the following command:
-
-    ```
-    cd public_html
-    ```
-
-3. Run the following commands to migrate the database schema and seed necessary data:
-
-    ```
-    php artisan optimize:clear
-    php artisan migrate --force
-    php artisan db:seed --class=CentralUpgradeSeeder --force
-    php artisan tenants:migrate --force
-    php artisan tenants:seed --class=UpgradeSeeder --force
-    ```
-    
-    These commands will update your database schema and populate any required seed data.
-
-4. After running these commanda, you will need to restart your queue worker by running the following command:
-
-    ::: code-group
-
-    ```bash [VPS]
-    sudo systemctl restart gympify-queues
-    ```
-
-    ```bash [cPanel]
-    php artisan queue:manager restart
-    ```
-
-    :::
-
-    ::: danger
-    It's highly recommended to take a backup of your database before proceeding with these commands to prevent any potential data loss.
-    :::
-
-
-By following these steps, you can successfully upgrade your Gympify application to the latest version. If you encounter any issues during the upgrade process, please refer to the documentation or contact support for assistance.
+::: tip
+Always keep your application updated to benefit from the latest features, security fixes, and performance improvements.
+:::
