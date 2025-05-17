@@ -21,10 +21,11 @@ Thank you for purchasing Gympify! If you have any questions beyond this help fil
 
 ## Demo
 - **Homepage:** [https://gympify.com](https://gympify.com)
+- **Central Area:** [https://app.gympify.com](https://app.gympify.com)
 - **Admin Area:** [https://admin.gympify.com](https://admin.gympify.com)
 - **Member Area:** [https://fitpro.gympify.com/user](https://fitpro.gympify.com/user)  
-  Username: `hello@coderstm.com`  
-  Password: `Gis0ra$$;`
+  Username: `demo@gympify.com`  
+  Password: `Pa$$w0rd!`
 
 ## Key Features
 
