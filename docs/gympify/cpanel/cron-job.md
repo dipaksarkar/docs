@@ -18,30 +18,15 @@ Cron jobs are scheduled tasks that run at predefined times or intervals on your 
 ```bash
 # Run Gympify scheduler
 /usr/bin/php /home/username/public_html/artisan schedule:run >> /dev/null 2>&1
+/usr/bin/php /home/username/public_html/artisan queue:manager >> /dev/null 2>&1
 ```
 
 Replace `/home/username/public_html` with the actual path to your Gympify installation. If you're unsure about your PHP path, you can use this command instead:
 
 ```bash
 /usr/bin/env php /home/username/public_html/artisan schedule:run >> /dev/null 2>&1
+/usr/bin/env php /home/username/public_html/artisan queue:manager >> /dev/null 2>&1
 ```
-
-### Additional Configuration for Shared Hosting
-
-If you're using cPanel shared hosting, you need to enable the queue manager. This process is handled in two steps:
-
-1. **Enable the queue manager in the application code**
-   
-   In your Gympify installation, open `app/Console/Kernel.php` and uncomment the following line:
-   
-   ```php
-   // If deploying on cPanel shared hosting, uncomment the line below to run the queue manager every minute.
-   $schedule->command('queue:manager')->everyMinute();
-   ```
-
-2. **Verify cron job execution**
-
-   After setting up your cron job, wait a few minutes and check if it's running properly. You can verify this by looking at the application logs or checking if scheduled tasks are being performed.
 
 ### Troubleshooting Common Issues
 
