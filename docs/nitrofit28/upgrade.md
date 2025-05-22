@@ -25,7 +25,7 @@ Please note that these steps will replace any customizations you have made, incl
    
    When your software is up to date, you'll see a confirmation screen:
    
-   ![No Updates Available](/bouncifypro/no-update.png)
+   ![No Updates Available](/bouncify/no-update.png)
    
    You can click the "Check for Updates" button anytime to manually verify if new versions are available.
 
@@ -33,7 +33,7 @@ Please note that these steps will replace any customizations you have made, incl
    
    When an update is available, you'll see detailed information about the new version:
    
-   ![Update Available](/bouncifypro/upgrade.png)
+   ![Update Available](/bouncify/upgrade.png)
    
    The update screen provides:
    - The new version number (e.g., v2.1.0)

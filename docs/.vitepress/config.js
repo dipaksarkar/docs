@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 import nitrofit28 from "./sidebar/nitrofit28";
 import qaravel from "./sidebar/qaravel";
 import gympify from "./sidebar/gympify";
-import bouncifypro from "./sidebar/bouncifypro";
+import bouncify from "./sidebar/bouncify";
 
 export default defineConfig({
   lang: "en-US",
@@ -30,7 +30,7 @@ export default defineConfig({
       "/nitrofit28/": nitrofit28,
       "/gympify/": gympify,
       "/qaravel/": qaravel,
-      "/bouncifypro/": bouncifypro,
+      "/bouncify/": bouncify,
     },
 
     socialLinks: [
