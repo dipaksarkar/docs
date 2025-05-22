@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Groups
@@ -20,7 +20,7 @@ The Groups section allows you to create and manage groups within your store, ena
 4.  Click `Save`.
 
 ##  Delete a group
-You can delete a single group, or delete multiple groups at the same time using a bulk action. When you delete a group, it's temporary removed from `BouncifyPro`. Deleted groups can be restored.
+You can delete a single group, or delete multiple groups at the same time using a bulk action. When you delete a group, it's temporary removed from `Bouncify`. Deleted groups can be restored.
 
 **Steps:**
 

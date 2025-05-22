@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Setting up your coupons
@@ -25,7 +25,7 @@ Coupons can be used to discount invoices, subscriptions, or entire customer acco
 4.  Click `Save`.
 
 ##  Delete a coupon
-You can delete a single coupon, or delete multiple coupons at the same time using a bulk action. When you delete a coupon, it's temporary removed from `BouncifyPro`. Deleted coupons can be restored.
+You can delete a single coupon, or delete multiple coupons at the same time using a bulk action. When you delete a coupon, it's temporary removed from `Bouncify`. Deleted coupons can be restored.
 
 **To delete a coupon:**
 

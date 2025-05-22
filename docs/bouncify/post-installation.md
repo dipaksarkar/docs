@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Post Installation

@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Settings
@@ -45,32 +45,32 @@ There are also several ways for customers to pay online without using a credit c
 
 **In this section**
 
--   [Setting up your payments](/bouncifypro/settings/payments)
--   [Stripe](/bouncifypro/settings/payments.html#setup-stripe)
--   [PayPal](/bouncifypro/settings/payments.html#setup-paypal)
--   [GoCardless](/bouncifypro/settings/payments.html#setup-gocardless)
--   [Razorpay](/bouncifypro/settings/payments.html#setup-razorpay)
+-   [Setting up your payments](/bouncify/settings/payments)
+-   [Stripe](/bouncify/settings/payments.html#setup-stripe)
+-   [PayPal](/bouncify/settings/payments.html#setup-paypal)
+-   [GoCardless](/bouncify/settings/payments.html#setup-gocardless)
+-   [Razorpay](/bouncify/settings/payments.html#setup-razorpay)
 -   Manual payment methods
 
 
 ## Notification Templates
-Notification templates allow you to customise the messages that go out to your customers when actions occur inside `BouncifyPro`. You can customize every email that goes out to a customer here.
+Notification templates allow you to customise the messages that go out to your customers when actions occur inside `Bouncify`. You can customize every email that goes out to a customer here.
 
 You can access this feature at Settings > Notification Templates.
 
-[Setting up your notification](/bouncifypro/settings/notifications)
+[Setting up your notification](/bouncify/settings/notifications)
 
 
 ##  Taxes
-You might need to charge taxes on your sales, and then report and remit those taxes to your government. Although tax laws and regulations are complex and can change often, you can set up BouncifyPro to automatically handle most common sales tax calculations. You can also set up tax overrides to address unique tax laws and situations.
+You might need to charge taxes on your sales, and then report and remit those taxes to your government. Although tax laws and regulations are complex and can change often, you can set up Bouncify to automatically handle most common sales tax calculations. You can also set up tax overrides to address unique tax laws and situations.
 
 You can access this feature at Settings > Taxes.
 
-[Setting up your taxes](/bouncifypro/settings/taxes)
+[Setting up your taxes](/bouncify/settings/taxes)
 
 ## Configure Email Validation
 
-The Email Validation section allows you to configure settings for BouncifyPro's powerful email validation service. These settings control how email addresses are verified for accuracy, existence, and deliverability, helping you maintain clean mailing lists and improve email campaign performance.
+The Email Validation section allows you to configure settings for Bouncify's powerful email validation service. These settings control how email addresses are verified for accuracy, existence, and deliverability, helping you maintain clean mailing lists and improve email campaign performance.
 
 **Available Settings**
 
@@ -105,7 +105,7 @@ Access the domain management section to configure filters for disposable domains
 
 ## Mail Configuration
 
-The Mail Configuration section allows you to set up and manage the email service that powers all communications from your BouncifyPro platform. Proper email configuration is essential for ensuring reliable delivery of system notifications, customer communications, and email validation service alerts.
+The Mail Configuration section allows you to set up and manage the email service that powers all communications from your Bouncify platform. Proper email configuration is essential for ensuring reliable delivery of system notifications, customer communications, and email validation service alerts.
 
 **Available Settings**
 

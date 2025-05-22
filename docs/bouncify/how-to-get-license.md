@@ -1,17 +1,17 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # How to Get a License
 
-To obtain a license for BouncifyPro, follow these steps:
+To obtain a license for Bouncify, follow these steps:
 
 1. Go to the [Coderstm](https://coderstm.com/user/) website.
 2. Create an account if you are not already registered: [Sign Up](https://coderstm.com/user/sign-up).
 3. Log in to your account.
 4. Choose `Licenses` from the menu.
 5. Click on the `Add License` button.
-6. Select the product `BouncifyPro`.
+6. Select the product `Bouncify`.
 7. Choose the sales channel from where you purchased the product.
 8. Enter your domain name in the `Domain` field.
 9. Enter the purchase code you received when you bought the product:

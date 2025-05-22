@@ -1,10 +1,10 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Dashboard Overview
 
-The BouncifyPro dashboard provides a comprehensive overview of your business performance, user activity, and sales data. It's designed to give you actionable insights at a glance through a combination of KPI widgets, interactive charts, and recent activity displays.
+The Bouncify dashboard provides a comprehensive overview of your business performance, user activity, and sales data. It's designed to give you actionable insights at a glance through a combination of KPI widgets, interactive charts, and recent activity displays.
 
 ## Quick Access Menu
 

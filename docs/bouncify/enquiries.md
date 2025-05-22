@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Enquiries
@@ -32,7 +32,7 @@ To archive a enquiry:
 3.  On the enquiry details page, Check the box labeled `Archived`.
 
 ##  Delete a enquiry
-You can delete a single enquiry, or delete multiple enquiries at the same time using a bulk action. When you delete a enquiry, it's permanently removed from `BouncifyPro`. Deleted enquiries can be restored. If you no longer want to display a enquiry for any reason, but don’t want to permanently delete it from your `BouncifyPro`, then you can archive the enquiry instead.
+You can delete a single enquiry, or delete multiple enquiries at the same time using a bulk action. When you delete a enquiry, it's permanently removed from `Bouncify`. Deleted enquiries can be restored. If you no longer want to display a enquiry for any reason, but don’t want to permanently delete it from your `Bouncify`, then you can archive the enquiry instead.
 
 ::: warning
 Only staff can edit his reply and messages and staff can also delete enquiry.

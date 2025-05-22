@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Staff
@@ -33,7 +33,7 @@ This feature allows you to assign or remove instructor roles for staff members w
 4.  Click `Confirm`.
 
 ##  Delete a staff
-You can delete a single staff, or delete multiple staff at the same time using a bulk action. When you delete a staff, it's temporary removed from `BouncifyPro`. Deleted staff can be restored.
+You can delete a single staff, or delete multiple staff at the same time using a bulk action. When you delete a staff, it's temporary removed from `Bouncify`. Deleted staff can be restored.
 
 **Steps:**
 

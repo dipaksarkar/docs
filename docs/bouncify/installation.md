@@ -1,22 +1,22 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Installation
 
-This section will guide you through setting up a basic BouncifyPro documentation site from scratch.
+This section will guide you through setting up a basic Bouncify documentation site from scratch.
 
 ::: danger WARNING
-BouncifyPro can't be installed on shared hosting. It requires a VPS or dedicated server with root access. If you are using shared hosting, please consider upgrading to a VPS or dedicated server.
+Bouncify can't be installed on shared hosting. It requires a VPS or dedicated server with root access. If you are using shared hosting, please consider upgrading to a VPS or dedicated server.
 :::
 
 ::: info
-For upgrading your existing BouncifyPro installation, please refer to the [Upgrade Guide](/bouncifypro/upgrade) for detailed instructions.
+For upgrading your existing Bouncify installation, please refer to the [Upgrade Guide](/bouncify/upgrade) for detailed instructions.
 :::
 
 ## Server Requirements
 
-To run **BouncifyPro** efficiently, ensure that your server meets the following requirements. These include the web server, PHP version, necessary extensions, and database requirements.
+To run **Bouncify** efficiently, ensure that your server meets the following requirements. These include the web server, PHP version, necessary extensions, and database requirements.
 
 #### Web Server
 - **Apache**, **nginx**, or any other compatible web server.
@@ -64,7 +64,7 @@ The root folder for Laravel is `/public`. Do not install it in a sub-folder; usi
 
 ## How to Get a License
 
-To use BouncifyPro, you need to obtain a valid license directly from our website. We do not use Envato purchase codes. Please refer to the [How to Get a License Guide](/bouncifypro/how-to-get-license) for detailed instructions on acquiring and activating your license.
+To use Bouncify, you need to obtain a valid license directly from our website. We do not use Envato purchase codes. Please refer to the [How to Get a License Guide](/bouncify/how-to-get-license) for detailed instructions on acquiring and activating your license.
 
 ## Install via One-Click Installer
 
@@ -72,7 +72,7 @@ To use BouncifyPro, you need to obtain a valid license directly from our website
   <iframe 
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
       src="https://www.youtube-nocookie.com/embed/oQNQDTUpGQU?si=L2ydDl9MwPkcf3fN&amp;controls=0&amp;rel=0&amp;modestbranding=1&amp;showinfo=0" 
-      title="BouncifyPro Installation Guide" 
+      title="Bouncify Installation Guide" 
       frameborder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
       allowfullscreen>
@@ -115,14 +115,14 @@ To use BouncifyPro, you need to obtain a valid license directly from our website
     
     All items should display a green checkmark. If you see any red indicators, you'll need to resolve these issues before continuing.
 
-    ![System Requirements Check](/bouncifypro/installer-1.png)
+    ![System Requirements Check](/bouncify/installer-1.png)
 
     ### Step 2: Application & Database Setup
 
     Here you'll configure the core settings for your application:
 
     **Application Settings**
-    - **Application Name**: Choose a name for your BouncifyPro installation
+    - **Application Name**: Choose a name for your Bouncify installation
     - **Admin Email**: This will be your administrator login
     - **License Key**: Enter your valid license key (purchased directly from our website)
 
@@ -133,7 +133,7 @@ To use BouncifyPro, you need to obtain a valid license directly from our website
     - **Host**: Usually "localhost" unless using a remote database
     - **Port**: Default is 3306 for MySQL
 
-    ![Application and Database Configuration](/bouncifypro/installer-2.png)
+    ![Application and Database Configuration](/bouncify/installer-2.png)
 
     ### Step 3: Installation Process
 
@@ -146,7 +146,7 @@ To use BouncifyPro, you need to obtain a valid license directly from our website
 
     The progress bar shows the current installation status. This process typically takes 30-60 seconds depending on your server.
 
-    ![Installation Progress](/bouncifypro/installer-3.png)
+    ![Installation Progress](/bouncify/installer-3.png)
 
     ### Step 4: Installation Complete
 
@@ -158,23 +158,23 @@ To use BouncifyPro, you need to obtain a valid license directly from our website
 
     Be sure to save your admin password before navigating away from this page!
 
-    ![Installation Success](/bouncifypro/installer-4.png)
+    ![Installation Success](/bouncify/installer-4.png)
 
-    Click the "Go to Admin Dashboard" button to access your new BouncifyPro dashboard.
+    Click the "Go to Admin Dashboard" button to access your new Bouncify dashboard.
 
 ## Add Cron Jobs
 
 Cron jobs are scheduled tasks that run at predefined times or intervals on your server. They are essential for automating repetitive tasks such as running scripts, performing maintenance, or triggering specific actions at set times.
 
-To set up cron jobs for BouncifyPro, add the following lines to your server's crontab:
+To set up cron jobs for Bouncify, add the following lines to your server's crontab:
 
 ```bash
 # Find your PHP path using 'which php' command and replace as needed
 * * * * * /usr/bin/env php {project-root}/artisan schedule:run >> /dev/null 2>&1
 ```
 
-Replace `{project-root}` with the actual path to your BouncifyPro project. The `/usr/bin/env php` approach works across most systems, but you can specify the full path to your PHP version if needed (e.g., `/usr/local/bin/php` or `/usr/bin/php8.2`).
+Replace `{project-root}` with the actual path to your Bouncify project. The `/usr/bin/env php` approach works across most systems, but you can specify the full path to your PHP version if needed (e.g., `/usr/local/bin/php` or `/usr/bin/php8.2`).
 
 ## Post Installation
 
-After completing the installation, refer to the [Post Installation Guide](./post-installation.md) for additional setup steps and best practices to ensure your BouncifyPro site runs smoothly.
+After completing the installation, refer to the [Post Installation Guide](./post-installation.md) for additional setup steps and best practices to ensure your Bouncify site runs smoothly.

@@ -1,10 +1,10 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Upgrade Guide
 
-This section will guide you through upgrading your BouncifyPro application to the latest version.
+This section will guide you through upgrading your Bouncify application to the latest version.
 
 ::: danger WARNING
 Before proceeding, it's crucial to take a backup of your database and files. This precautionary measure helps prevent any potential data loss during the upgrade process.
@@ -18,14 +18,14 @@ Please note that these steps will replace any customizations you have made, incl
 
 1. **Check for Updates**
    
-   BouncifyPro automatically checks for updates once per day. However, you can manually check for updates at any time by visiting:
+   Bouncify automatically checks for updates once per day. However, you can manually check for updates at any time by visiting:
    ```
    https://your-domain.com/admin/upgrade
    ```
    
    When your software is up to date, you'll see a confirmation screen:
    
-   ![No Updates Available](/bouncifypro/no-update.png)
+   ![No Updates Available](/bouncify/no-update.png)
    
    You can click the "Check for Updates" button anytime to manually verify if new versions are available.
 
@@ -33,7 +33,7 @@ Please note that these steps will replace any customizations you have made, incl
    
    When an update is available, you'll see detailed information about the new version:
    
-   ![Update Available](/bouncifypro/upgrade.png)
+   ![Update Available](/bouncify/upgrade.png)
    
    The update screen provides:
    - The new version number (e.g., v2.1.0)

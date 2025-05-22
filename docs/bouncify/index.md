@@ -1,11 +1,11 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Bulk Email Verification & Lead Management Platform (SaaS)
 
 ## Introduction
-BouncifyPro is a powerful email validation SaaS system. It helps businesses maintain clean email lists, improve deliverability, and enhance email marketing performance through advanced validation rules and comprehensive management tools.
+Bouncify is a powerful email validation SaaS system. It helps businesses maintain clean email lists, improve deliverability, and enhance email marketing performance through advanced validation rules and comprehensive management tools.
 
 Created: `Apr 1st, 2025`<br>
 By: `Coderstm`<br>
@@ -15,9 +15,9 @@ Version: `v1.0`
 Thank you for purchasing this product. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form here for quickly support. Thank you so much!
 
 ## Demo
-Homepage: https://bouncifypro.coderstm.com<br>
-Admin Area: https://bouncifypro.coderstm.com/admin<br>
-User Area: https://bouncifypro.coderstm.com/user (Real Demo)<br>
+Homepage: https://bouncify.coderstm.com<br>
+Admin Area: https://bouncify.coderstm.com/admin<br>
+User Area: https://bouncify.coderstm.com/user (Real Demo)<br>
 Username: `hello@coderstm.com`<br>
 Password: `Pa$$w0rd!`
 

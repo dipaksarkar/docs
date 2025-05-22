@@ -1,14 +1,14 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Change Log
 
-All notable changes to BouncifyPro will be documented in this file.
+All notable changes to Bouncify will be documented in this file.
 
 ## [1.0] - 2025-04-01
 
--   [Core] Launched BouncifyPro with complete email validation functionality
+-   [Core] Launched Bouncify with complete email validation functionality
 -   [Feature] Implemented single and bulk email validation
 -   [Feature] Added comprehensive validation methods (syntax, MX, mailbox verification)
 -   [Feature] Built advanced list management system with duplicate detection

@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Credit plans
@@ -43,7 +43,7 @@ You can quickly enable or disable credit plans without deleting them.
 3.  Click the toggle switch in the `Active` column to change its status.
 
 ##  Delete a plan
-You can delete a single plan, or delete multiple plans at the same time using a bulk action. When you delete a plan, it's temporary removed from `BouncifyPro`. Deleted plans can be restored.
+You can delete a single plan, or delete multiple plans at the same time using a bulk action. When you delete a plan, it's temporary removed from `Bouncify`. Deleted plans can be restored.
 
 **To delete a plan:**
 

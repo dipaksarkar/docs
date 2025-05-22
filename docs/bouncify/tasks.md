@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Tasks
@@ -31,7 +31,7 @@ To archive a task:
 3.  On the task details page, Check the box labeled `Archived`.
 
 ##  Delete a task
-You can delete a single task, or delete multiple tasks at the same time using a bulk action. When you delete a task, it's permanently removed from `BouncifyPro`. Deleted tasks can be restored. If you no longer want to display a task for any reason, but don’t want to permanently delete it from your `BouncifyPro`, then you can archive the task instead.
+You can delete a single task, or delete multiple tasks at the same time using a bulk action. When you delete a task, it's permanently removed from `Bouncify`. Deleted tasks can be restored. If you no longer want to display a task for any reason, but don’t want to permanently delete it from your `Bouncify`, then you can archive the task instead.
 
 To permanently delete a task:
 

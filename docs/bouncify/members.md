@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Members
@@ -86,7 +86,7 @@ To add or adjust a member's credits:
 2. The system will generate a CSV file of your member data.
 
 ##  Delete a member
-You can delete a single member, or delete multiple members at the same time using a bulk action. When you delete a member, it's temporary removed from `BouncifyPro`. Deleted members can be restored.
+You can delete a single member, or delete multiple members at the same time using a bulk action. When you delete a member, it's temporary removed from `Bouncify`. Deleted members can be restored.
 
 **Steps:**
 

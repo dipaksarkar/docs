@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 #   Adding and updating notifications
@@ -37,7 +37,7 @@ To making default a notification:
 3.  Click `Mark as Default`.
 
 ##  Delete a notification
-You can delete a single notification, or delete multiple notifications at the same time using a bulk action. When you delete a notification, it's permanently removed from `BouncifyPro`. Deleted notifications can't be restored.
+You can delete a single notification, or delete multiple notifications at the same time using a bulk action. When you delete a notification, it's permanently removed from `Bouncify`. Deleted notifications can't be restored.
 
 To permanently delete a notification:
 

@@ -1,5 +1,5 @@
 ---
-titleTemplate: BouncifyPro
+titleTemplate: Bouncify
 ---
 
 # Setting up your payments
@@ -81,7 +81,7 @@ Follow these steps to create a PayPal app and obtain the necessary credentials:
 2. **Create a New App**:
    - Click on "Apps & Credentials" in the dashboard.
    - Select "Create App" button.
-   - Enter a name for your application (e.g., "BouncifyPro Integration").
+   - Enter a name for your application (e.g., "Bouncify Integration").
    - Choose the account type (Business or Personal).
    - Click "Create App".
 
@@ -115,7 +115,7 @@ PayPal sends various webhook events to notify you about changes in your account 
 
 For more details on each event, refer to the [PayPal Webhook Documentation](https://developer.paypal.com/api/webhooks/).
 
-### Steps to Configure in BouncifyPro:
+### Steps to Configure in Bouncify:
 
 1.  From your admin, go to `Settings > Payments`.
 2.  From the `Payments` page, click on the `Edit` icon of PayPal.
@@ -164,7 +164,7 @@ Follow these steps to create a GoCardless account and obtain the necessary crede
 
 For more details on each event, refer to the [GoCardless API Documentation](https://developer.gocardless.com/api-reference/).
 
-### Steps to Configure in BouncifyPro:
+### Steps to Configure in Bouncify:
 
 1. From your admin, go to `Settings > Payments`.
 2. From the `Payments` page, click on the `Edit` icon of GoCardless.
@@ -228,7 +228,7 @@ Razorpay sends various webhook events to notify you about changes in your accoun
 
 For more details on each event, refer to the [Razorpay API Documentation](https://razorpay.com/docs/api/).
 
-### Steps to Configure in BouncifyPro:
+### Steps to Configure in Bouncify:
 
 1. From your admin, go to `Settings > Payments`.
 2. From the `Payments` page, click on the `Edit` icon of Razorpay.
