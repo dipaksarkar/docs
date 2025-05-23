@@ -65,7 +65,7 @@ The root folder for Laravel is `/public`. Do not install it in a sub-folder; usi
 
 ## How to Get a License
 
-To use NitroFIT28, you need to obtain a valid license. Please refer to the [How to Get a License Guide](/nitrofit28/how-to-get-license) for detailed instructions on acquiring and activating your license.
+To use NitroFIT28, you must enter a valid **Envato Purchase Code**. You will receive this code after purchasing the item on [CodeCanyon](https://codecanyon.net). Please refer to the [License Activation Guide](/nitrofit28/how-to-get-license.html) for detailed steps on how to activate your copy.
 
 ## Install via GUI
 

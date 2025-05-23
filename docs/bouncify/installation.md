@@ -64,7 +64,7 @@ The root folder for Laravel is `/public`. Do not install it in a sub-folder; usi
 
 ## How to Get a License
 
-To use Bouncify, you need to obtain a valid license directly from our website. We do not use Envato purchase codes. Please refer to the [How to Get a License Guide](/bouncify/how-to-get-license) for detailed instructions on acquiring and activating your license.
+To use Bouncify, you must enter a valid **Envato Purchase Code**. You will receive this code after purchasing the item on [CodeCanyon](https://codecanyon.net). Please refer to the [License Activation Guide](/bouncify/how-to-get-license.html) for detailed steps on how to activate your copy.
 
 ## Install via One-Click Installer
 
