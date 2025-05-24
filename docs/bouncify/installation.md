@@ -80,23 +80,9 @@ To use Bouncify, you must enter a valid **Envato Purchase Code**. You will recei
 </div>
 
 1. **Create Database and Upload Files**
-  - Upload all files into the root folder of your hosting (typically `public_html`), excluding the following directories:
-    ```
-    /dist
-    /node_modules
-    /src
-    /src-capacitor
-    /statics
-    ```
+  - Upload all files into the root folder of your hosting (typically `public_html`)
 
-2. **Copy Configuration Files**
-  - Copy the following files:
-    ```
-    .env.example -> .env
-    .htaccess.example -> .htaccess
-    ```
-
-3. **Start Installation**
+2. **Start Installation**
   - Navigate to `your-domain-name.com/install` to begin the installation process.
   - Follow the step-by-step installation wizard:
 
