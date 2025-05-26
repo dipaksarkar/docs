@@ -3,7 +3,7 @@
 This guide explains how to replace URLs like  
 `https://bouncifypro.com/file/email-verification-illustration.svg?hash=40d9b4d8f51f822bb6ca7a19e858b97a`  
 with  
-`/storage/files/40d9b4d8f51f822bb6ca7a19e858b97a.svg`  
+`/uploads/files/40d9b4d8f51f822bb6ca7a19e858b97a.svg`  
 in your database **and** in all `.blade.php` files, for different database systems and operating systems.
 
 ---
@@ -17,7 +17,7 @@ UPDATE pages
 SET data = REGEXP_REPLACE(
   data, 
   'https:\\\\\/\\\\\/bouncifypro\\.com\\\\\/file\\\\\/([^?]+)\\.([a-zA-Z0-9]+)\\?hash=([a-zA-Z0-9]+)',
-  '\\\\/storage\\\\/files\\\\/\\3.\\2'
+  '\\\\/uploads\\\\/files\\\\/\\3.\\2'
 );
 ```
 
@@ -28,7 +28,7 @@ UPDATE pages
 SET data = REGEXP_REPLACE(
   data,
   'https:\\\/\\\/bouncifypro\.com\\\/file\\\/[^?]+\.([a-zA-Z0-9]+)\?hash=([a-zA-Z0-9]+)',
-  '\\/storage\\/files\\/\\2.\\1',
+  '\\/uploads\\/files\\/\\2.\\1',
   'g'
 );
 ```
@@ -42,7 +42,7 @@ UPDATE pages
 SET data = REPLACE(
   data,
   'https:\/\/bouncifypro.com\/file\/email-verification-illustration.svg?hash=40d9b4d8f51f822bb6ca7a19e858b97a',
-  '\/storage\/files\/40d9b4d8f51f822bb6ca7a19e858b97a.svg'
+  '\/uploads\/files\/40d9b4d8f51f822bb6ca7a19e858b97a.svg'
 );
 ```
 Repeat for each unique file.
