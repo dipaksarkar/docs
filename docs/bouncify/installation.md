@@ -16,7 +16,7 @@ For upgrading your existing Bouncify installation, please refer to the [Upgrade 
 
 ## Server Requirements
 
-To run **Bouncify** efficiently, ensure that your server meets the following requirements. These include the web server, PHP version, necessary extensions, and database requirements.
+To run **Bouncify** efficiently, ensure that your server meets the following requirements. These include the web server, PHP version, necessary extensions, and database requirements. For more detailed specifications, please review our comprehensive [Server Requirements Guide](/bouncify/faqs/server-requirements).
 
 #### Web Server
 - **Apache**, **nginx**, or any other compatible web server.

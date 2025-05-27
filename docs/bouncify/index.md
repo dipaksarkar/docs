@@ -5,7 +5,7 @@ titleTemplate: Bouncify
 # Bulk Email Verification & Lead Management Platform (SaaS)
 
 ## Introduction
-Bouncify is a powerful email validation SaaS system. It helps businesses maintain clean email lists, improve deliverability, and enhance email marketing performance through advanced validation rules and comprehensive management tools.
+Bouncify is a powerful email validation SaaS system. It helps businesses maintain clean email lists, improve deliverability, and enhance email marketing performance through advanced validation rules and comprehensive management tools. Check our [server requirements](/bouncify/faqs/server-requirements) for optimal deployment of this SaaS solution.
 
 Created: `Apr 1st, 2025`<br>
 By: `Coderstm`<br>
