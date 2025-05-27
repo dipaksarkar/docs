@@ -41,7 +41,7 @@ These addresses are not deliverable. Remove them from your list. Reasons include
 
 These domains accept all emails, making it impossible to confirm if an address is truly valid without sending a real message. Some emails may bounce. We recommend segmenting these addresses.
 
-[Learn more about Catch-All Emails](/bouncify/frequently-asked-questions/what-are-catch-all-domains)
+[Learn more about Catch-All Emails](/bouncify/faqs/what-are-catch-all-domains)
 
 ---
 
