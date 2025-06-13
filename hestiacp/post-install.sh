@@ -58,6 +58,32 @@ else
         install_package php${version}-sqlite3
     done
     echo "✅ All PHP extensions installed"
+    
+    # Update php.ini for each PHP version to allow Laravel queue and Horizon functions
+    echo "🔄 Updating PHP configurations for Laravel compatibility..."
+    for version in $php_versions; do
+        # Find php.ini paths - check both CLI and FPM
+        PHP_INI_PATHS=$(find /etc/php/${version} -name php.ini 2>/dev/null)
+        
+        if [ -z "$PHP_INI_PATHS" ]; then
+            echo "⚠️ No php.ini found for PHP ${version}"
+        else
+            for php_ini in $PHP_INI_PATHS; do
+                echo "🔧 Updating ${php_ini}"
+                
+                # Create backup
+                sudo cp "${php_ini}" "${php_ini}.bak.$(date +%Y%m%d%H%M%S)"
+                
+                # Modify disable_functions directive to keep only system,passthru
+                if grep -q "^disable_functions" "${php_ini}"; then
+                    # Replace the entire disable_functions line
+                    sudo sed -i 's/^disable_functions = .*/disable_functions = system,passthru/' "${php_ini}"
+                    echo "✅ Updated disable_functions in ${php_ini} to allow Laravel queue and Horizon"
+                fi
+            done
+        fi
+    done
+    echo "✅ PHP configurations updated for Laravel compatibility"
 fi
 
 echo "🎉 Installation completed successfully!"
