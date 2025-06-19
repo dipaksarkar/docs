@@ -1,7 +1,7 @@
 #!/bin/bash
 # Installs ionCube on all existing and supported PHP versions using HestiaCP
 
-set -e
+# set -e
 
 source /etc/hestiacp/hestia.conf
 
