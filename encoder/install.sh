@@ -8,19 +8,31 @@ echo "=================================="
 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then
-    echo "❌ Node.js is not installed. Please install Node.js first:"
-    echo "   macOS: brew install node"
-    echo "   Ubuntu: sudo apt-get install nodejs npm"
-    echo "   Or visit: https://nodejs.org/"
-    exit 1
+    echo "❌ Node.js is not installed. Installing Node.js..."
+    echo "   Updating package list..."
+    sudo apt update
+    echo "   Installing Node.js and npm..."
+    sudo apt install -y nodejs npm
+    
+    if ! command -v node &> /dev/null; then
+        echo "❌ Failed to install Node.js. Please install manually:"
+        echo "   curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -"
+        echo "   sudo apt-get install -y nodejs"
+        exit 1
+    fi
 fi
 
 echo "✅ Node.js version: $(node --version)"
 
 # Check if npm is installed
 if ! command -v npm &> /dev/null; then
-    echo "❌ npm is not installed. Please install npm first."
-    exit 1
+    echo "❌ npm is not installed. Installing npm..."
+    sudo apt install -y npm
+    
+    if ! command -v npm &> /dev/null; then
+        echo "❌ Failed to install npm"
+        exit 1
+    fi
 fi
 
 echo "✅ npm version: $(npm --version)"
@@ -52,6 +64,7 @@ IONCUBE_PATHS=(
     "/usr/local/ioncube/ioncube_encoder"
     "/opt/ioncube/ioncube_encoder"
     "/usr/bin/ioncube_encoder"
+    "/usr/local/bin/ioncube_encoder"
     "$(which ioncube_encoder 2>/dev/null)"
 )
 

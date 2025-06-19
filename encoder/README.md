@@ -46,9 +46,42 @@ sudo ../cloudpanel/enable_ioncube.sh
 
 ## Installation
 
+### For Ubuntu
+
 1. **Clone or navigate to the encoder directory:**
    ```bash
    cd encoder
+   ```
+
+2. **Run the automatic installation script:**
+   ```bash
+   chmod +x install.sh
+   ./install.sh
+   ```
+   
+   This will:
+   - Install Node.js and npm automatically
+   - Install project dependencies
+   - Create necessary directories
+   - Check for IonCube encoder
+
+3. **Install IonCube encoder (if not found):**
+   ```bash
+   chmod +x install-ioncube-ubuntu.sh
+   ./install-ioncube-ubuntu.sh
+   ```
+
+4. **Start the server:**
+   ```bash
+   npm start
+   ```
+
+### Manual Installation
+
+1. **Install Node.js and npm:**
+   ```bash
+   sudo apt update
+   sudo apt install -y nodejs npm
    ```
 
 2. **Install dependencies:**
@@ -56,7 +89,12 @@ sudo ../cloudpanel/enable_ioncube.sh
    npm install
    ```
 
-3. **Configure IonCube path (if needed):**
+3. **Create directories:**
+   ```bash
+   mkdir -p uploads temp output
+   ```
+
+4. **Configure IonCube path (if needed):**
    
    Edit `config/config.js` and update the `ioncubePath` if IonCube is installed in a different location:
    ```javascript
@@ -191,6 +229,85 @@ Content-Disposition: attachment; filename="encoded-project.zip"
   "success": false,
   "message": "Error description"
 }
+```
+
+## Production Deployment (Ubuntu)
+
+### Using the Deployment Script
+
+1. **Prepare for deployment:**
+   ```bash
+   chmod +x deploy.sh
+   sudo ./deploy.sh
+   ```
+
+   This will:
+   - Install Node.js if not present
+   - Create application directory at `/opt/ioncube-encoder-api`
+   - Set up systemd service
+   - Configure proper permissions
+
+2. **Start the service:**
+   ```bash
+   sudo systemctl start ioncube-encoder-api
+   sudo systemctl enable ioncube-encoder-api
+   ```
+
+3. **Check service status:**
+   ```bash
+   sudo systemctl status ioncube-encoder-api
+   ```
+
+### Manual Deployment
+
+1. **Create application directory:**
+   ```bash
+   sudo mkdir -p /opt/ioncube-encoder-api
+   sudo cp -r . /opt/ioncube-encoder-api/
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   cd /opt/ioncube-encoder-api
+   sudo npm install --production
+   ```
+
+3. **Create systemd service:**
+   ```bash
+   sudo cp ioncube-encoder-api.service /etc/systemd/system/
+   sudo systemctl daemon-reload
+   sudo systemctl enable ioncube-encoder-api
+   sudo systemctl start ioncube-encoder-api
+   ```
+
+### Using with Nginx (Optional)
+
+Create `/etc/nginx/sites-available/ioncube-api`:
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+    
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        client_max_body_size 100M;
+    }
+}
+```
+
+Enable the site:
+```bash
+sudo ln -s /etc/nginx/sites-available/ioncube-api /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ## Troubleshooting

@@ -22,21 +22,22 @@ echo "📍 Current directory: $CURRENT_DIR"
 if ! command -v node &> /dev/null; then
     echo "📦 Installing Node.js..."
     
-    # Detect OS
-    if [[ -f /etc/debian_version ]]; then
-        # Debian/Ubuntu
-        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-        apt-get install -y nodejs
-    elif [[ -f /etc/redhat-release ]]; then
-        # CentOS/RHEL
-        curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
-        yum install -y nodejs
-    else
-        echo "❌ Unsupported OS. Please install Node.js manually."
+    # Ubuntu/Debian installation
+    echo "   Updating package list..."
+    apt update
+    
+    echo "   Installing Node.js from NodeSource repository..."
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    apt-get install -y nodejs
+    
+    # Verify installation
+    if ! command -v node &> /dev/null; then
+        echo "❌ Failed to install Node.js"
         exit 1
     fi
     
     echo "✅ Node.js installed: $(node --version)"
+    echo "✅ npm version: $(npm --version)"
 fi
 
 # Install dependencies
@@ -50,32 +51,43 @@ fi
 
 # Create service user
 echo "👤 Creating service user..."
-if ! id "ioncube-api" &>/dev/null; then
-    useradd -r -s /bin/false -d /var/lib/ioncube-api ioncube-api
-    echo "✅ User 'ioncube-api' created"
+if ! id "www-data" &>/dev/null; then
+    # Create www-data user if it doesn't exist
+    useradd -r -s /bin/false -d /var/www www-data
+    echo "✅ User 'www-data' created"
 else
-    echo "✅ User 'ioncube-api' already exists"
+    echo "✅ User 'www-data' already exists"
+fi
+
+# Create application directory
+APP_DIR="/opt/ioncube-encoder-api"
+echo "📁 Setting up application directory: $APP_DIR"
+
+if [ "$CURRENT_DIR" != "$APP_DIR" ]; then
+    # Copy application to /opt directory
+    mkdir -p "$APP_DIR"
+    cp -r "$CURRENT_DIR"/* "$APP_DIR/"
+    CURRENT_DIR="$APP_DIR"
 fi
 
 # Create directories with proper permissions
-echo "📁 Setting up directories..."
-mkdir -p /var/lib/ioncube-api/{uploads,temp,output,logs}
-chown -R ioncube-api:ioncube-api /var/lib/ioncube-api
-chmod 755 /var/lib/ioncube-api
-chmod 755 /var/lib/ioncube-api/{uploads,temp,output,logs}
+echo "📁 Setting up data directories..."
+mkdir -p "$CURRENT_DIR"/{uploads,temp,output,logs}
+chown -R www-data:www-data "$CURRENT_DIR"
+chmod 755 "$CURRENT_DIR"
+chmod 755 "$CURRENT_DIR"/{uploads,temp,output,logs}
 
 # Copy service files
 echo "📋 Installing systemd service..."
 cp "$CURRENT_DIR/$SERVICE_NAME.service" /etc/systemd/system/
 
 # Update service file with correct paths
-sed -i "s|/path/to/encoder|$CURRENT_DIR|g" /etc/systemd/system/$SERVICE_NAME.service
-sed -i "s|User=www-data|User=ioncube-api|g" /etc/systemd/system/$SERVICE_NAME.service
-sed -i "s|ReadWritePaths=.*|ReadWritePaths=$CURRENT_DIR/uploads $CURRENT_DIR/temp $CURRENT_DIR/output /var/lib/ioncube-api|g" /etc/systemd/system/$SERVICE_NAME.service
+sed -i "s|WorkingDirectory=.*|WorkingDirectory=$CURRENT_DIR|g" /etc/systemd/system/$SERVICE_NAME.service
+sed -i "s|ReadWritePaths=.*|ReadWritePaths=$CURRENT_DIR/uploads $CURRENT_DIR/temp $CURRENT_DIR/output|g" /etc/systemd/system/$SERVICE_NAME.service
 
 # Set permissions for application files
 echo "🔒 Setting file permissions..."
-chown -R ioncube-api:ioncube-api "$CURRENT_DIR"
+chown -R www-data:www-data "$CURRENT_DIR"
 chmod 755 "$CURRENT_DIR"
 chmod 644 "$CURRENT_DIR"/*.js
 chmod 644 "$CURRENT_DIR"/config/*.js
@@ -90,6 +102,7 @@ systemctl enable $SERVICE_NAME
 # Check IonCube installation
 echo "🔍 Checking IonCube encoder..."
 IONCUBE_PATHS=(
+    "/usr/local/bin/ioncube_encoder"
     "/usr/local/ioncube/ioncube_encoder"
     "/opt/ioncube/ioncube_encoder"
     "/usr/bin/ioncube_encoder"
