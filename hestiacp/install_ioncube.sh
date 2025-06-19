@@ -1,7 +1,7 @@
 #!/bin/bash
-# Installs ionCube on all existing and supported PHP versions using HestiaCP
 
-# set -e
+# Exit on error, undefined variable, or pipe failure
+set -euo pipefail
 
 source /etc/hestiacp/hestia.conf
 
@@ -9,41 +9,49 @@ source /etc/hestiacp/hestia.conf
 arch=$(arch)
 [ "$arch" = "x86_64" ] && arch="x86-64"
 
-# Prepare download URL
+# Prepare download
 url="https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_$arch.tar.gz"
 tmpdir=$(mktemp -d)
 
 echo "📦 Downloading ionCube loaders for $arch..."
 wget -q "$url" -O "$tmpdir/ioncube.tar.gz"
 
-echo "📂 Extracting archive..."
+echo "📂 Extracting ionCube archive..."
 tar -xzf "$tmpdir/ioncube.tar.gz" -C "$tmpdir"
 
 if [ ! -d "$tmpdir/ioncube" ]; then
-    echo "❌ Extraction failed — ioncube folder not found."
+    echo "❌ Extraction failed: ioncube directory not found"
     exit 1
 fi
 
-# Loop through all PHP versions installed via Hestia
-for php_version in $($HESTIA/bin/v-list-sys-php plain); do
+echo "🔍 Detected PHP versions:"
+php_versions=$($HESTIA/bin/v-list-sys-php plain)
+echo "$php_versions"
+
+for php_version in $php_versions; do
+    echo "🔧 Processing PHP $php_version..."
+
     loader_file="$tmpdir/ioncube/ioncube_loader_lin_${php_version}.so"
 
     if [ ! -f "$loader_file" ]; then
-        echo "⚠️ ionCube loader for PHP $php_version not found. Skipping..."
+        echo "⚠️ ionCube does NOT support PHP $php_version (loader not found)"
         continue
     fi
 
-    # Determine the extension_dir
+    # Get extension_dir
     extension_dir=$(/usr/bin/php$php_version -i | grep '^extension_dir =>' | awk '{print $3}')
+    echo "📁 extension_dir = $extension_dir"
+
     if [ -z "$extension_dir" ] || [ ! -d "$extension_dir" ]; then
-        echo "❌ Could not determine extension_dir for PHP $php_version. Skipping..."
+        echo "❌ extension_dir not found or invalid for PHP $php_version. Skipping..."
         continue
     fi
 
-    # Copy loader to extension directory
+    # Copy loader
     cp "$loader_file" "$extension_dir"
+    echo "✅ Copied ionCube loader to $extension_dir"
 
-    # Create ioncube config files for FPM and CLI
+    # Create config files
     for sapi in cli fpm; do
         conf_file="/etc/php/$php_version/$sapi/conf.d/00-ioncube-loader.ini"
         echo "zend_extension=$(basename "$loader_file")" > "$conf_file"
@@ -53,12 +61,12 @@ for php_version in $($HESTIA/bin/v-list-sys-php plain); do
     echo "✅ ionCube enabled for PHP $php_version"
 done
 
-# Restart all PHP-FPM versions
-echo "🔁 Restarting PHP-FPM services..."
+# Restart PHP-FPM
+echo "🔁 Restarting PHP-FPM..."
 $HESTIA/bin/v-restart-service 'php-fpm' yes
 
-# Cleanup
+# Clean up
 rm -rf "$tmpdir"
-echo "🧹 Cleaned up temporary files"
+echo "🧹 Cleanup done"
 
-echo "✅ ionCube installation completed"
+echo "🎉 ionCube installation complete!"
