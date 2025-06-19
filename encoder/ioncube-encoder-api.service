@@ -1,0 +1,33 @@
+[Unit]
+Description=IonCube Encoder API Service
+Documentation=https://github.com/your-repo/ioncube-encoder-api
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/path/to/encoder
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ioncube-encoder-api
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=IONCUBE_PATH=/usr/local/ioncube/ioncube_encoder
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/path/to/encoder/uploads /path/to/encoder/temp /path/to/encoder/output
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
