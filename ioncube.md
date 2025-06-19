@@ -19,3 +19,12 @@ grep -inr ioncube /etc/php/7.0
 
 rm /etc/php/8.2/cli/conf.d/00-ioncube.ini
 rm /etc/php/8.2/fpm/conf.d/00-ioncube.ini
+
+
+# Install ionCube Loader on Ubuntu 22.04
+
+```bash
+wget https://raw.githubusercontent.com/dipaksarkar/docs/refs/heads/master/hestiacp/install_ioncube.sh
+chmod +x install_ioncube.sh
+./install_ioncube.sh
+```
