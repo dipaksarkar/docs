@@ -22,6 +22,7 @@ NC='\033[0m' # No Color
 # Variables
 PROJECT_PATH=""
 ENCODE_PATHS=()
+EXCLUDE_FILES=()
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 ZIP_NAME="project_${TIMESTAMP}.zip"
 ENCODED_ZIP_NAME="encoded_${TIMESTAMP}.zip"
@@ -48,14 +49,16 @@ print_error() {
 
 # Function to show usage
 usage() {
-    echo "Usage: $0 {path} --encode {directory1} --encode {directory2} ... [--backup]"
+    echo "Usage: $0 {path} --encode {directory1} --encode {directory2} ... [--backup] [--exclude {file1}] [--exclude {file2}] ..."
     echo ""
     echo "Options:"
     echo "  --encode    Specify directories to encode (can be used multiple times)"
     echo "  --backup    Create backup of original files before replacing (optional)"
+    echo "  --exclude   Exclude specific files from the encoded zip (can be used multiple times)"
     echo ""
-    echo "Example:"
+    echo "Examples:"
     echo "  $0 /path/to/project --encode src/App --encode src/Lib --backup"
+    echo "  $0 /path/to/project --encode src/App --exclude src/App/Example.php --exclude src/App/Test.php"
     echo ""
     echo "Environment variables:"
     echo "  SSH_HOST     - Remote server hostname/IP (default: 192.168.64.3)"
@@ -100,7 +103,7 @@ fi
 PROJECT_PATH="$1"
 shift
 
-# Parse --encode and --backup arguments
+# Parse --encode, --backup, and --exclude arguments
 while [ $# -gt 0 ]; do
     case $1 in
         --encode)
@@ -114,6 +117,14 @@ while [ $# -gt 0 ]; do
         --backup)
             CREATE_BACKUP=true
             shift
+            ;;
+        --exclude)
+            if [ -z "$2" ]; then
+                print_error "--exclude requires a file path"
+                usage
+            fi
+            EXCLUDE_FILES+=("$2")
+            shift 2
             ;;
         *)
             print_error "Unknown argument: $1"
@@ -136,6 +147,9 @@ fi
 print_info "Starting encoding process..."
 print_info "Project path: $PROJECT_PATH"
 print_info "Encode paths: ${ENCODE_PATHS[*]}"
+if [ ${#EXCLUDE_FILES[@]} -gt 0 ]; then
+    print_info "Exclude files: ${EXCLUDE_FILES[*]}"
+fi
 print_info "Create backup: $CREATE_BACKUP"
 print_info "Remote server: $SSH_USER@$SSH_HOST:$SSH_PORT"
 
@@ -194,9 +208,20 @@ print_success "All specified paths have been encoded"
 
 # Step 6: Create a new zip file from the encoded files only
 print_info "Step 6: Creating zip file from encoded files..."
+
+# Build exclude arguments for zip command
+EXCLUDE_ARGS=""
+for exclude_file in "${EXCLUDE_FILES[@]}"; do
+    EXCLUDE_ARGS="$EXCLUDE_ARGS -x '$exclude_file'"
+done
+
 ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "
     cd '$REMOTE_WORK_DIR/encoded' &&
-    zip -r '../$ENCODED_ZIP_NAME' . &&
+    if [ -n '$EXCLUDE_ARGS' ]; then
+        eval \"zip -r '../$ENCODED_ZIP_NAME' . $EXCLUDE_ARGS\"
+    else
+        zip -r '../$ENCODED_ZIP_NAME' .
+    fi &&
     echo 'Created encoded zip file successfully'
 "
 print_success "Created encoded zip file on remote server"
@@ -281,6 +306,12 @@ fi
 if [ -n "$DOWNLOAD_DIR" ] && [ -d "$DOWNLOAD_DIR" ]; then
     print_info "Cleaning up temporary download directory: $DOWNLOAD_DIR"
     rmdir "$DOWNLOAD_DIR" 2>/dev/null || true
+fi
+
+# Cleanup project zip file
+if [ -f "$ZIP_PATH" ]; then
+    print_info "Cleaning up project zip file: $ZIP_PATH"
+    rm -f "$ZIP_PATH"
 fi
 
 print_success "Encoding process completed successfully!"
