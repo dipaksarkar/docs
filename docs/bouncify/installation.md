@@ -37,6 +37,7 @@ To run **Bouncify** efficiently, ensure that your server meets the following req
   - **SQLite**
   - **Tokenizer**
   - **XML**
+  - **ionCube Loader® v13.0** (Ensure the latest version is installed and compatible with your PHP version)
 
 #### Database
 - **MySQL**: Latest version recommended (minimum MySQL 5.7 or MariaDB 10.2)
