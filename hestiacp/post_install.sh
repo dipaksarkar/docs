@@ -32,9 +32,10 @@ echo "🔄 Updating package lists..."
 sudo apt-get update
 echo "✅ Package lists updated"
 
-# Install redis-server and sqlite3
+# Install redis-server, sqlite3, and rsync
 install_package redis-server
 install_package sqlite3
+install_package rsync
 
 # Find all installed PHP versions (e.g., php8.2, php8.3)
 echo "🔍 Detecting installed PHP versions..."
