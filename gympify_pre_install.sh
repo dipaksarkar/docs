@@ -283,7 +283,20 @@ install_php_plesk() {
     # Enable PHP 8.2 modules in Plesk
     print_status "Enabling PHP 8.2 modules in Plesk..."
     if command -v plesk >/dev/null 2>&1; then
-        plesk bin php_handler --add -phppath /opt/plesk/php/8.2/bin/php -phpini /opt/plesk/php/8.2/etc/php.ini -type fpm -service -clipath /opt/plesk/php/8.2/bin/php
+        # Try to add PHP handler, but don't fail if it already exists
+        if plesk bin php_handler --add -phppath /opt/plesk/php/8.2/bin/php -phpini /opt/plesk/php/8.2/etc/php.ini -type fpm -service -clipath /opt/plesk/php/8.2/bin/php 2>/dev/null; then
+            print_status "✅ PHP 8.2 handler added to Plesk successfully"
+        else
+            # Check if PHP 8.2 handler already exists
+            if plesk bin php_handler --list | grep -q "8.2"; then
+                print_status "✅ PHP 8.2 handler already exists in Plesk"
+            else
+                print_warning "⚠️ Could not add PHP 8.2 handler to Plesk (may already exist or need manual configuration)"
+                print_status "You can manually configure PHP 8.2 in Plesk Panel if needed"
+            fi
+        fi
+    else
+        print_warning "Plesk command not available for PHP handler configuration"
     fi
     
     print_status "All PHP extensions installation completed for Plesk VPS"
