@@ -719,10 +719,37 @@ check_mysql_config() {
 optimize_mysql() {
     print_header "Applying MySQL optimizations for Gympify..."
     
-    local mysql_conf="/etc/mysql/mysql.conf.d/gympify.cnf"
+    # Determine the correct MySQL/MariaDB configuration directory
+    local mysql_conf_dir=""
+    local mysql_conf=""
+    
+    # Check common MySQL/MariaDB configuration directories
+    if [ -d "/etc/mysql/mysql.conf.d" ]; then
+        mysql_conf_dir="/etc/mysql/mysql.conf.d"
+        mysql_conf="$mysql_conf_dir/gympify.cnf"
+    elif [ -d "/etc/mysql/mariadb.conf.d" ]; then
+        mysql_conf_dir="/etc/mysql/mariadb.conf.d"
+        mysql_conf="$mysql_conf_dir/gympify.cnf"
+    elif [ -d "/etc/mysql/conf.d" ]; then
+        mysql_conf_dir="/etc/mysql/conf.d"
+        mysql_conf="$mysql_conf_dir/gympify.cnf"
+    elif [ -d "/etc/my.cnf.d" ]; then
+        mysql_conf_dir="/etc/my.cnf.d"
+        mysql_conf="$mysql_conf_dir/gympify.cnf"
+    else
+        # Create a basic conf.d directory if none exists
+        mysql_conf_dir="/etc/mysql/conf.d"
+        mkdir -p "$mysql_conf_dir"
+        mysql_conf="$mysql_conf_dir/gympify.cnf"
+    fi
+    
+    print_status "Using MySQL/MariaDB config directory: $mysql_conf_dir"
     
     if [ ! -f "$mysql_conf" ]; then
         print_status "Creating MySQL optimization configuration..."
+        
+        # Ensure the directory exists
+        mkdir -p "$mysql_conf_dir"
         
         sudo tee "$mysql_conf" > /dev/null << 'EOF'
 # Gympify MySQL Optimizations
