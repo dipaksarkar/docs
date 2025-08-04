@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Gympify Pre-Installation Script for Plesk VPS
+# This script is specifically designed for VPS servers managed by Plesk Control Panel
+# It installs PHP 8.2, required extensions, ionCube Loader, and sets up MySQL database
+# Optimized for Plesk environments with proper path handling and service management
+
 set -e
 
 # Colors for output
@@ -59,51 +64,58 @@ check_php_extension() {
 
 # Function to install PHP 8.2 and extensions on Plesk
 install_php_plesk() {
-    print_header "Installing PHP 8.2 and required extensions for Plesk..."
+    print_header "Installing PHP 8.2 and required extensions for Plesk VPS..."
     
     # Check if Plesk is installed
     if ! is_plesk_server; then
-        print_error "This script is designed for Plesk servers. Plesk not detected."
+        print_error "This script is designed specifically for VPS servers managed by Plesk."
+        print_error "Plesk control panel not detected on this server."
         exit 1
     fi
     
     local php_version="8.2"
     
-    # Check if PHP 8.2 is already installed
+    # Get Plesk version for compatibility
+    local plesk_version=""
+    if [ -f /usr/local/psa/version ]; then
+        plesk_version=$(cat /usr/local/psa/version | head -n1)
+        print_status "Detected Plesk version: $plesk_version"
+    fi
+    
+    # Check if PHP 8.2 is already installed via Plesk
     if check_php_version "$php_version"; then
-        print_status "PHP $php_version is already installed"
+        print_status "PHP $php_version is already installed on this Plesk server"
     else
-        print_status "Installing PHP $php_version..."
+        print_status "Installing PHP $php_version via Plesk installer..."
         
-        # Install PHP 8.2 using Plesk installer
+        # Use Plesk installer to install PHP 8.2
         if command -v plesk >/dev/null 2>&1; then
+            print_status "Using Plesk installer to add PHP 8.2..."
             plesk installer --select-product-id plesk --select-release-current --install-component php8.2
+            
+            # Also install common PHP modules via Plesk
+            print_status "Installing PHP 8.2 modules via Plesk..."
+            plesk installer --select-product-id plesk --select-release-current --install-component php8.2-common
+            plesk installer --select-product-id plesk --select-release-current --install-component php8.2-fpm
         else
-            # Fallback to package manager for Ubuntu/Debian
-            if [ -f /etc/debian_version ]; then
-                sudo apt-get update
-                sudo apt-get install -y software-properties-common
-                sudo add-apt-repository ppa:ondrej/php -y
-                sudo apt-get update
-                sudo apt-get install -y php8.2 php8.2-fpm
-            elif [ -f /etc/redhat-release ]; then
-                sudo dnf install -y php82 php82-php-fpm
-            fi
+            print_error "Plesk command not found. This script requires Plesk to be properly installed."
+            exit 1
         fi
         
+        # Verify installation
         if check_php_version "$php_version"; then
-            print_status "PHP $php_version installed successfully"
+            print_status "PHP $php_version installed successfully via Plesk"
         else
-            print_error "Failed to install PHP $php_version"
+            print_error "Failed to install PHP $php_version via Plesk installer"
             exit 1
         fi
     fi
     
-    # Required PHP extensions for Laravel/Gympify
+    # Required PHP extensions for Laravel/Gympify on Plesk
     local extensions=(
         "openssl"
         "pdo"
-        "pdo_mysql"
+        "pdo_mysql" 
         "mbstring"
         "tokenizer"
         "json"
@@ -123,7 +135,18 @@ install_php_plesk() {
         "exif"
     )
     
-    print_status "Installing required PHP extensions..."
+    print_status "Installing required PHP extensions for Plesk environment..."
+    
+    # Get OS type for Plesk package management
+    local os_type=""
+    if [ -f /etc/debian_version ]; then
+        os_type="debian"
+    elif [ -f /etc/redhat-release ]; then
+        os_type="redhat"
+    else
+        print_error "Unsupported OS for Plesk VPS"
+        exit 1
+    fi
     
     for extension in "${extensions[@]}"; do
         if check_php_extension "$php_version" "$extension"; then
@@ -131,48 +154,66 @@ install_php_plesk() {
         else
             print_status "Installing PHP extension: $extension"
             
-            # Install extension based on OS
-            if [ -f /etc/debian_version ]; then
+            # Install extension based on Plesk OS type
+            if [ "$os_type" = "debian" ]; then
                 case $extension in
                     "openssl"|"json"|"pcre"|"ctype"|"tokenizer"|"fileinfo"|"sodium")
                         # These are usually built-in, skip installation
                         print_status "✓ $extension is built-in or already available"
                         ;;
                     "pdo_mysql")
-                        sudo apt-get install -y php8.2-mysql
+                        apt-get install -y plesk-php82-mysql
                         ;;
                     "dom"|"xml")
-                        sudo apt-get install -y php8.2-xml
+                        apt-get install -y plesk-php82-xml
+                        ;;
+                    "redis")
+                        apt-get install -y plesk-php82-redis
+                        ;;
+                    "imagick")
+                        apt-get install -y plesk-php82-imagick
                         ;;
                     *)
-                        sudo apt-get install -y php8.2-${extension}
+                        apt-get install -y plesk-php82-${extension}
                         ;;
                 esac
-            elif [ -f /etc/redhat-release ]; then
+            elif [ "$os_type" = "redhat" ]; then
                 case $extension in
                     "openssl"|"json"|"pcre"|"ctype"|"tokenizer"|"fileinfo"|"sodium")
                         print_status "✓ $extension is built-in or already available"
                         ;;
                     "pdo_mysql")
-                        sudo dnf install -y php82-php-mysqlnd
+                        yum install -y plesk-php82-mysqlnd
                         ;;
                     "dom"|"xml")
-                        sudo dnf install -y php82-php-xml
+                        yum install -y plesk-php82-xml
+                        ;;
+                    "redis")
+                        yum install -y plesk-php82-redis
+                        ;;
+                    "imagick")
+                        yum install -y plesk-php82-imagick
                         ;;
                     *)
-                        sudo dnf install -y php82-php-${extension}
+                        yum install -y plesk-php82-${extension}
                         ;;
                 esac
             fi
         fi
     done
     
-    print_status "All PHP extensions installation completed"
+    # Enable PHP 8.2 modules in Plesk
+    print_status "Enabling PHP 8.2 modules in Plesk..."
+    if command -v plesk >/dev/null 2>&1; then
+        plesk bin php_handler --add -phppath /opt/plesk/php/8.2/bin/php -phpini /opt/plesk/php/8.2/etc/php.ini -type fpm -service -clipath /opt/plesk/php/8.2/bin/php
+    fi
+    
+    print_status "All PHP extensions installation completed for Plesk VPS"
 }
 
-# Function to install ionCube Loader
+# Function to install ionCube Loader for Plesk
 install_ioncube_loader() {
-    print_header "Installing ionCube Loader for PHP 8.2..."
+    print_header "Installing ionCube Loader for PHP 8.2 on Plesk VPS..."
     
     local php_version="8.2"
     local arch=$(uname -m)
@@ -206,40 +247,77 @@ install_ioncube_loader() {
         print_status "Extracting ionCube Loader..."
         tar -xzf ioncube_loaders.tar.gz
         
-        # Find PHP extension directory
-        local php_ext_dir=$(php8.2 -i | grep extension_dir | cut -d' ' -f5)
-        
-        if [ -z "$php_ext_dir" ]; then
-            php_ext_dir="/usr/lib/php/20220829"  # Default for PHP 8.2
+        # Find Plesk PHP extension directory
+        local php_ext_dir=""
+        if [ -d "/opt/plesk/php/8.2/lib/php/modules" ]; then
+            php_ext_dir="/opt/plesk/php/8.2/lib/php/modules"
+        elif [ -d "/usr/lib/plesk-php82/modules" ]; then
+            php_ext_dir="/usr/lib/plesk-php82/modules"
+        else
+            # Fallback to standard detection
+            php_ext_dir=$(php8.2 -i | grep extension_dir | cut -d' ' -f5)
+            if [ -z "$php_ext_dir" ]; then
+                php_ext_dir="/usr/lib/php/20220829"  # Default for PHP 8.2
+            fi
         fi
         
-        print_status "PHP extension directory: $php_ext_dir"
+        print_status "Plesk PHP extension directory: $php_ext_dir"
         
         # Copy ionCube loader
         local ioncube_file="ioncube/ioncube_loader_lin_${php_version}.so"
         if [ -f "$ioncube_file" ]; then
-            sudo cp "$ioncube_file" "$php_ext_dir/"
-            print_status "ionCube Loader copied to extension directory"
+            cp "$ioncube_file" "$php_ext_dir/"
+            print_status "ionCube Loader copied to Plesk extension directory"
             
-            # Create ionCube configuration
-            local ioncube_ini="/etc/php/8.2/mods-available/ioncube.ini"
-            sudo mkdir -p $(dirname "$ioncube_ini")
-            echo "zend_extension = ioncube_loader_lin_${php_version}.so" | sudo tee "$ioncube_ini" > /dev/null
-            
-            # Enable ionCube for CLI and FPM
-            sudo ln -sf "$ioncube_ini" "/etc/php/8.2/cli/conf.d/00-ioncube.ini"
-            sudo ln -sf "$ioncube_ini" "/etc/php/8.2/fpm/conf.d/00-ioncube.ini"
-            
-            print_status "ionCube Loader configuration created"
-            
-            # Restart PHP-FPM
-            sudo systemctl restart php8.2-fpm 2>/dev/null || true
-            
-            # Verify installation
-            if php8.2 -m | grep -q "ionCube"; then
-                print_status "✅ ionCube Loader installed and enabled successfully"
+            # Create ionCube configuration for Plesk
+            local plesk_php_ini_dir=""
+            if [ -d "/opt/plesk/php/8.2/etc/php.d" ]; then
+                plesk_php_ini_dir="/opt/plesk/php/8.2/etc/php.d"
+            elif [ -d "/etc/plesk-php82/php.d" ]; then
+                plesk_php_ini_dir="/etc/plesk-php82/php.d"
             else
-                print_warning "ionCube Loader installed but not detected in PHP modules"
+                plesk_php_ini_dir="/opt/plesk/php/8.2/etc"
+            fi
+            
+            local ioncube_ini="${plesk_php_ini_dir}/00-ioncube.ini"
+            mkdir -p "$plesk_php_ini_dir"
+            echo "zend_extension = ioncube_loader_lin_${php_version}.so" > "$ioncube_ini"
+            
+            print_status "ionCube Loader configuration created for Plesk at $ioncube_ini"
+            
+            # Restart Plesk PHP-FPM service
+            if systemctl is-active --quiet plesk-php82-fpm; then
+                systemctl restart plesk-php82-fpm
+                print_status "Restarted Plesk PHP 8.2 FPM service"
+            elif systemctl is-active --quiet php82-fpm; then
+                systemctl restart php82-fpm
+                print_status "Restarted PHP 8.2 FPM service"
+            fi
+            
+            # Also restart Apache/Nginx if they're using mod_php
+            if systemctl is-active --quiet httpd; then
+                systemctl reload httpd
+            elif systemctl is-active --quiet apache2; then
+                systemctl reload apache2
+            fi
+            
+            if systemctl is-active --quiet nginx; then
+                systemctl reload nginx
+            fi
+            
+            # Verify installation using Plesk PHP binary
+            local plesk_php_binary=""
+            if [ -f "/opt/plesk/php/8.2/bin/php" ]; then
+                plesk_php_binary="/opt/plesk/php/8.2/bin/php"
+            else
+                plesk_php_binary="php8.2"
+            fi
+            
+            if $plesk_php_binary -m | grep -q "ionCube"; then
+                print_status "✅ ionCube Loader installed and enabled successfully in Plesk"
+            else
+                print_warning "ionCube Loader installed but not detected in Plesk PHP modules"
+                print_status "You may need to manually configure ionCube in Plesk PHP settings"
             fi
         else
             print_error "ionCube Loader file not found for PHP 8.2"
@@ -251,6 +329,8 @@ install_ioncube_loader() {
     # Cleanup
     cd /
     rm -rf "$temp_dir"
+    
+    print_status "ionCube Loader installation completed for Plesk VPS"
 }
 
 # Function to verify PHP installation
@@ -576,60 +656,75 @@ EOF
 
 # Main execution
 main() {
-    print_header "Gympify Pre-Installation Script for Plesk"
+    print_header "Gympify Pre-Installation Script for Plesk VPS"
+    echo "This script is specifically designed for VPS servers managed by Plesk Control Panel"
+    echo
     echo "This script will:"
-    echo "- Check if running on Plesk"
-    echo "- Install PHP 8.2 and all required extensions"
-    echo "- Install ionCube Loader"
-    echo "- Check MySQL service and configuration"
-    echo "- Create Gympify database and user with random password"
-    echo "- Apply MySQL optimizations"
-    echo "- Display database credentials"
+    echo "- Verify Plesk installation and version"
+    echo "- Install PHP 8.2 via Plesk installer with all required extensions"
+    echo "- Install and configure ionCube Loader for Plesk PHP"
+    echo "- Set up MySQL database with optimized configuration"
+    echo "- Create Gympify database user with secure random password"
+    echo "- Apply Plesk-specific MySQL optimizations"
+    echo "- Display database credentials for .env configuration"
     echo
     
     # Confirm execution
-    read -p "Do you want to continue? (y/N): " -n 1 -r
+    read -p "Do you want to continue with Plesk VPS setup? (y/N): " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         print_status "Installation cancelled"
         exit 0
     fi
     
-    # Check if running as root or with sudo
+    # Check if running as root (required for Plesk operations)
     if [ "$EUID" -ne 0 ]; then
-        print_warning "Some operations may require sudo privileges"
+        print_error "This script must be run as root for Plesk VPS operations"
+        print_error "Please run: sudo $0"
+        exit 1
     fi
     
-    # Check if running on Plesk
+    # Verify Plesk installation
     if is_plesk_server; then
-        print_status "Plesk control panel detected"
+        print_status "✅ Plesk control panel detected - proceeding with VPS setup"
     else
-        print_warning "Plesk not detected, continuing with standard installation"
+        print_error "❌ Plesk control panel not found on this server"
+        print_error "This script is designed specifically for Plesk VPS environments"
+        print_error "Please ensure Plesk is properly installed before running this script"
+        exit 1
     fi
     
-    # Run setup steps
+    # Run Plesk-specific setup steps
+    print_header "Starting Plesk VPS setup for Gympify..."
+    
     install_php_plesk
     install_ioncube_loader
     verify_php_installation
     
-    # Database setup
+    # Database setup (works with Plesk MySQL)
     check_mysql_config
     setup_mysql_database
     optimize_mysql
     
-    print_header "Pre-installation complete!"
-    print_status "PHP 8.2 with all required extensions installed"
-    print_status "Database setup completed with credentials displayed above"
-    print_status "You can now proceed with Gympify installation"
+    print_header "Plesk VPS Pre-installation complete!"
+    print_status "✅ PHP 8.2 with all required extensions installed via Plesk"
+    print_status "✅ ionCube Loader configured for Plesk PHP environment"
+    print_status "✅ MySQL database setup completed with credentials displayed above"
+    print_status "✅ Plesk VPS is now ready for Gympify installation"
     echo
-    print_status "Next steps:"
-    echo "1. Upload and extract Gympify files to your web directory"
-    echo "2. Copy .env.example to .env"
+    print_status "Next steps for Plesk VPS:"
+    echo "1. Upload and extract Gympify files to your domain's document root"
+    echo "2. Copy .env.example to .env in the Gympify directory"
     echo "3. Update .env file with the database credentials shown above"
-    echo "4. Set PHP version to 8.2 in Plesk for your domain"
-    echo "5. Navigate to your-domain.com/install to complete installation"
+    echo "4. In Plesk Panel: Go to your domain → PHP Settings → Set PHP version to 8.2"
+    echo "5. In Plesk Panel: Ensure all required PHP extensions are enabled"
+    echo "6. Navigate to your-domain.com/install to complete Gympify installation"
     echo
-    print_warning "Important: Make sure to set PHP 8.2 as the PHP version for your domain in Plesk!"
+    print_warning "Important Plesk Configuration:"
+    echo "- Set PHP 8.2 as the PHP version for your domain in Plesk Panel"
+    echo "- Verify ionCube Loader is enabled in Plesk PHP Settings"
+    echo "- Ensure document root points to Gympify's public directory"
+    echo "- Configure SSL certificate if needed via Plesk SSL/TLS settings"
 }
 
 # Run main function
