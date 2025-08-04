@@ -43,7 +43,12 @@ is_plesk_server() {
 # Function to check if PHP version is installed
 check_php_version() {
     local version=$1
+    # Check multiple possible PHP binary locations for Plesk
     if command -v php${version} >/dev/null 2>&1; then
+        return 0
+    elif [ -f "/opt/plesk/php/${version}/bin/php" ]; then
+        return 0
+    elif command -v plesk-php${version//.} >/dev/null 2>&1; then
         return 0
     else
         return 1
@@ -55,7 +60,17 @@ check_php_extension() {
     local php_version=$1
     local extension=$2
     
-    if php${php_version} -m 2>/dev/null | grep -qi "^${extension}$"; then
+    # Try different PHP binaries for Plesk
+    local php_binary=""
+    if command -v php${php_version} >/dev/null 2>&1; then
+        php_binary="php${php_version}"
+    elif [ -f "/opt/plesk/php/${php_version}/bin/php" ]; then
+        php_binary="/opt/plesk/php/${php_version}/bin/php"
+    else
+        return 1
+    fi
+    
+    if $php_binary -m 2>/dev/null | grep -qi "^${extension}$"; then
         return 0
     else
         return 1
@@ -91,25 +106,49 @@ install_php_plesk() {
         # Use Plesk installer to install PHP 8.2
         if command -v plesk >/dev/null 2>&1; then
             print_status "Using Plesk installer to add PHP 8.2..."
-            plesk installer --select-product-id plesk --select-release-current --install-component php8.2
             
-            # Also install common PHP modules via Plesk
-            print_status "Installing PHP 8.2 modules via Plesk..."
-            plesk installer --select-product-id plesk --select-release-current --install-component php8.2-common
-            plesk installer --select-product-id plesk --select-release-current --install-component php8.2-fpm
+            # Try to install PHP 8.2, but don't fail if it's already available
+            plesk installer --select-product-id plesk --select-release-current --install-component php8.2 2>/dev/null || {
+                print_status "PHP 8.2 components may already be available in Plesk"
+            }
+            
+            # Try to install additional PHP modules
+            print_status "Ensuring PHP 8.2 modules are available via Plesk..."
+            plesk installer --select-product-id plesk --select-release-current --install-component php8.2-common 2>/dev/null || true
+            plesk installer --select-product-id plesk --select-release-current --install-component php8.2-fpm 2>/dev/null || true
         else
             print_error "Plesk command not found. This script requires Plesk to be properly installed."
             exit 1
         fi
         
-        # Verify installation
-        if check_php_version "$php_version"; then
-            print_status "PHP $php_version installed successfully via Plesk"
-        else
-            print_error "Failed to install PHP $php_version via Plesk installer"
-            exit 1
+        # Check again after installation attempt
+        if ! check_php_version "$php_version"; then
+            # Try to enable PHP 8.2 if it exists in Plesk but isn't linked
+            if [ -f "/opt/plesk/php/8.2/bin/php" ]; then
+                print_status "PHP 8.2 found in Plesk directory, creating symlink..."
+                ln -sf /opt/plesk/php/8.2/bin/php /usr/local/bin/php8.2 2>/dev/null || true
+            else
+                print_error "Failed to install or find PHP $php_version"
+                print_status "Please install PHP 8.2 manually through Plesk installer or package manager"
+                exit 1
+            fi
         fi
     fi
+    
+    # Verify we can use PHP 8.2
+    local php_binary=""
+    if command -v php8.2 >/dev/null 2>&1; then
+        php_binary="php8.2"
+    elif [ -f "/opt/plesk/php/8.2/bin/php" ]; then
+        php_binary="/opt/plesk/php/8.2/bin/php"
+    else
+        print_error "Cannot find working PHP 8.2 binary"
+        exit 1
+    fi
+    
+    print_status "Using PHP binary: $php_binary"
+    local php_version_output=$($php_binary -v | head -n1)
+    print_status "PHP version: $php_version_output"
     
     # Required PHP extensions for Laravel/Gympify on Plesk
     local extensions=(
@@ -162,19 +201,23 @@ install_php_plesk() {
                         print_status "✓ $extension is built-in or already available"
                         ;;
                     "pdo_mysql")
-                        apt-get install -y plesk-php82-mysql
+                        apt-get install -y plesk-php82-mysql 2>/dev/null || apt-get install -y php8.2-mysql || true
                         ;;
                     "dom"|"xml")
-                        apt-get install -y plesk-php82-xml
+                        apt-get install -y plesk-php82-xml 2>/dev/null || apt-get install -y php8.2-xml || true
                         ;;
                     "redis")
-                        apt-get install -y plesk-php82-redis
+                        apt-get install -y plesk-php82-redis 2>/dev/null || apt-get install -y php8.2-redis || true
                         ;;
                     "imagick")
-                        apt-get install -y plesk-php82-imagick
+                        apt-get install -y plesk-php82-imagick 2>/dev/null || apt-get install -y php8.2-imagick || true
+                        ;;
+                    "pdo")
+                        # PDO is usually built-in
+                        print_status "✓ $extension is built-in"
                         ;;
                     *)
-                        apt-get install -y plesk-php82-${extension}
+                        apt-get install -y plesk-php82-${extension} 2>/dev/null || apt-get install -y php8.2-${extension} || true
                         ;;
                 esac
             elif [ "$os_type" = "redhat" ]; then
@@ -183,21 +226,31 @@ install_php_plesk() {
                         print_status "✓ $extension is built-in or already available"
                         ;;
                     "pdo_mysql")
-                        yum install -y plesk-php82-mysqlnd
+                        yum install -y plesk-php82-mysqlnd 2>/dev/null || yum install -y php82-php-mysqlnd || true
                         ;;
                     "dom"|"xml")
-                        yum install -y plesk-php82-xml
+                        yum install -y plesk-php82-xml 2>/dev/null || yum install -y php82-php-xml || true
                         ;;
                     "redis")
-                        yum install -y plesk-php82-redis
+                        yum install -y plesk-php82-redis 2>/dev/null || yum install -y php82-php-redis || true
                         ;;
                     "imagick")
-                        yum install -y plesk-php82-imagick
+                        yum install -y plesk-php82-imagick 2>/dev/null || yum install -y php82-php-imagick || true
+                        ;;
+                    "pdo")
+                        print_status "✓ $extension is built-in"
                         ;;
                     *)
-                        yum install -y plesk-php82-${extension}
+                        yum install -y plesk-php82-${extension} 2>/dev/null || yum install -y php82-php-${extension} || true
                         ;;
                 esac
+            fi
+            
+            # Check if extension is now available after installation
+            if check_php_extension "$php_version" "$extension"; then
+                print_status "✅ $extension installed successfully"
+            else
+                print_warning "⚠️ $extension may need manual installation or configuration"
             fi
         fi
     done
