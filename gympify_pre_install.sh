@@ -282,22 +282,33 @@ install_php_plesk() {
     
     # Enable PHP 8.2 modules in Plesk
     print_status "Enabling PHP 8.2 modules in Plesk..."
+    
+    # Temporarily disable exit on error for Plesk commands
+    set +e
+    
     if command -v plesk >/dev/null 2>&1; then
         # Try to add PHP handler, but don't fail if it already exists
-        if plesk bin php_handler --add -phppath /opt/plesk/php/8.2/bin/php -phpini /opt/plesk/php/8.2/etc/php.ini -type fpm -service -clipath /opt/plesk/php/8.2/bin/php 2>/dev/null; then
-            print_status "✅ PHP 8.2 handler added to Plesk successfully"
+        print_status "Configuring PHP 8.2 handler in Plesk..."
+        
+        # First check if PHP 8.2 handler already exists
+        if plesk bin php_handler --list 2>/dev/null | grep -q "8.2"; then
+            print_status "✅ PHP 8.2 handler already exists in Plesk"
         else
-            # Check if PHP 8.2 handler already exists
-            if plesk bin php_handler --list | grep -q "8.2"; then
-                print_status "✅ PHP 8.2 handler already exists in Plesk"
+            # Try to add the handler
+            if plesk bin php_handler --add -phppath /opt/plesk/php/8.2/bin/php -phpini /opt/plesk/php/8.2/etc/php.ini -type fpm -service -clipath /opt/plesk/php/8.2/bin/php >/dev/null 2>&1; then
+                print_status "✅ PHP 8.2 handler added to Plesk successfully"
             else
-                print_warning "⚠️ Could not add PHP 8.2 handler to Plesk (may already exist or need manual configuration)"
+                print_warning "⚠️ Could not add PHP 8.2 handler to Plesk"
+                print_status "This is normal if the handler already exists or is configured differently"
                 print_status "You can manually configure PHP 8.2 in Plesk Panel if needed"
             fi
         fi
     else
         print_warning "Plesk command not available for PHP handler configuration"
     fi
+    
+    # Re-enable exit on error
+    set -e
     
     print_status "All PHP extensions installation completed for Plesk VPS"
 }
