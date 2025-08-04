@@ -564,14 +564,21 @@ setup_mysql_database() {
     
     if [ "$user_exists" = true ]; then
         print_warning "User '$db_user' already exists and will be recreated with a new password"
-        echo -n "Do you want to continue and override the existing user? (y/N): "
-        read -n 1 -r
-        echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            print_status "Database setup cancelled"
-            return 1
+        
+        # Check if running in non-interactive mode (piped from wget)
+        if [ ! -t 0 ]; then
+            print_status "Running in non-interactive mode - automatically overriding existing user"
+            print_status "Proceeding to override existing user '$db_user'"
+        else
+            echo -n "Do you want to continue and override the existing user? (y/N): "
+            read -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                print_status "Database setup cancelled"
+                return 1
+            fi
+            print_status "Proceeding to override existing user '$db_user'"
         fi
-        print_status "Proceeding to override existing user '$db_user'"
     fi
     
     # Create database and user
@@ -812,11 +819,16 @@ main() {
     echo
     
     # Confirm execution
-    read -p "Do you want to continue with Plesk VPS setup? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_status "Installation cancelled"
-        exit 0
+    if [ ! -t 0 ]; then
+        # Running in non-interactive mode (piped from wget)
+        print_status "Running in non-interactive mode - automatically proceeding with Plesk VPS setup"
+    else
+        read -p "Do you want to continue with Plesk VPS setup? (y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            print_status "Installation cancelled"
+            exit 0
+        fi
     fi
     
     # Check if running as root (required for Plesk operations)
