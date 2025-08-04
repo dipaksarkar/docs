@@ -612,29 +612,38 @@ CREATE DATABASE IF NOT EXISTS \`$db_name\` CHARACTER SET utf8mb4 COLLATE utf8mb4
 DROP USER IF EXISTS '$db_user'@'localhost';
 DROP USER IF EXISTS '$db_user'@'%';
 
--- Create user for localhost with new password
+-- Create user for localhost with new password and FULL administrative privileges
 CREATE USER '$db_user'@'localhost' IDENTIFIED BY '$db_password';
-GRANT ALL PRIVILEGES ON \`$db_name\`.* TO '$db_user'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO '$db_user'@'localhost' WITH GRANT OPTION;
 
--- Create user for any host (for remote connections) with new password
+-- Create user for any host (for remote connections) with FULL administrative privileges
 CREATE USER '$db_user'@'%' IDENTIFIED BY '$db_password';
-GRANT ALL PRIVILEGES ON \`$db_name\`.* TO '$db_user'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO '$db_user'@'%' WITH GRANT OPTION;
+
+-- Grant specific administrative privileges for multi-tenancy system (MariaDB compatible)
+GRANT CREATE, DROP, ALTER, INDEX, REFERENCES ON *.* TO '$db_user'@'localhost';
+GRANT CREATE, DROP, ALTER, INDEX, REFERENCES ON *.* TO '$db_user'@'%';
+GRANT CREATE USER, RELOAD, PROCESS, SHOW DATABASES ON *.* TO '$db_user'@'localhost';
+GRANT CREATE USER, RELOAD, PROCESS, SHOW DATABASES ON *.* TO '$db_user'@'%';
 
 -- Apply changes
 FLUSH PRIVILEGES;
+
+-- Verify user privileges
+SHOW GRANTS FOR '$db_user'@'localhost';
 
 -- Show database status
 SHOW DATABASES LIKE '$db_name';
 "
     
     if [ "$db_exists" = true ] && [ "$user_exists" = true ]; then
-        print_status "Note: Database '$db_name' exists, recreating user '$db_user' with new password"
+        print_status "Note: Database '$db_name' exists, recreating user '$db_user' with FULL administrative privileges"
     elif [ "$db_exists" = true ]; then
-        print_status "Note: Database '$db_name' exists, creating user '$db_user'"
+        print_status "Note: Database '$db_name' exists, creating user '$db_user' with FULL administrative privileges"
     elif [ "$user_exists" = true ]; then
-        print_status "Note: Creating database '$db_name', recreating user '$db_user' with new password"
+        print_status "Note: Creating database '$db_name', recreating user '$db_user' with FULL administrative privileges"
     else
-        print_status "Note: Creating database '$db_name' and user '$db_user'"
+        print_status "Note: Creating database '$db_name' and user '$db_user' with FULL administrative privileges"
     fi
     
     # Execute MySQL commands
@@ -654,6 +663,27 @@ SHOW DATABASES LIKE '$db_name';
         # Test the new user connection
         if test_mysql_connection "$db_user" "$db_password"; then
             print_status "Database connection test successful!"
+            
+            # Test if user can see all databases
+            local visible_dbs=""
+            if [ -z "$mysql_root_password" ]; then
+                visible_dbs=$(mysql -u "$db_user" -p"$db_password" -e "SHOW DATABASES;" 2>/dev/null | wc -l)
+            else
+                visible_dbs=$(mysql -u "$db_user" -p"$db_password" -e "SHOW DATABASES;" 2>/dev/null | wc -l)
+            fi
+            
+            if [ "$visible_dbs" -gt 3 ]; then
+                print_status "✅ User can see multiple databases - administrative access confirmed!"
+            else
+                print_warning "⚠️ User may have limited database visibility - checking privileges..."
+                
+                # Show current privileges for debugging
+                if [ -z "$mysql_root_password" ]; then
+                    mysql -u root -e "SHOW GRANTS FOR '$db_user'@'localhost';" 2>/dev/null || true
+                else
+                    mysql -u root -p"$mysql_root_password" -e "SHOW GRANTS FOR '$db_user'@'localhost';" 2>/dev/null || true
+                fi
+            fi
         else
             print_warning "Database setup completed but connection test failed"
         fi
