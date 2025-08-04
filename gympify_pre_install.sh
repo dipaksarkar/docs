@@ -520,7 +520,7 @@ test_mysql_connection() {
 
 # Function to create MySQL database and user
 setup_mysql_database() {
-    local db_name="gympify"
+    local db_name="gympify_admin"
     local db_user="gympify_admin"
     local db_password=$(generate_password 20)
     local mysql_root_password=""
@@ -552,16 +552,31 @@ setup_mysql_database() {
     
     # Check if user already exists
     local user_exists=false
+    local db_exists=false
+    
+    # Check if database exists
     if [ -z "$mysql_root_password" ]; then
+        if mysql -u root -e "SHOW DATABASES LIKE '$db_name';" 2>/dev/null | grep -q "$db_name"; then
+            db_exists=true
+        fi
         if mysql -u root -e "SELECT User FROM mysql.user WHERE User='$db_user';" 2>/dev/null | grep -q "$db_user"; then
             user_exists=true
         fi
     else
+        if mysql -u root -p"$mysql_root_password" -e "SHOW DATABASES LIKE '$db_name';" 2>/dev/null | grep -q "$db_name"; then
+            db_exists=true
+        fi
         if mysql -u root -p"$mysql_root_password" -e "SELECT User FROM mysql.user WHERE User='$db_user';" 2>/dev/null | grep -q "$db_user"; then
             user_exists=true
         fi
     fi
     
+    # Handle existing database
+    if [ "$db_exists" = true ]; then
+        print_status "✅ Database '$db_name' already exists - will not recreate"
+    fi
+    
+    # Handle existing user
     if [ "$user_exists" = true ]; then
         print_warning "User '$db_user' already exists and will be recreated with a new password"
         
@@ -582,11 +597,15 @@ setup_mysql_database() {
     fi
     
     # Create database and user
-    print_status "Creating database '$db_name'..."
+    if [ "$db_exists" = true ]; then
+        print_status "Using existing database '$db_name'..."
+    else
+        print_status "Creating database '$db_name'..."
+    fi
     
-    # Prepare MySQL commands
+    # Prepare MySQL commands - only create database if it doesn't exist
     mysql_commands="
--- Create database if it doesn't exist
+-- Create database only if it doesn't exist
 CREATE DATABASE IF NOT EXISTS \`$db_name\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Drop existing users if they exist (override)
@@ -604,11 +623,19 @@ GRANT ALL PRIVILEGES ON \`$db_name\`.* TO '$db_user'@'%' WITH GRANT OPTION;
 -- Apply changes
 FLUSH PRIVILEGES;
 
--- Show created database
+-- Show database status
 SHOW DATABASES LIKE '$db_name';
 "
     
-    print_status "Note: If user '$db_user' already exists, it will be recreated with a new password"
+    if [ "$db_exists" = true ] && [ "$user_exists" = true ]; then
+        print_status "Note: Database '$db_name' exists, recreating user '$db_user' with new password"
+    elif [ "$db_exists" = true ]; then
+        print_status "Note: Database '$db_name' exists, creating user '$db_user'"
+    elif [ "$user_exists" = true ]; then
+        print_status "Note: Creating database '$db_name', recreating user '$db_user' with new password"
+    else
+        print_status "Note: Creating database '$db_name' and user '$db_user'"
+    fi
     
     # Execute MySQL commands
     if [ -z "$mysql_root_password" ]; then
@@ -618,13 +645,17 @@ SHOW DATABASES LIKE '$db_name';
     fi
     
     if [ $? -eq 0 ]; then
-        print_status "Database and user created successfully!"
+        if [ "$db_exists" = true ]; then
+            print_status "Database '$db_name' was already available and user updated successfully!"
+        else
+            print_status "Database '$db_name' and user created successfully!"
+        fi
         
         # Test the new user connection
         if test_mysql_connection "$db_user" "$db_password"; then
             print_status "Database connection test successful!"
         else
-            print_warning "Database created but connection test failed"
+            print_warning "Database setup completed but connection test failed"
         fi
         
         # Save credentials to file
