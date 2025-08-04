@@ -612,25 +612,17 @@ CREATE DATABASE IF NOT EXISTS \`$db_name\` CHARACTER SET utf8mb4 COLLATE utf8mb4
 DROP USER IF EXISTS '$db_user'@'localhost';
 DROP USER IF EXISTS '$db_user'@'%';
 
--- Create user for localhost with new password and FULL administrative privileges
+-- Create user for localhost with new password
 CREATE USER '$db_user'@'localhost' IDENTIFIED BY '$db_password';
-GRANT ALL PRIVILEGES ON *.* TO '$db_user'@'localhost' WITH GRANT OPTION;
-
--- Create user for any host (for remote connections) with FULL administrative privileges
+-- Create user for any host (for remote connections)
 CREATE USER '$db_user'@'%' IDENTIFIED BY '$db_password';
-GRANT ALL PRIVILEGES ON *.* TO '$db_user'@'%' WITH GRANT OPTION;
 
--- Grant specific administrative privileges for multi-tenancy system (MariaDB compatible)
-GRANT CREATE, DROP, ALTER, INDEX, REFERENCES ON *.* TO '$db_user'@'localhost';
-GRANT CREATE, DROP, ALTER, INDEX, REFERENCES ON *.* TO '$db_user'@'%';
-GRANT CREATE USER, RELOAD, PROCESS, SHOW DATABASES ON *.* TO '$db_user'@'localhost';
-GRANT CREATE USER, RELOAD, PROCESS, SHOW DATABASES ON *.* TO '$db_user'@'%';
+-- Grant ALL PRIVILEGES on ALL databases (*.*)
+GRANT ALL PRIVILEGES ON *.* TO '$db_user'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO '$db_user'@'%' WITH GRANT OPTION;
 
 -- Apply changes
 FLUSH PRIVILEGES;
-
--- Verify user privileges
-SHOW GRANTS FOR '$db_user'@'localhost';
 
 -- Show database status
 SHOW DATABASES LIKE '$db_name';
@@ -665,24 +657,22 @@ SHOW DATABASES LIKE '$db_name';
             print_status "Database connection test successful!"
             
             # Test if user can see all databases
-            local visible_dbs=""
-            if [ -z "$mysql_root_password" ]; then
-                visible_dbs=$(mysql -u "$db_user" -p"$db_password" -e "SHOW DATABASES;" 2>/dev/null | wc -l)
-            else
-                visible_dbs=$(mysql -u "$db_user" -p"$db_password" -e "SHOW DATABASES;" 2>/dev/null | wc -l)
-            fi
+            local total_dbs=$(mysql -u "$db_user" -p"$db_password" -e "SHOW DATABASES;" 2>/dev/null | grep -v Database | wc -l)
             
-            if [ "$visible_dbs" -gt 3 ]; then
-                print_status "✅ User can see multiple databases - administrative access confirmed!"
+            if [ "$total_dbs" -gt 3 ]; then
+                print_status "✅ User can see $total_dbs databases - full administrative access confirmed!"
             else
-                print_warning "⚠️ User may have limited database visibility - checking privileges..."
+                print_warning "⚠️ User can only see $total_dbs databases - may have limited access"
+                print_status "Checking user privileges..."
                 
                 # Show current privileges for debugging
                 if [ -z "$mysql_root_password" ]; then
-                    mysql -u root -e "SHOW GRANTS FOR '$db_user'@'localhost';" 2>/dev/null || true
+                    mysql -u root -e "SHOW GRANTS FOR '$db_user'@'localhost';" 2>/dev/null | head -3 || true
                 else
-                    mysql -u root -p"$mysql_root_password" -e "SHOW GRANTS FOR '$db_user'@'localhost';" 2>/dev/null || true
+                    mysql -u root -p"$mysql_root_password" -e "SHOW GRANTS FOR '$db_user'@'localhost';" 2>/dev/null | head -3 || true
                 fi
+                
+                print_warning "If this is a multi-tenant system, you may need to manually grant additional privileges"
             fi
         else
             print_warning "Database setup completed but connection test failed"
