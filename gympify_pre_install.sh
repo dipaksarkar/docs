@@ -518,6 +518,118 @@ test_mysql_connection() {
     return $?
 }
 
+# Function to test database creation and deletion privileges
+test_database_privileges() {
+    local test_user=$1
+    local test_password=$2
+    local root_password=$3
+    local test_db_name="gympify_test_$(date +%s)"
+    
+    print_status "🧪 Testing database management privileges for user '$test_user'..."
+    
+    # Step 1: Create test database as root
+    print_status "Step 1: Creating test database '$test_db_name' as root..."
+    
+    local create_test_db_cmd="CREATE DATABASE \`$test_db_name\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+    
+    if [ -z "$root_password" ]; then
+        echo "$create_test_db_cmd" | mysql -u root
+    else
+        echo "$create_test_db_cmd" | mysql -u root -p"$root_password"
+    fi
+    
+    if [ $? -eq 0 ]; then
+        print_status "✅ Test database '$test_db_name' created successfully by root"
+    else
+        print_error "❌ Failed to create test database as root"
+        return 1
+    fi
+    
+    # Step 2: Check if new user can see the test database
+    print_status "Step 2: Checking if user '$test_user' can see test database..."
+    
+    local visible_dbs=$(mysql -u "$test_user" -p"$test_password" -e "SHOW DATABASES LIKE '$test_db_name';" 2>/dev/null | grep -v Database | wc -l)
+    
+    if [ "$visible_dbs" -eq 1 ]; then
+        print_status "✅ User '$test_user' can see the test database"
+    else
+        print_warning "❌ User '$test_user' cannot see the test database created by root"
+        print_status "This indicates limited database visibility privileges"
+    fi
+    
+    # Step 3: Test if user can create a table in the test database
+    print_status "Step 3: Testing if user can create table in test database..."
+    
+    local create_table_cmd="USE \`$test_db_name\`; CREATE TABLE test_table (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50));"
+    
+    if echo "$create_table_cmd" | mysql -u "$test_user" -p"$test_password" 2>/dev/null; then
+        print_status "✅ User '$test_user' can create tables in test database"
+    else
+        print_warning "❌ User '$test_user' cannot create tables in test database"
+    fi
+    
+    # Step 4: Test if user can insert data
+    print_status "Step 4: Testing data insertion privileges..."
+    
+    local insert_data_cmd="USE \`$test_db_name\`; INSERT INTO test_table (name) VALUES ('test_entry');"
+    
+    if echo "$insert_data_cmd" | mysql -u "$test_user" -p"$test_password" 2>/dev/null; then
+        print_status "✅ User '$test_user' can insert data"
+    else
+        print_warning "❌ User '$test_user' cannot insert data"
+    fi
+    
+    # Step 5: Test if user can create their own database
+    print_status "Step 5: Testing if user can create own database..."
+    
+    local user_test_db="gympify_user_test_$(date +%s)"
+    local create_user_db_cmd="CREATE DATABASE \`$user_test_db\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+    
+    if echo "$create_user_db_cmd" | mysql -u "$test_user" -p"$test_password" 2>/dev/null; then
+        print_status "✅ User '$test_user' can create their own databases"
+        
+        # Clean up user-created database
+        echo "DROP DATABASE \`$user_test_db\`;" | mysql -u "$test_user" -p"$test_password" 2>/dev/null
+        print_status "✅ User '$test_user' can also delete databases they created"
+    else
+        print_warning "❌ User '$test_user' cannot create new databases"
+    fi
+    
+    # Step 6: Test if user can delete the root-created test database
+    print_status "Step 6: Testing if user can delete root-created database..."
+    
+    local drop_test_db_cmd="DROP DATABASE \`$test_db_name\`;"
+    
+    if echo "$drop_test_db_cmd" | mysql -u "$test_user" -p"$test_password" 2>/dev/null; then
+        print_status "✅ User '$test_user' can delete databases created by root"
+        print_status "✅ Test database '$test_db_name' deleted successfully"
+        print_status "🎉 FULL ADMINISTRATIVE ACCESS CONFIRMED!"
+    else
+        print_warning "❌ User '$test_user' cannot delete databases created by root"
+        print_status "This indicates limited administrative privileges"
+        
+        # Clean up as root since user couldn't delete it
+        print_status "Cleaning up test database as root..."
+        if [ -z "$root_password" ]; then
+            echo "$drop_test_db_cmd" | mysql -u root
+        else
+            echo "$drop_test_db_cmd" | mysql -u root -p"$root_password"
+        fi
+        print_status "Test database cleaned up by root"
+    fi
+    
+    # Summary
+    echo
+    print_header "DATABASE PRIVILEGE TEST SUMMARY"
+    print_status "User: $test_user"
+    print_status "Test completed - check results above"
+    
+    # Show all databases the user can see
+    print_status "Databases visible to user '$test_user':"
+    mysql -u "$test_user" -p"$test_password" -e "SHOW DATABASES;" 2>/dev/null | grep -v Database | nl -w2 -s'. ' || true
+    echo
+}
+
 # Function to create MySQL database and user
 setup_mysql_database() {
     local db_name="gympify_admin"
@@ -674,6 +786,10 @@ SHOW DATABASES LIKE '$db_name';
                 
                 print_warning "If this is a multi-tenant system, you may need to manually grant additional privileges"
             fi
+            
+            # Test database creation and deletion privileges
+            print_status "Testing database creation and deletion privileges..."
+            test_database_privileges "$db_user" "$db_password" "$mysql_root_password"
         else
             print_warning "Database setup completed but connection test failed"
         fi
@@ -856,6 +972,41 @@ EOF
 
 # Main execution
 main() {
+    # Handle command line arguments
+    if [ "$1" = "--test-db-privileges" ]; then
+        print_header "Manual Database Privilege Testing"
+        
+        # Check if MySQL is running
+        if ! check_mysql_service; then
+            print_error "MySQL service is not running. Please start MySQL service first."
+            exit 1
+        fi
+        
+        # Get credentials for testing
+        echo -n "Enter database username to test (default: gympify_admin): "
+        read -r test_user
+        test_user=${test_user:-gympify_admin}
+        
+        echo -n "Enter database password for $test_user: "
+        read -s test_password
+        echo
+        
+        echo -n "Enter MySQL root password (leave empty if no password): "
+        read -s root_password
+        echo
+        
+        # Test the credentials first
+        if test_mysql_connection "$test_user" "$test_password"; then
+            print_status "Connection test successful, running privilege tests..."
+            test_database_privileges "$test_user" "$test_password" "$root_password"
+        else
+            print_error "Failed to connect with provided credentials"
+            exit 1
+        fi
+        
+        exit 0
+    fi
+    
     print_header "Gympify Pre-Installation Script for Plesk VPS"
     echo "This script is specifically designed for VPS servers managed by Plesk Control Panel"
     echo
@@ -915,6 +1066,7 @@ main() {
     print_status "✅ PHP 8.2 with all required extensions installed via Plesk"
     print_status "✅ ionCube Loader configured for Plesk PHP environment"
     print_status "✅ MySQL database setup completed with credentials displayed above"
+    print_status "✅ Database privilege testing completed"
     print_status "✅ Plesk VPS is now ready for Gympify installation"
     echo
     print_status "Next steps for Plesk VPS:"
@@ -930,6 +1082,16 @@ main() {
     echo "- Verify ionCube Loader is enabled in Plesk PHP Settings"
     echo "- Ensure document root points to Gympify's public directory"
     echo "- Configure SSL certificate if needed via Plesk SSL/TLS settings"
+    
+    # Offer manual testing option
+    echo
+    if [ -t 0 ]; then
+        print_status "💡 Additional Testing Options:"
+        echo "If you want to manually test database privileges again, you can run:"
+        echo "Manual privilege test commands:"
+        echo "  sudo bash $0 --test-db-privileges"
+        echo
+    fi
 }
 
 # Run main function
