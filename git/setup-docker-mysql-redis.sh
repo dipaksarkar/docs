@@ -52,5 +52,8 @@ sudo apt install -y redis-server
 sudo systemctl enable redis-server
 sudo systemctl start redis-server
 
-echo "Docker, MySQL, and Redis have been installed and started."
+# Install SQLite
+sudo apt install -y sqlite3 libsqlite3-dev
+
+echo "Docker, MySQL, Redis, and SQLite have been installed and started."
 echo "You may need to log out and log in again for docker group membership to take effect."
