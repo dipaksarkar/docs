@@ -55,5 +55,12 @@ sudo systemctl start redis-server
 # Install SQLite
 sudo apt install -y sqlite3 libsqlite3-dev
 
-echo "Docker, MySQL, Redis, and SQLite have been installed and started."
+# Install Python 3 and pip
+sudo apt install -y python3 python3-pip python3-venv
+
+# Install Node.js (LTS) and npm using NodeSource
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt install -y nodejs
+
+echo "Docker, MySQL, Redis, SQLite, Python, and Node.js have been installed and started."
 echo "You may need to log out and log in again for docker group membership to take effect."
