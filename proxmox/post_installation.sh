@@ -19,7 +19,7 @@ sed -i 's/errors=remount-ro/defaults,noatime,errors=remount-ro/' /etc/fstab
 echo ">>> Configuring firewall..."
 ufw default deny incoming
 ufw default allow outgoing
-ufw allow 2252/tcp
+ufw allow 2222/tcp
 ufw allow 8006/tcp
 ufw --force enable
 
@@ -36,18 +36,23 @@ adduser --gecos "" goazh
 usermod -aG sudo goazh
 
 echo ">>> Setting up SSH keys for 'goazh'..."
+# Prompt for SSH port and key
+read -p "Enter SSH port [2222]: " SSH_PORT
+SSH_PORT=${SSH_PORT:-2222}
+read -p "Enter SSH public key (leave blank for default): " SSH_KEY
+DEFAULT_SSH_KEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbeYfOKRxq2SAc8WwyOrCdkTnD1Cct3CKLwgZQeh49Cw2oFTezIw+NaTAkhaw5RuYAOgSHWiAiZ+BdF+zIehIXWcwBB6UPZ+vh0V2XdMO6liVBA13ry9IsvAH2HMu1ZzxrD07JfzU5+HgcuoJofyL+dsBzgn6dp6Nvg6PUpCn5Mcoz0xYhomhCNQK4TnJEMbochXCj/wZJlJ+46OA8LMaseReN9jKVfobh4CxRqiP5kAnDY4SKCrGJY0BhXPxJulNPLy4gl/XHj9sP4R0JsJKaMNpID840i6oqPRCnMCqgAUvCm+s4t9aatdiYx4BfzYxV8bIzkbjJgpgIXJZ1gzdADj1unF8GiH0eGS69Y1TSeGsezLOld+DFSW+kDPklE8pvoMztyRVO+h8xqB2AHhV52d01/HR6Evgv5peshawltZygsCyOOui/7LsAOmPriLDQXO/p8pM7Wtda1hFF2Ym6qVCI4xa7fJMJ6EM2nM3oYMHhpcu8oL6ntt2WCFEU5FpsqHjFqdByDnkI1WmzBOaQKC5zgFNr0N0RIpCCFTS/o/2Kn/28WNIPAobognqwxMvQbMWlT5ZCYM+QPZxLCWc77xtLlgUxqqBlHALQvLPjrlA+JJY2FELYayPa//cYKWMGcQObs8xuac1jCeZL53fTiktiHJhOOzWYHooJehqw1Q== dipak@coderstm.com"
+SSH_KEY=${SSH_KEY:-$DEFAULT_SSH_KEY}
 mkdir -p /home/goazh/.ssh
 chmod 700 /home/goazh/.ssh
-# Replace with your public key
-echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMYOURPUBLICKEYHERE user@pc" > /home/goazh/.ssh/authorized_keys
+echo "$SSH_KEY" > /home/goazh/.ssh/authorized_keys
 chmod 600 /home/goazh/.ssh/authorized_keys
 chown -R goazh:goazh /home/goazh/.ssh
 
 echo ">>> Securing SSH..."
-sed -i 's/^#Port.*/Port 2252/' /etc/ssh/sshd_config
+sed -i "s/^#Port.*/Port $SSH_PORT/" /etc/ssh/sshd_config
 sed -i 's/^#PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
 sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 echo ">>> Post-installation finished."
-echo "Login with: ssh -p 2252 goazh@your-server-ip"
+echo "Login with: ssh -p $SSH_PORT goazh@your-server-ip"
