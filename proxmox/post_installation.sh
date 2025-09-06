@@ -19,7 +19,7 @@ sed -i 's/errors=remount-ro/defaults,noatime,errors=remount-ro/' /etc/fstab
 echo ">>> Configuring firewall..."
 ufw default deny incoming
 ufw default allow outgoing
-ufw allow 2222/tcp
+ufw allow 2252/tcp
 ufw allow 8006/tcp
 ufw --force enable
 
@@ -44,10 +44,10 @@ chmod 600 /home/goazh/.ssh/authorized_keys
 chown -R goazh:goazh /home/goazh/.ssh
 
 echo ">>> Securing SSH..."
-sed -i 's/^#Port.*/Port 2222/' /etc/ssh/sshd_config
+sed -i 's/^#Port.*/Port 2252/' /etc/ssh/sshd_config
 sed -i 's/^#PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
 sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 echo ">>> Post-installation finished."
-echo "Login with: ssh -p 2222 goazh@your-server-ip"
+echo "Login with: ssh -p 2252 goazh@your-server-ip"
