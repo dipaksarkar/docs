@@ -4,7 +4,7 @@ set -euo pipefail
 # ==============================
 # CONFIGURATION
 # ==============================
-STORAGE="local-lvm"           # Storage target for disks
+STORAGE="local"               # Storage target for disks
 BRIDGE="vmbr0"                # Default network bridge
 MEM=2048                      # Default memory for template
 CORES=2                       # Default CPU cores
