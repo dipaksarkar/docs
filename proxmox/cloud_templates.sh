@@ -4,102 +4,84 @@
 # Author: Dipak’s Senior Proxmox Engineer
 # ==========================================
 
-set -euo pipefail
+set -e
 
-# -----------------------------
-# VMID counter start
-# -----------------------------
-VMID_BASE=9000
+# Where to store temporary qcow2 images
+TMP_DIR="/tmp"
 
-# -----------------------------
-# Storage auto-detection
-# -----------------------------
-if pvesm status | grep -q "^local-lvm"; then
-  STORAGE="local-lvm"
-else
-  STORAGE="local"
-fi
+# Storage to use for disks
+STORAGE="local"
 
-echo "==> Using storage: $STORAGE"
+# Network bridge to use
+BRIDGE="vmbr0"
 
-# -----------------------------
-# OS Images Library
-# -----------------------------
-IMAGES=(
-  "debian-11|https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-amd64.qcow2"
-  "debian-12|https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
-  "ubuntu-2204|https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
-  "ubuntu-2404|https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
-  "rocky-9|https://download.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2"
-  "almalinux-9|https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"
+# Template definitions (VMID, NAME, IMAGE_URL, OS_TYPE)
+TEMPLATES=(
+  "9000 debian-12-base https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2 debian"
+  "9001 ubuntu-2204-base https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img ubuntu"
+  "9002 ubuntu-2404-base https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img ubuntu"
+  "9003 almalinux-9-base https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2 centos"
+  "9004 rockylinux-9-base https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2 centos"
 )
 
-# -----------------------------
-# Build function
-# -----------------------------
-build_template() {
-  local VMID=$1
-  local ALIAS=$2
-  local IMAGE_URL=$3
-  local TMP_IMAGE="/tmp/${ALIAS}.qcow2"
+create_template() {
+  local VMID="$1"
+  local NAME="$2"
+  local URL="$3"
+  local OSTYPE="$4"
 
-  echo "=========================================="
-  echo ">>> Building template $ALIAS ($VMID)"
-  echo "=========================================="
+  echo "=== Creating template $NAME ($VMID) ==="
 
-  # Download image
-  if [ ! -f "$TMP_IMAGE" ]; then
-    echo "==> Downloading $ALIAS..."
-    wget -O "$TMP_IMAGE" "$IMAGE_URL"
-  else
-    echo "==> Using cached image: $TMP_IMAGE"
+  # Remove existing VM if it exists
+  if qm status $VMID &>/dev/null; then
+    echo ">>> VM $VMID already exists. Removing..."
+    qm destroy $VMID --purge || true
   fi
 
-  # Cleanup old VM if exists
-  if qm status $VMID &>/dev/null; then
-    echo "==> Removing old VM $VMID"
-    qm destroy $VMID --purge
+  # Download image
+  IMG_FILE="$TMP_DIR/${URL##*/}"
+  if [ ! -f "$IMG_FILE" ]; then
+    echo ">>> Downloading $URL ..."
+    wget -O "$IMG_FILE" "$URL"
+  else
+    echo ">>> Image already exists: $IMG_FILE"
   fi
 
   # Create VM
-  qm create $VMID --name "$ALIAS" --memory 2048 --cores 2 \
-    --net0 virtio,bridge=vmbr0 \
-    --ostype l26 \
-    --agent enabled=1 \
-    --bios ovmf --machine q35 \
-    --scsihw virtio-scsi-pci
+  qm create $VMID --name "$NAME" --ostype $OSTYPE \
+    --memory 2048 --cores 2 --cpu host \
+    --net0 virtio,bridge=$BRIDGE
 
   # Import disk
-  qm importdisk $VMID "$TMP_IMAGE" $STORAGE
+  echo ">>> Importing disk..."
+  qm importdisk $VMID "$IMG_FILE" $STORAGE --format qcow2
 
-  if [ "$STORAGE" == "local-lvm" ]; then
-    qm set $VMID --scsi0 $STORAGE:vm-${VMID}-disk-0
-  else
-    qm set $VMID --scsi0 $STORAGE:${VMID}/vm-${VMID}-disk-0.qcow2
-  fi
+  # Attach disk
+  qm set $VMID --scsihw virtio-scsi-pci --scsi0 ${STORAGE}:vm-${VMID}-disk-0
 
   # Boot settings
   qm set $VMID --boot c --bootdisk scsi0
 
-  # Cloud-Init
-  qm set $VMID --ide2 $STORAGE:cloudinit
+  # Cloud-init drive
+  qm set $VMID --ide2 ${STORAGE}:cloudinit
   qm set $VMID --serial0 socket --vga serial0
 
-  # Finalize template
+  # Ballooning
+  qm set $VMID --balloon 0
+
+  # Convert to template
   qm template $VMID
-  echo "✅ Template $ALIAS ($VMID) ready!"
+
+  echo ">>> Template $NAME ($VMID) created successfully."
 }
 
-# -----------------------------
-# Main loop
-# -----------------------------
-COUNT=0
-for entry in "${IMAGES[@]}"; do
-  ALIAS="${entry%%|*}"
-  IMAGE_URL="${entry##*|}"
-  VMID=$((VMID_BASE + COUNT))
-  build_template $VMID $ALIAS $IMAGE_URL
-  COUNT=$((COUNT + 1))
+# Loop through templates
+for entry in "${TEMPLATES[@]}"; do
+  create_template $entry
 done
 
-echo "🎉 All templates built successfully!"
+# Cleanup
+echo ">>> Cleaning up downloaded images..."
+rm -f $TMP_DIR/*.qcow2 $TMP_DIR/*.img
+
+echo "=== All templates created successfully! ==="
