@@ -1,85 +1,105 @@
 #!/bin/bash
+# ==========================================
+# Proxmox Multi-OS Cloud Template Builder
+# Author: Dipak’s Senior Proxmox Engineer
+# ==========================================
+
 set -euo pipefail
 
-# ==============================
-# CONFIGURATION
-# ==============================
-STORAGE="local"               # Storage target for disks
-BRIDGE="vmbr0"                # Default network bridge
-MEM=2048                      # Default memory for template
-CORES=2                       # Default CPU cores
-DISK_SIZE="10G"               # Resize imported disk
-ROOT_PASSWORD="ChangeMe123!"  # Default root password
-SSH_KEY="$HOME/.ssh/id_rsa.pub" # Public SSH key for root
-HOST_PREFIX="tpl"             # Hostname prefix for templates
+# -----------------------------
+# VMID counter start
+# -----------------------------
+VMID_BASE=9000
 
-# Templates (VMID, name, URL, description tag)
-TEMPLATES=(
-  "9000 debian-11 https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2 Debian 11 Bullseye"
-  "9001 debian-12 https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2 Debian 12 Bookworm"
-  "9002 ubuntu-22.04 https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img Ubuntu 22.04 Jammy"
-  "9003 ubuntu-24.04 https://cloud-images.ubuntu.com/releases/noble/current/ubuntu-24.04-server-cloudimg-amd64.img Ubuntu 24.04 Noble"
+# -----------------------------
+# Storage auto-detection
+# -----------------------------
+if pvesm status | grep -q "^local-lvm"; then
+  STORAGE="local-lvm"
+else
+  STORAGE="local"
+fi
+
+echo "==> Using storage: $STORAGE"
+
+# -----------------------------
+# OS Images Library
+# -----------------------------
+IMAGES=(
+  "debian-11|https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-amd64.qcow2"
+  "debian-12|https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
+  "ubuntu-2204|https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+  "ubuntu-2404|https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+  "rocky-9|https://download.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2"
+  "almalinux-9|https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"
 )
 
-# ==============================
-# FUNCTIONS
-# ==============================
+# -----------------------------
+# Build function
+# -----------------------------
+build_template() {
+  local VMID=$1
+  local ALIAS=$2
+  local IMAGE_URL=$3
+  local TMP_IMAGE="/tmp/${ALIAS}.qcow2"
 
-create_template() {
-  local VMID=$1; local NAME=$2; local URL=$3; local DESC=$4
-  local IMG="/tmp/${NAME}.img"
+  echo "=========================================="
+  echo ">>> Building template $ALIAS ($VMID)"
+  echo "=========================================="
 
-  echo "==> Creating template: $NAME ($DESC) [VMID=$VMID]"
+  # Download image
+  if [ ! -f "$TMP_IMAGE" ]; then
+    echo "==> Downloading $ALIAS..."
+    wget -O "$TMP_IMAGE" "$IMAGE_URL"
+  else
+    echo "==> Using cached image: $TMP_IMAGE"
+  fi
 
-  # --- Download image ---
-  wget -q -O "$IMG" "$URL"
+  # Cleanup old VM if exists
+  if qm status $VMID &>/dev/null; then
+    echo "==> Removing old VM $VMID"
+    qm destroy $VMID --purge
+  fi
 
-  # --- Create VM shell ---
-  qm create $VMID \
-    --name "${NAME}-template" \
-    --memory $MEM \
-    --cores $CORES \
-    --net0 virtio,bridge=$BRIDGE \
+  # Create VM
+  qm create $VMID --name "$ALIAS" --memory 2048 --cores 2 \
+    --net0 virtio,bridge=vmbr0 \
     --ostype l26 \
-    --scsihw virtio-scsi-pci \
     --agent enabled=1 \
-    --description "$DESC - CloudInit ready"
+    --bios ovmf --machine q35 \
+    --scsihw virtio-scsi-pci
 
-  # --- Import disk ---
-  qm importdisk $VMID "$IMG" $STORAGE
+  # Import disk
+  qm importdisk $VMID "$TMP_IMAGE" $STORAGE
 
-  # --- Attach disk + CloudInit ---
-  qm set $VMID --scsi0 $STORAGE:vm-${VMID}-disk-0
+  if [ "$STORAGE" == "local-lvm" ]; then
+    qm set $VMID --scsi0 $STORAGE:vm-${VMID}-disk-0
+  else
+    qm set $VMID --scsi0 $STORAGE:${VMID}/vm-${VMID}-disk-0.qcow2
+  fi
+
+  # Boot settings
   qm set $VMID --boot c --bootdisk scsi0
+
+  # Cloud-Init
   qm set $VMID --ide2 $STORAGE:cloudinit
+  qm set $VMID --serial0 socket --vga serial0
 
-  # --- Resize root disk ---
-  qm resize $VMID scsi0 $DISK_SIZE
-
-  # --- CloudInit defaults ---
-  qm set $VMID --ciuser root --cipassword "$ROOT_PASSWORD"
-  [ -f "$SSH_KEY" ] && qm set $VMID --sshkey "$SSH_KEY"
-  qm set $VMID --ipconfig0 ip=dhcp
-  qm set $VMID --ciupgrade 0
-  qm set $VMID --tags "$NAME,cloudinit,template"
-
-  # --- Convert to template ---
+  # Finalize template
   qm template $VMID
-
-  # --- Cleanup ---
-  rm -f "$IMG"
-
-  echo "--> Template $NAME ready (VMID=$VMID)"
+  echo "✅ Template $ALIAS ($VMID) ready!"
 }
 
-# ==============================
-# MAIN
-# ==============================
-
-for tpl in "${TEMPLATES[@]}"; do
-  create_template $tpl
+# -----------------------------
+# Main loop
+# -----------------------------
+COUNT=0
+for entry in "${IMAGES[@]}"; do
+  ALIAS="${entry%%|*}"
+  IMAGE_URL="${entry##*|}"
+  VMID=$((VMID_BASE + COUNT))
+  build_template $VMID $ALIAS $IMAGE_URL
+  COUNT=$((COUNT + 1))
 done
 
-echo ""
-echo "✅ All templates created successfully!"
-qm list | grep template
+echo "🎉 All templates built successfully!"
