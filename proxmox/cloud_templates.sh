@@ -17,11 +17,13 @@ BRIDGE="vmbr0"
 
 # Template definitions (VMID, NAME, IMAGE_URL, OS_TYPE)
 TEMPLATES=(
-  "9000 debian-12-base https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2 debian"
-  "9001 ubuntu-2204-base https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img ubuntu"
-  "9002 ubuntu-2404-base https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img ubuntu"
-  "9003 almalinux-9-base https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2 centos"
-  "9004 rockylinux-9-base https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2 centos"
+  "9000 debian-11-base https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2 debian"
+  "9001 debian-12-base https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2 debian"
+  "9002 ubuntu-22.04-base https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img ubuntu"
+  "9003 ubuntu-24.04-base https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img ubuntu"
+  "9004 rocky-9-base https://download.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2 rocky"
+  "9005 almalinux-9-base https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2 almalinux"
+  "9006 centos-9-base https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-latest.x86_64.qcow2 centos"
 )
 
 create_template() {
