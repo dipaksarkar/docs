@@ -28,37 +28,42 @@ Replace `[CONTAINER_ID]` with your actual container ID (e.g., `container-102-pos
 ```bash
 #!/bin/bash
 
-# Get arguments passed by Proxmox
+# Arguments from Proxmox
 VMID="$1"
 PHASE="$2"
 
 echo "GUEST HOOK: $VMID $PHASE"
 
-# Only run during post-start phase
+# Only run during post-start
 if [ "$PHASE" != "post-start" ]; then
     exit 0
 fi
 
-# Configuration - MODIFY THESE VALUES
-ADDITIONAL_IP="51.38.87.113/32"  # Change to your desired IP
+# Network config
 INTERFACE="eth0"
 
-echo "$VMID is in post-start phase, adding additional IP"
+# List of additional IPs (add as many as you want)
+ADDITIONAL_IPS=(
+  "51.38.87.113/32"
+)
 
-# Wait for container to be fully started
+echo "$VMID is in post-start phase, configuring additional IPs on $INTERFACE"
+
+# Wait for container to be fully initialized
 sleep 5
 
-# Check if IP already exists, if not, add it
-if ! pct exec $VMID -- ip addr show $INTERFACE | grep -q "${ADDITIONAL_IP%/*}"; then
-    if pct exec $VMID -- ip addr add $ADDITIONAL_IP dev $INTERFACE; then
-        echo "Successfully added IP $ADDITIONAL_IP to container $VMID"
+for IP in "${ADDITIONAL_IPS[@]}"; do
+    BASE_IP="${IP%/*}"
+    if ! pct exec "$VMID" -- ip addr show "$INTERFACE" | grep -qw "$BASE_IP"; then
+        if pct exec "$VMID" -- ip addr add "$IP" dev "$INTERFACE"; then
+            echo "✅ Successfully added $IP to $INTERFACE in container $VMID"
+        else
+            echo "❌ Failed to add $IP to $INTERFACE in container $VMID"
+        fi
     else
-        echo "Failed to add IP $ADDITIONAL_IP to container $VMID"
-        exit 1
+        echo "ℹ️ $IP already exists on $INTERFACE in container $VMID"
     fi
-else
-    echo "IP $ADDITIONAL_IP already exists on container $VMID"
-fi
+done
 
 exit 0
 ```
