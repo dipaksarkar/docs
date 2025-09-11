@@ -337,11 +337,6 @@ write_files:
           broadcast 51.38.87.254
     permissions: '0644'
 runcmd:
-  - systemctl stop systemd-networkd
-  - systemctl disable systemd-networkd
-  - systemctl mask systemd-networkd
-  - systemctl mask systemd-networkd.socket
-  - systemctl mask systemd-networkd-wait-online.service
   - ifdown eth0 || true
   - ifup eth0
 ```
