@@ -217,3 +217,185 @@ qm stop 110
 sleep 5
 qm start 110
 ```
+
+
+
+root@s4543:~# cat /etc/network/interfaces
+source /etc/network/interfaces.d/*
+root@s4543:~# cd /etc/network/interfaces.d
+root@s4543:/etc/network/interfaces.d# ls
+50-cloud-init
+root@s4543:/etc/network/interfaces.d# cat 50-cloud-init
+# This file is generated from information provided by the datasource.  Changes
+# to it will not persist across an instance reboot.  To disable cloud-init's
+# network configuration capabilities, write a file
+# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+# network: {config: disabled}
+auto lo
+iface lo inet loopback
+    dns-nameservers 1.1.1.1 1.0.0.1 2620:0:ccc::2 2620:0:ccd::2
+
+auto eth0
+iface eth0 inet static
+    address 93.127.222.102/24
+    dns-nameservers 1.1.1.1 1.0.0.1 2620:0:ccc::2 2620:0:ccd::2
+    gateway 93.127.222.1
+    dns {'nameservers': ['1.1.1.1', '1.0.0.1', '2620:0:ccc::2', '2620:0:ccd::2'], 'search': []}
+
+# control-alias eth0
+iface eth0 inet static
+    address 93.127.222.110/24
+
+# control-alias eth0
+iface eth0 inet6 static
+    address 2a09:e683:7:4e::a/64
+    gateway 2a09:e683:7::1
+
+
+
+# Proxmox Cloud-Init Snippet Troubleshooting (Netplan Working)
+
+openssl passwd -6 'WFJ8AR~UK@w6'
+
+nano /var/lib/vz/snippets/ovh-network.yml
+```yaml
+#cloud-config
+users:
+  - name: debian
+    gecos: Debian User
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: false
+    passwd: $5$nsuw04pC$K0JTU12hxDj6BPbZ564nIUabQ0Wff9GbtpFOCTTu.0B
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbeYfOKRxq2SAc8WwyOrCdkTnD1Cct3CKLwgZQeh49Cw2oFTezIw+NaTAkhaw5RuYAOgSHWiAiZ+BdF+zIehIXWcwBB6UPZ+vh0V2XdMO6liVBA13ry9IsvAH2HMu1ZzxrD07JfzU5+HgcuoJofyL+dsBzgn6dp6Nvg6PUpCn5Mcoz0xYhomhCNQK4TnJEMbochXCj/wZJlJ+46OA8LMaseReN9jKVfobh4CxRqiP5kAnDY4SKCrGJY0BhXPxJulNPLy4gl/XHj9sP4R0JsJKaMNpID840i6oqPRCnMCqgAUvCm+s4t9aatdiYx4BfzYxV8bIzkbjJgpgIXJZ1gzdADj1unF8GiH0eGS69Y1TSeGsezLOld+DFSW+kDPklE8pvoMztyRVO+h8xqB2AHhV52d01/HR6Evgv5peshawltZygsCyOOui/7LsAOmPriLDQXO/p8pM7Wtda1hFF2Ym6qVCI4xa7fJMJ6EM2nM3oYMHhpcu8oL6ntt2WCFEU5FpsqHjFqdByDnkI1WmzBOaQKC5zgFNr0N0RIpCCFTS/o/2Kn/28WNIPAobognqwxMvQbMWlT5ZCYM+QPZxLCWc77xtLlgUxqqBlHALQvLPjrlA+JJY2FELYayPa//cYKWMGcQObs8xuac1jCeZL53fTiktiHJhOOzWYHooJehqw1Q== dipak@Dipaks-iMac.local
+write_files:
+  - path: /etc/netplan/99-custom-network.yaml
+    content: |
+      network:
+        version: 2
+        ethernets:
+          eth0:
+            addresses:
+              - 51.38.87.110/32         # Primary IP
+              - 51.38.87.113/32         # Secondary IP (add your second failover IP here)
+            routes:
+              - to: 0.0.0.0/0
+                via: 51.89.234.254
+                on-link: true
+            nameservers:
+              addresses:
+                - 8.8.8.8
+                - 1.1.1.1
+    permissions: '0600'
+runcmd:
+  - netplan apply
+```
+qm set 103 --cicustom "user=local:snippets/ovh-network.yml"
+qm cloudinit update 103
+qm stop 103
+sleep 5
+qm start 103
+
+# Proxmox Cloud-Init Snippet Troubleshooting (disables netplan/cloud-init)
+
+## Full Cloud-Init snippet for OVH failover IPs using /etc/network/interfaces (primary + secondary, disables netplan/cloud-init/systemd-networkd)
+
+Save as `/var/lib/vz/snippets/ovh-network-interfaces.yml`:
+
+```yaml
+#cloud-config
+packages:
+  - ifupdown
+users:
+  - name: debian
+    gecos: Debian User
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: false
+    passwd: $5$nsuw04pC$K0JTU12hxDj6BPbZ564nIUabQ0Wff9GbtpFOCTTu.0B
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbeYfOKRxq2SAc8WwyOrCdkTnD1Cct3CKLwgZQeh49Cw2oFTezIw+NaTAkhaw5RuYAOgSHWiAiZ+BdF+zIehIXWcwBB6UPZ+vh0V2XdMO6liVBA13ry9IsvAH2HMu1ZzxrD07JfzU5+HgcuoJofyL+dsBzgn6dp6Nvg6PUpCn5Mcoz0xYhomhCNQK4TnJEMbochXCj/wZJlJ+46OA8LMaseReN9jKVfobh4CxRqiP5kAnDY4SKCrGJY0BhXPxJulNPLy4gl/XHj9sP4R0JsJKaMNpID840i6oqPRCnMCqgAUvCm+s4t9aatdiYx4BfzYxV8bIzkbjJgpgIXJZ1gzdADj1unF8GiH0eGS69Y1TSeGsezLOld+DFSW+kDPklE8pvoMztyRVO+h8xqB2AHhV52d01/HR6Evgv5peshawltZygsCyOOui/7LsAOmPriLDQXO/p8pM7Wtda1hFF2Ym6qVCI4xa7fJMJ6EM2nM3oYMHhpcu8oL6ntt2WCFEU5FpsqHjFqdByDnkI1WmzBOaQKC5zgFNr0N0RIpCCFTS/o/2Kn/28WNIPAobognqwxMvQbMWlT5ZCYM+QPZxLCWc77xtLlgUxqqBlHALQvLPjrlA+JJY2FELYayPa//cYKWMGcQObs8xuac1jCeZL53fTiktiHJhOOzWYHooJehqw1Q== dipak@Dipaks-iMac.local
+write_files:
+  - path: /etc/network/interfaces
+    content: |
+      auto lo
+      iface lo inet loopback
+
+      auto eth0
+      iface eth0 inet static
+          address 51.38.87.110
+          netmask 255.255.255.255
+          broadcast 51.38.87.254
+          gateway 51.89.234.254
+          dns-nameservers 8.8.8.8 1.1.1.1
+
+      # control-alias eth0
+      iface eth0 inet static
+          address 51.38.87.113
+          netmask 255.255.255.255
+          broadcast 51.38.87.254
+    permissions: '0644'
+runcmd:
+  - systemctl stop systemd-networkd
+  - systemctl disable systemd-networkd
+  - systemctl mask systemd-networkd
+  - systemctl mask systemd-networkd.socket
+  - systemctl mask systemd-networkd-wait-online.service
+  - ifdown eth0 || true
+  - ifup eth0
+```
+
+
+```yaml
+#cloud-config
+packages:
+  - ifupdown
+users:
+  - name: debian
+    gecos: Debian User
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: false
+    passwd: $5$nsuw04pC$K0JTU12hxDj6BPbZ564nIUabQ0Wff9GbtpFOCTTu.0B
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbeYfOKRxq2SAc8WwyOrCdkTnD1Cct3CKLwgZQeh49Cw2oFTezIw+NaTAkhaw5RuYAOgSHWiAiZ+BdF+zIehIXWcwBB6UPZ+vh0V2XdMO6liVBA13ry9IsvAH2HMu1ZzxrD07JfzU5+HgcuoJofyL+dsBzgn6dp6Nvg6PUpCn5Mcoz0xYhomhCNQK4TnJEMbochXCj/wZJlJ+46OA8LMaseReN9jKVfobh4CxRqiP5kAnDY4SKCrGJY0BhXPxJulNPLy4gl/XHj9sP4R0JsJKaMNpID840i6oqPRCnMCqgAUvCm+s4t9aatdiYx4BfzYxV8bIzkbjJgpgIXJZ1gzdADj1unF8GiH0eGS69Y1TSeGsezLOld+DFSW+kDPklE8pvoMztyRVO+h8xqB2AHhV52d01/HR6Evgv5peshawltZygsCyOOui/7LsAOmPriLDQXO/p8pM7Wtda1hFF2Ym6qVCI4xa7fJMJ6EM2nM3oYMHhpcu8oL6ntt2WCFEU5FpsqHjFqdByDnkI1WmzBOaQKC5zgFNr0N0RIpCCFTS/o/2Kn/28WNIPAobognqwxMvQbMWlT5ZCYM+QPZxLCWc77xtLlgUxqqBlHALQvLPjrlA+JJY2FELYayPa//cYKWMGcQObs8xuac1jCeZL53fTiktiHJhOOzWYHooJehqw1Q== dipak@Dipaks-iMac.local
+write_files:
+  - path: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+    content: |
+      network: {config: disabled}
+    permissions: '0644'
+  - path: /etc/network/interfaces
+    content: |
+      auto lo
+      iface lo inet loopback
+
+      auto eth0
+      iface eth0 inet static
+          address 51.38.87.110
+          netmask 255.255.255.255
+          gateway 51.89.234.254
+          pointopoint 51.89.234.254
+          dns-nameservers 8.8.8.8 1.1.1.1
+
+      iface eth0 inet static
+          address 51.38.87.113
+          netmask 255.255.255.255
+          pointopoint 51.89.234.254
+          label eth0:1
+    permissions: '0644'
+runcmd:
+  - systemctl stop systemd-networkd
+  - systemctl disable systemd-networkd
+  - systemctl mask systemd-networkd
+  - systemctl mask systemd-networkd.socket
+  - systemctl mask systemd-networkd-wait-online.service
+  - ifdown eth0 || true
+  - ifup eth0 || true
+```
+
+qm set 103 --cicustom "user=local:snippets/ovh-network-interfaces.yml"
+qm cloudinit update 103
+qm stop 103
+sleep 5
+qm start 103
