@@ -62,17 +62,18 @@ Create a persistent netplan configuration that survives reboots:
   network:
     version: 2
     ethernets:
-    ens18:
-      addresses:
-      - 51.38.66.157/32
-      routes:
-      - to: default
-        via: 51.38.66.1
-        on-link: true
-      nameservers:
-      addresses:
-        - 8.8.8.8
-        - 1.1.1.1
+      eth0:
+        addresses:
+          - 51.38.87.110/32
+          - 51.38.87.113/32
+        routes:
+          - to: default
+            via: 51.89.234.254
+            on-link: true
+        nameservers:
+          addresses:
+            - 8.8.8.8
+            - 1.1.1.1
   ```
 
 3. Apply the configuration and test connectivity:
@@ -128,6 +129,7 @@ ip link show
 
 # Add the default gateway (replace <ens18> with your interface)
 sudo ip route add default via 51.38.66.1 dev <ens18> onlink
+sudo ip route add default via 51.89.234.254 dev eth0 onlink
 ```
 
 Verify the route and test connectivity:
@@ -252,56 +254,6 @@ iface eth0 inet6 static
     gateway 2a09:e683:7::1
 
 
-
-# Proxmox Cloud-Init Snippet Troubleshooting (Netplan Working)
-
-openssl passwd -6 'WFJ8AR~UK@w6'
-
-nano /var/lib/vz/snippets/ovh-network.yml
-```yaml
-#cloud-config
-users:
-  - name: debian
-    gecos: Debian User
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    shell: /bin/bash
-    lock_passwd: false
-    passwd: $5$nsuw04pC$K0JTU12hxDj6BPbZ564nIUabQ0Wff9GbtpFOCTTu.0B
-    ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbeYfOKRxq2SAc8WwyOrCdkTnD1Cct3CKLwgZQeh49Cw2oFTezIw+NaTAkhaw5RuYAOgSHWiAiZ+BdF+zIehIXWcwBB6UPZ+vh0V2XdMO6liVBA13ry9IsvAH2HMu1ZzxrD07JfzU5+HgcuoJofyL+dsBzgn6dp6Nvg6PUpCn5Mcoz0xYhomhCNQK4TnJEMbochXCj/wZJlJ+46OA8LMaseReN9jKVfobh4CxRqiP5kAnDY4SKCrGJY0BhXPxJulNPLy4gl/XHj9sP4R0JsJKaMNpID840i6oqPRCnMCqgAUvCm+s4t9aatdiYx4BfzYxV8bIzkbjJgpgIXJZ1gzdADj1unF8GiH0eGS69Y1TSeGsezLOld+DFSW+kDPklE8pvoMztyRVO+h8xqB2AHhV52d01/HR6Evgv5peshawltZygsCyOOui/7LsAOmPriLDQXO/p8pM7Wtda1hFF2Ym6qVCI4xa7fJMJ6EM2nM3oYMHhpcu8oL6ntt2WCFEU5FpsqHjFqdByDnkI1WmzBOaQKC5zgFNr0N0RIpCCFTS/o/2Kn/28WNIPAobognqwxMvQbMWlT5ZCYM+QPZxLCWc77xtLlgUxqqBlHALQvLPjrlA+JJY2FELYayPa//cYKWMGcQObs8xuac1jCeZL53fTiktiHJhOOzWYHooJehqw1Q== dipak@Dipaks-iMac.local
-write_files:
-  - path: /etc/resolv.conf
-    content: |
-      nameserver 8.8.8.8
-      nameserver 1.1.1.1
-    permissions: '0644'
-  - path: /etc/netplan/99-custom-network.yaml
-    content: |
-      network:
-        version: 2
-        ethernets:
-          eth0:
-            addresses:
-              - 51.38.87.110/32         # Primary IP
-              - 51.38.87.113/32         # Secondary IP (add your second failover IP here)
-            routes:
-              - to: 0.0.0.0/0
-                via: 51.89.234.254
-                on-link: true
-            nameservers:
-              addresses:
-                - 8.8.8.8
-                - 1.1.1.1
-    permissions: '0600'
-runcmd:
-  - netplan apply
-```
-qm set 103 --cicustom "user=local:snippets/ovh-network.yml"
-qm cloudinit update 103
-qm stop 103
-sleep 5
-qm start 103
-
 # Proxmox Cloud-Init Snippet Troubleshooting (disables netplan/cloud-init)
 
 ## Full Cloud-Init snippet for OVH failover IPs using /etc/network/interfaces (primary + secondary, disables netplan/cloud-init/systemd-networkd)
@@ -347,12 +299,23 @@ write_files:
           broadcast 51.38.87.254
     permissions: '0644'
 runcmd:
+  - systemctl stop systemd-resolved || true
+  - systemctl disable systemd-resolved || true
+  - mkdir -p /run/systemd/resolve
+  - ln -sf /etc/resolv.conf /run/systemd/resolve/resolv.conf
   - ifdown eth0 || true
   - ifup eth0
 ```
 
+qm set 103 --cicustom "user=local:snippets/ovh-network-interfaces.yml"
+qm cloudinit update 103
+qm stop 103
+sleep 5
+qm start 103
 
-```yaml
+## Alternative snippet with systemd-networkd disabled/masked (if ifupdown fails)
+
+```yaml /var/lib/vz/snippets/ovh-network-interfaces-alt.yml
 #cloud-config
 packages:
   - ifupdown
@@ -404,7 +367,55 @@ runcmd:
   - ifup eth0 || true
 ```
 
-qm set 103 --cicustom "user=local:snippets/ovh-network-interfaces.yml"
+# Proxmox Cloud-Init Snippet Troubleshooting (Netplan)
+
+openssl passwd -6 'WFJ8AR~UK@w6'
+
+nano /var/lib/vz/snippets/ovh-network.yml
+```yaml
+#cloud-config
+users:
+  - name: debian
+    gecos: Debian User
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: false
+    passwd: $5$nsuw04pC$K0JTU12hxDj6BPbZ564nIUabQ0Wff9GbtpFOCTTu.0B
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbeYfOKRxq2SAc8WwyOrCdkTnD1Cct3CKLwgZQeh49Cw2oFTezIw+NaTAkhaw5RuYAOgSHWiAiZ+BdF+zIehIXWcwBB6UPZ+vh0V2XdMO6liVBA13ry9IsvAH2HMu1ZzxrD07JfzU5+HgcuoJofyL+dsBzgn6dp6Nvg6PUpCn5Mcoz0xYhomhCNQK4TnJEMbochXCj/wZJlJ+46OA8LMaseReN9jKVfobh4CxRqiP5kAnDY4SKCrGJY0BhXPxJulNPLy4gl/XHj9sP4R0JsJKaMNpID840i6oqPRCnMCqgAUvCm+s4t9aatdiYx4BfzYxV8bIzkbjJgpgIXJZ1gzdADj1unF8GiH0eGS69Y1TSeGsezLOld+DFSW+kDPklE8pvoMztyRVO+h8xqB2AHhV52d01/HR6Evgv5peshawltZygsCyOOui/7LsAOmPriLDQXO/p8pM7Wtda1hFF2Ym6qVCI4xa7fJMJ6EM2nM3oYMHhpcu8oL6ntt2WCFEU5FpsqHjFqdByDnkI1WmzBOaQKC5zgFNr0N0RIpCCFTS/o/2Kn/28WNIPAobognqwxMvQbMWlT5ZCYM+QPZxLCWc77xtLlgUxqqBlHALQvLPjrlA+JJY2FELYayPa//cYKWMGcQObs8xuac1jCeZL53fTiktiHJhOOzWYHooJehqw1Q== dipak@Dipaks-iMac.local
+write_files:
+  - path: /etc/resolv.conf
+    content: |
+      nameserver 8.8.8.8
+      nameserver 1.1.1.1
+    permissions: '0644'
+  - path: /etc/netplan/99-custom-network.yaml
+    content: |
+      network:
+        version: 2
+        ethernets:
+          eth0:
+            addresses:
+              - 51.38.87.110/32         # Primary IP
+              - 51.38.87.113/32         # Secondary IP (add your second failover IP here)
+            routes:
+              - to: 0.0.0.0/0
+                via: 51.89.234.254
+                on-link: true
+            nameservers:
+              addresses:
+                - 8.8.8.8
+                - 1.1.1.1
+    permissions: '0644'
+runcmd:
+  - systemctl stop systemd-resolved || true
+  - systemctl disable systemd-resolved || true
+  - mkdir -p /run/systemd/resolve
+  - ln -sf /etc/resolv.conf /run/systemd/resolve/resolv.conf
+  - chmod 644 /etc/netplan/*.yaml
+  - netplan apply
+```
+qm set 103 --cicustom "user=local:snippets/ovh-network.yml"
 qm cloudinit update 103
 qm stop 103
 sleep 5
