@@ -2,10 +2,22 @@
 
 set -e
 
-# Update package list
+#######################
+# Variables
+#######################
+
+RUNNER_USER=githubrunner
+RUNNER_HOME="/home/$RUNNER_USER"
+RUNNER_DIR="$RUNNER_HOME/actions-runner"
+
+#######################
+# System Preparation
+#######################
+
+echo "Updating package list..."
 sudo apt update
 
-# Install prerequisites for Docker
+echo "Installing prerequisites for Docker..."
 sudo apt install -y \
     apt-transport-https \
     ca-certificates \
@@ -14,83 +26,97 @@ sudo apt install -y \
     gnupg \
     lsb-release
 
-# Add Docker’s official GPG key
+echo "Adding Docker’s official GPG key..."
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
     sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-# Add Docker apt repository
+echo "Adding Docker apt repository..."
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Update package list again for Docker
+echo "Updating package list for Docker..."
 sudo apt update
 
-# Install Docker Engine
+echo "Installing Docker Engine..."
 sudo apt install -y docker-ce docker-ce-cli containerd.io
 
-# Enable and start Docker
+echo "Enabling and starting Docker..."
 sudo systemctl enable docker
 sudo systemctl start docker
 
-# Add current user to docker group for non-root usage (optional, requires re-login)
-sudo usermod -aG docker $USER
+#############################
+# Create githubrunner User
+#############################
 
-# Install MySQL Server
-sudo apt install -y mysql-server
-
-# Enable and start MySQL
-sudo systemctl enable mysql
-sudo systemctl start mysql
-
-# Install Redis Server
-sudo apt install -y redis-server
-
-# Enable and start Redis
-sudo systemctl enable redis-server
-sudo systemctl start redis-server
-
-# Install SQLite
-sudo apt install -y sqlite3 libsqlite3-dev
-
-# Install Python 3 and pip
-sudo apt install -y python3 python3-pip python3-venv
-
-# Install Node.js (LTS) and npm using NodeSource
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt install -y nodejs
-
-echo "Docker, MySQL, Redis, SQLite, Python, and Node.js have been installed and started."
-echo "You may need to log out and log in again for docker group membership to take effect."
-
-##############################
-# GitHub Actions Runner User #
-##############################
-
-RUNNER_USER=githubrunner
-
-# Create the user if it doesn't exist
 if ! id -u "$RUNNER_USER" >/dev/null 2>&1; then
+    echo "Creating user: $RUNNER_USER"
     sudo adduser --disabled-password --gecos "" "$RUNNER_USER"
 fi
 
-# Add user to docker group for GitHub Actions Docker jobs
+echo "Adding $RUNNER_USER to docker group..."
 sudo usermod -aG docker "$RUNNER_USER"
 
-# Ensure actions-runner directory exists in user home
-sudo mkdir -p /home/$RUNNER_USER/actions-runner
+#######################
+# Database & Languages
+#######################
 
-# Change owner of the directory to the runner user
-sudo chown -R $RUNNER_USER:$RUNNER_USER /home/$RUNNER_USER/actions-runner
+echo "Installing MySQL Server..."
+sudo apt install -y mysql-server
+sudo systemctl enable mysql
+sudo systemctl start mysql
 
-echo "User '$RUNNER_USER' created and prepared for GitHub Actions runner."
-echo "Switch to this user to configure and run the runner:"
-echo ""
-echo "    sudo su - $RUNNER_USER"
-echo "    cd ~/actions-runner"
-echo "    ./config.sh --url <your_repo_url> --token <your_runner_token>"
-echo ""
-echo "After configuration, start the runner:"
-echo "    ./run.sh"
+echo "Installing Redis Server..."
+sudo apt install -y redis-server
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+
+echo "Installing SQLite..."
+sudo apt install -y sqlite3 libsqlite3-dev
+
+echo "Installing Python 3 and pip..."
+sudo apt install -y python3 python3-pip python3-venv
+
+echo "Installing Node.js (LTS) and npm..."
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt install -y nodejs
+
+#########################
+# Setup Actions Runner Dir
+#########################
+
+echo "Creating runner directory: $RUNNER_DIR"
+sudo mkdir -p "$RUNNER_DIR"
+sudo chown -R $RUNNER_USER:$RUNNER_USER "$RUNNER_DIR"
+
+#######################
+# Set Password (Prompt)
+#######################
+
+echo
+echo "To set a password for $RUNNER_USER, run:"
+echo "    sudo passwd $RUNNER_USER"
+echo "(This allows login as $RUNNER_USER for runner setup and management.)"
+echo
+
+#######################
+# Final Instructions
+#######################
+
+echo "Setup complete!"
+echo "To configure and start your GitHub Actions runner:"
+echo "1. Switch to the runner user:"
+echo "       sudo su - $RUNNER_USER"
+echo "2. Download the runner package to ~/actions-runner:"
+echo "       cd ~/actions-runner"
+echo "       wget https://github.com/actions/runner/releases/download/v2.328.0/actions-runner-linux-x64-2.328.0.tar.gz"
+echo "       tar xzf actions-runner-linux-x64-2.328.0.tar.gz"
+echo "3. Configure the runner (replace <url> and <token> appropriately):"
+echo "       ./config.sh --url <your_repo_url> --token <your_runner_token>"
+echo "4. Install the runner as a service:"
+echo "       sudo ./svc.sh install"
+echo "       sudo ./svc.sh start"
+echo
+echo "The runner will now start automatically on boot!"
