@@ -2,58 +2,62 @@
 
 set -e
 
-#############################
-# Variables
-#############################
 RUNNER_USER="githubrunner"
 RUNNER_HOME="/Users/$RUNNER_USER"
 RUNNER_DIR="$RUNNER_HOME/actions-runner"
 
-#############################
-# Create githubrunner User
-#############################
+# Create githubrunner User if not exists
 if ! id "$RUNNER_USER" >/dev/null 2>&1; then
     echo "Creating user: $RUNNER_USER"
     sudo sysadminctl -addUser "$RUNNER_USER" -fullName "GitHub Runner User" -password "-"
     sudo dscl . -create /Users/"$RUNNER_USER" UserShell /bin/bash
     sudo dscl . -create /Users/"$RUNNER_USER" NFSHomeDirectory "$RUNNER_HOME"
     sudo createhomedir -c -u "$RUNNER_USER" > /dev/null
+else
+    echo "User $RUNNER_USER already exists. Skipping user creation."
 fi
 
 echo "Giving $RUNNER_USER admin rights (sudo privileges)..."
 sudo dscl . -append /Groups/admin GroupMembership "$RUNNER_USER"
 
-#############################
-# Install Homebrew (if missing)
-#############################
+# Install Homebrew if not present
 if ! command -v brew >/dev/null 2>&1; then
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo "Homebrew is already installed. Skipping."
 fi
 
-#############################
-# Install Dependencies
-#############################
-echo "Installing dependencies: git, wget, python3, node, sqlite3..."
-brew install git wget python3 node sqlite3
+# List of CLI tools and Homebrew packages
+cli_tools=(git wget python3 node sqlite3)
+brew_packages=(mysql redis)
 
-echo "Installing MySQL and Redis..."
-brew install mysql redis
+for tool in "${cli_tools[@]}"; do
+    if ! command -v $tool >/dev/null 2>&1; then
+        echo "Installing $tool..."
+        brew install $tool
+    else
+        echo "$tool is already installed. Skipping."
+    fi
+done
 
-echo "Starting MySQL and Redis (will auto-start on login)..."
+for pkg in "${brew_packages[@]}"; do
+    if ! brew list $pkg >/dev/null 2>&1; then
+        echo "Installing $pkg..."
+        brew install $pkg
+    else
+        echo "$pkg is already installed. Skipping."
+    fi
+done
+
+echo "Starting/Enabling MySQL and Redis..."
 brew services start mysql
 brew services start redis
 
-#############################
-# Prepare Runner Directory
-#############################
 echo "Creating runner directory: $RUNNER_DIR"
 sudo mkdir -p "$RUNNER_DIR"
 sudo chown -R "$RUNNER_USER":"staff" "$RUNNER_DIR"
 
-#############################
-# Final Instructions
-#############################
 echo
 echo "Setup complete!"
 echo "To configure and start your GitHub Actions runner:"
