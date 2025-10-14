@@ -18,30 +18,44 @@ echo "Updating package list..."
 sudo apt update
 
 echo "Installing prerequisites for Docker..."
-sudo apt install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common \
-    gnupg \
-    lsb-release
+for pkg in apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release; do
+    if dpkg -s $pkg >/dev/null 2>&1; then
+        echo "$pkg is already installed. Skipping."
+    else
+        sudo apt install -y $pkg
+    fi
+done
 
 echo "Adding Docker’s official GPG key..."
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+if [ ! -f /etc/apt/keyrings/docker.gpg ]; then
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+        sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+else
+    echo "Docker GPG key already exists. Skipping."
+fi
 
 echo "Adding Docker apt repository..."
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+if [ ! -f /etc/apt/sources.list.d/docker.list ]; then
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+else
+    echo "Docker apt repository already exists. Skipping."
+fi
 
 echo "Updating package list for Docker..."
 sudo apt update
 
 echo "Installing Docker Engine..."
-sudo apt install -y docker-ce docker-ce-cli containerd.io
+for pkg in docker-ce docker-ce-cli containerd.io; do
+    if dpkg -s $pkg >/dev/null 2>&1; then
+        echo "$pkg is already installed. Skipping."
+    else
+        sudo apt install -y $pkg
+    fi
+done
 
 echo "Enabling and starting Docker..."
 sudo systemctl enable docker
@@ -54,34 +68,63 @@ sudo systemctl start docker
 if ! id -u "$RUNNER_USER" >/dev/null 2>&1; then
     echo "Creating user: $RUNNER_USER"
     sudo adduser --disabled-password --gecos "" "$RUNNER_USER"
+else
+    echo "User $RUNNER_USER already exists. Skipping user creation."
 fi
 
 echo "Adding $RUNNER_USER to docker group..."
 sudo usermod -aG docker "$RUNNER_USER"
+
+echo "Adding $RUNNER_USER to sudo group..."
+sudo usermod -aG sudo "$RUNNER_USER"
 
 #######################
 # Database & Languages
 #######################
 
 echo "Installing MySQL Server..."
-sudo apt install -y mysql-server
+if dpkg -s mysql-server >/dev/null 2>&1; then
+    echo "mysql-server is already installed. Skipping."
+else
+    sudo apt install -y mysql-server
+fi
 sudo systemctl enable mysql
 sudo systemctl start mysql
 
 echo "Installing Redis Server..."
-sudo apt install -y redis-server
+if dpkg -s redis-server >/dev/null 2>&1; then
+    echo "redis-server is already installed. Skipping."
+else
+    sudo apt install -y redis-server
+fi
 sudo systemctl enable redis-server
 sudo systemctl start redis-server
 
 echo "Installing SQLite..."
-sudo apt install -y sqlite3 libsqlite3-dev
+for pkg in sqlite3 libsqlite3-dev; do
+    if dpkg -s $pkg >/dev/null 2>&1; then
+        echo "$pkg is already installed. Skipping."
+    else
+        sudo apt install -y $pkg
+    fi
+done
 
 echo "Installing Python 3 and pip..."
-sudo apt install -y python3 python3-pip python3-venv
+for pkg in python3 python3-pip python3-venv; do
+    if dpkg -s $pkg >/dev/null 2>&1; then
+        echo "$pkg is already installed. Skipping."
+    else
+        sudo apt install -y $pkg
+    fi
+done
 
 echo "Installing Node.js (LTS) and npm..."
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt install -y nodejs
+if command -v node >/dev/null 2>&1; then
+    echo "Node.js is already installed. Skipping."
+else
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt install -y nodejs
+fi
 
 #########################
 # Setup Actions Runner Dir
