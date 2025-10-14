@@ -64,3 +64,33 @@ sudo apt install -y nodejs
 
 echo "Docker, MySQL, Redis, SQLite, Python, and Node.js have been installed and started."
 echo "You may need to log out and log in again for docker group membership to take effect."
+
+##############################
+# GitHub Actions Runner User #
+##############################
+
+RUNNER_USER=githubrunner
+
+# Create the user if it doesn't exist
+if ! id -u "$RUNNER_USER" >/dev/null 2>&1; then
+    sudo adduser --disabled-password --gecos "" "$RUNNER_USER"
+fi
+
+# Add user to docker group for GitHub Actions Docker jobs
+sudo usermod -aG docker "$RUNNER_USER"
+
+# Ensure actions-runner directory exists in user home
+sudo mkdir -p /home/$RUNNER_USER/actions-runner
+
+# Change owner of the directory to the runner user
+sudo chown -R $RUNNER_USER:$RUNNER_USER /home/$RUNNER_USER/actions-runner
+
+echo "User '$RUNNER_USER' created and prepared for GitHub Actions runner."
+echo "Switch to this user to configure and run the runner:"
+echo ""
+echo "    sudo su - $RUNNER_USER"
+echo "    cd ~/actions-runner"
+echo "    ./config.sh --url <your_repo_url> --token <your_runner_token>"
+echo ""
+echo "After configuration, start the runner:"
+echo "    ./run.sh"
