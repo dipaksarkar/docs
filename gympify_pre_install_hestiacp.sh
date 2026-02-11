@@ -2,7 +2,7 @@
 
 # Gympify Pre-Installation Script for HestiaCP VPS
 # This script is specifically designed for VPS servers managed by HestiaCP Control Panel
-# It installs PHP 8.2, required extensions, ionCube Loader, and sets up MySQL database
+# It installs PHP 8.3, required extensions, ionCube Loader, and sets up MySQL database
 # Optimized for HestiaCP environments with proper path handling and service management
 
 set -e
@@ -88,9 +88,9 @@ get_os_type() {
     fi
 }
 
-# Function to install PHP 8.2 and extensions on HestiaCP
+# Function to install PHP 8.3 and extensions on HestiaCP
 install_php_hestiacp() {
-    print_header "Installing PHP 8.2 and required extensions for HestiaCP VPS..."
+    print_header "Installing PHP 8.3 and required extensions for HestiaCP VPS..."
     
     # Check if HestiaCP is installed
     if ! is_hestiacp_server; then
@@ -99,7 +99,7 @@ install_php_hestiacp() {
         exit 1
     fi
     
-    local php_version="8.2"
+    local php_version="8.3"
     
     # Get HestiaCP version for compatibility
     local hestia_version=""
@@ -120,18 +120,18 @@ install_php_hestiacp() {
         yum update -y || dnf update -y
     fi
     
-    # Check if PHP 8.2 is already installed
+    # Check if PHP 8.3 is already installed
     if check_php_version "$php_version"; then
         print_status "✅ PHP $php_version is already installed on this HestiaCP server"
         
-        # Verify we can use PHP 8.2
+        # Verify we can use PHP 8.3
         local php_binary=""
-        if command -v php8.2 >/dev/null 2>&1; then
-            php_binary="php8.2"
-        elif [ -f "/usr/bin/php8.2" ]; then
-            php_binary="/usr/bin/php8.2"
+        if command -v php8.3 >/dev/null 2>&1; then
+            php_binary="php8.3"
+        elif [ -f "/usr/bin/php8.3" ]; then
+            php_binary="/usr/bin/php8.3"
         else
-            print_error "Cannot find working PHP 8.2 binary"
+            print_error "Cannot find working PHP 8.3 binary"
             exit 1
         fi
         
@@ -153,9 +153,9 @@ install_php_hestiacp() {
             }
             apt-get update
             
-            # Install PHP 8.2
-            print_status "Installing PHP 8.2 base package..."
-            apt-get install -y php8.2 php8.2-fpm php8.2-cli
+            # Install PHP 8.3
+            print_status "Installing PHP 8.3 base package..."
+            apt-get install -y php8.3 php8.3-fpm php8.3-cli
             
         elif [ "$os_type" = "redhat" ]; then
             # Add Remi repository for CentOS/RHEL/Rocky/AlmaLinux
@@ -179,27 +179,27 @@ install_php_hestiacp() {
                 fi
             fi
             
-            # Enable PHP 8.2 module
+            # Enable PHP 8.3 module
             if command -v dnf >/dev/null 2>&1; then
                 dnf module reset php -y
-                dnf module enable php:remi-8.2 -y
+                dnf module enable php:remi-8.3 -y
                 dnf install -y php php-fpm php-cli
             else
-                yum-config-manager --enable remi-php82
+                yum-config-manager --enable remi-php83
                 yum install -y php php-fpm php-cli
             fi
         fi
         
         # Verify installation
         if check_php_version "$php_version"; then
-            print_status "✅ PHP 8.2 installed successfully"
+            print_status "✅ PHP 8.3 installed successfully"
             
             # Get PHP binary
             local php_binary=""
-            if command -v php8.2 >/dev/null 2>&1; then
-                php_binary="php8.2"
-            elif [ -f "/usr/bin/php8.2" ]; then
-                php_binary="/usr/bin/php8.2"
+            if command -v php8.3 >/dev/null 2>&1; then
+                php_binary="php8.3"
+            elif [ -f "/usr/bin/php8.3" ]; then
+                php_binary="/usr/bin/php8.3"
             else
                 php_binary="php"
             fi
@@ -253,23 +253,23 @@ install_php_hestiacp() {
                         print_status "✓ $extension is built-in or already available"
                         ;;
                     "pdo_mysql")
-                        apt-get install -y php8.2-mysql || true
+                        apt-get install -y php8.3-mysql || true
                         ;;
                     "dom"|"xml")
-                        apt-get install -y php8.2-xml || true
+                        apt-get install -y php8.3-xml || true
                         ;;
                     "redis")
-                        apt-get install -y php8.2-redis || true
+                        apt-get install -y php8.3-redis || true
                         ;;
                     "imagick")
-                        apt-get install -y php8.2-imagick || true
+                        apt-get install -y php8.3-imagick || true
                         ;;
                     "pdo")
                         # PDO is usually built-in
                         print_status "✓ $extension is built-in"
                         ;;
                     *)
-                        apt-get install -y php8.2-${extension} || true
+                        apt-get install -y php8.3-${extension} || true
                         ;;
                 esac
             elif [ "$os_type" = "redhat" ]; then
@@ -331,10 +331,10 @@ install_php_hestiacp() {
     print_status "Configuring PHP-FPM for HestiaCP..."
     
     # Enable and start PHP-FPM service
-    if systemctl list-unit-files | grep -q "php8.2-fpm"; then
-        systemctl enable php8.2-fpm
-        systemctl start php8.2-fpm
-        print_status "✅ PHP 8.2 FPM service enabled and started"
+    if systemctl list-unit-files | grep -q "php8.3-fpm"; then
+        systemctl enable php8.3-fpm
+        systemctl start php8.3-fpm
+        print_status "✅ PHP 8.3 FPM service enabled and started"
     elif systemctl list-unit-files | grep -q "php-fpm"; then
         systemctl enable php-fpm
         systemctl start php-fpm
@@ -360,9 +360,9 @@ install_php_hestiacp() {
 
 # Function to install ionCube Loader for HestiaCP
 install_ioncube_loader() {
-    print_header "Installing ionCube Loader for PHP 8.2 on HestiaCP VPS..."
+    print_header "Installing ionCube Loader for PHP 8.3 on HestiaCP VPS..."
     
-    local php_version="8.2"
+    local php_version="8.3"
     local arch=$(uname -m)
     local ioncube_url=""
     
@@ -398,15 +398,15 @@ install_ioncube_loader() {
         local php_ext_dir=""
         
         # Try to get extension directory from PHP
-        if command -v php8.2 >/dev/null 2>&1; then
-            php_ext_dir=$(php8.2 -i | grep extension_dir | cut -d' ' -f5)
+        if command -v php8.3 >/dev/null 2>&1; then
+            php_ext_dir=$(php8.3 -i | grep extension_dir | cut -d' ' -f5)
         elif command -v php >/dev/null 2>&1; then
             php_ext_dir=$(php -i | grep extension_dir | cut -d' ' -f5)
         fi
         
         # Fallback to common paths
         if [ -z "$php_ext_dir" ] || [ ! -d "$php_ext_dir" ]; then
-            for dir in "/usr/lib/php/20220829" "/usr/lib64/php/modules" "/usr/lib/php/modules" "/usr/local/lib/php/extensions/no-debug-non-zts-20220829"; do
+            for dir in "/usr/lib/php/20220839" "/usr/lib64/php/modules" "/usr/lib/php/modules" "/usr/local/lib/php/extensions/no-debug-non-zts-20220839"; do
                 if [ -d "$dir" ]; then
                     php_ext_dir="$dir"
                     break
@@ -433,12 +433,12 @@ install_ioncube_loader() {
             
             # Find PHP configuration directory
             if [ "$os_type" = "debian" ]; then
-                if [ -d "/etc/php/8.2/mods-available" ]; then
-                    php_ini_dir="/etc/php/8.2/mods-available"
-                elif [ -d "/etc/php/8.2/conf.d" ]; then
-                    php_ini_dir="/etc/php/8.2/conf.d"
+                if [ -d "/etc/php/8.3/mods-available" ]; then
+                    php_ini_dir="/etc/php/8.3/mods-available"
+                elif [ -d "/etc/php/8.3/conf.d" ]; then
+                    php_ini_dir="/etc/php/8.3/conf.d"
                 else
-                    php_ini_dir="/etc/php/8.2"
+                    php_ini_dir="/etc/php/8.3"
                 fi
             elif [ "$os_type" = "redhat" ]; then
                 if [ -d "/etc/php.d" ]; then
@@ -457,17 +457,17 @@ install_ioncube_loader() {
             print_status "ionCube Loader configuration created for HestiaCP at $ioncube_ini"
             
             # Enable ionCube module on Debian systems
-            if [ "$os_type" = "debian" ] && [ -d "/etc/php/8.2/mods-available" ]; then
+            if [ "$os_type" = "debian" ] && [ -d "/etc/php/8.3/mods-available" ]; then
                 if command -v phpenmod >/dev/null 2>&1; then
-                    phpenmod -v 8.2 ioncube
+                    phpenmod -v 8.3 ioncube
                     print_status "ionCube module enabled via phpenmod"
                 fi
             fi
             
             # Restart PHP-FPM service
-            if systemctl is-active --quiet php8.2-fpm; then
-                systemctl restart php8.2-fpm
-                print_status "Restarted PHP 8.2 FPM service"
+            if systemctl is-active --quiet php8.3-fpm; then
+                systemctl restart php8.3-fpm
+                print_status "Restarted PHP 8.3 FPM service"
             elif systemctl is-active --quiet php-fpm; then
                 systemctl restart php-fpm
                 print_status "Restarted PHP FPM service"
@@ -486,8 +486,8 @@ install_ioncube_loader() {
             
             # Verify installation using HestiaCP PHP binary
             local hestia_php_binary=""
-            if command -v php8.2 >/dev/null 2>&1; then
-                hestia_php_binary="php8.2"
+            if command -v php8.3 >/dev/null 2>&1; then
+                hestia_php_binary="php8.3"
             else
                 hestia_php_binary="php"
             fi
@@ -499,7 +499,7 @@ install_ioncube_loader() {
                 print_status "You may need to manually configure ionCube in HestiaCP PHP settings"
             fi
         else
-            print_error "ionCube Loader file not found for PHP 8.2"
+            print_error "ionCube Loader file not found for PHP 8.3"
         fi
     else
         print_error "Failed to download ionCube Loader"
@@ -514,14 +514,14 @@ install_ioncube_loader() {
 
 # Function to verify PHP installation
 verify_php_installation() {
-    print_header "Verifying PHP 8.2 installation..."
+    print_header "Verifying PHP 8.3 installation..."
     
-    local php_version="8.2"
+    local php_version="8.3"
     
     # Find the correct PHP binary
     local php_binary=""
-    if command -v php8.2 >/dev/null 2>&1; then
-        php_binary="php8.2"
+    if command -v php8.3 >/dev/null 2>&1; then
+        php_binary="php8.3"
     elif command -v php >/dev/null 2>&1; then
         php_binary="php"
     else
@@ -1123,14 +1123,14 @@ else
     print_status "✅ Domain '$domain_name' already exists"
 fi
 
-# Set PHP version to 8.2
-print_status "Setting PHP version to 8.2 for domain '$domain_name'..."
+# Set PHP version to 8.3
+print_status "Setting PHP version to 8.3 for domain '$domain_name'..."
 v-change-web-domain-backend-tpl "$hestia_user" "$domain_name" "PHP-8_2"
 
 if [ $? -eq 0 ]; then
-    print_status "✅ PHP 8.2 set for domain '$domain_name'"
+    print_status "✅ PHP 8.3 set for domain '$domain_name'"
 else
-    print_warning "Failed to set PHP 8.2. You may need to do this manually in HestiaCP panel."
+    print_warning "Failed to set PHP 8.3. You may need to do this manually in HestiaCP panel."
 fi
 
 # Get domain path
@@ -1142,7 +1142,7 @@ print_header "Domain Setup Complete!"
 print_status "Domain: $domain_name"
 print_status "User: $hestia_user"
 print_status "Document Root: $domain_path"
-print_status "PHP Version: 8.2 (if supported)"
+print_status "PHP Version: 8.3 (if supported)"
 echo
 print_status "Next steps:"
 echo "1. Upload Gympify files to: $domain_path"
@@ -1201,7 +1201,7 @@ main() {
     echo
     echo "This script will:"
     echo "- Verify HestiaCP installation and version"
-    echo "- Install PHP 8.2 with all required extensions for HestiaCP"
+    echo "- Install PHP 8.3 with all required extensions for HestiaCP"
     echo "- Install and configure ionCube Loader for HestiaCP PHP"
     echo "- Set up MySQL database with optimized configuration"
     echo "- Create Gympify database user with secure random password"
@@ -1256,7 +1256,7 @@ main() {
     create_hestiacp_helper
     
     print_header "HestiaCP VPS Pre-installation complete!"
-    print_status "✅ PHP 8.2 with all required extensions installed for HestiaCP"
+    print_status "✅ PHP 8.3 with all required extensions installed for HestiaCP"
     print_status "✅ ionCube Loader configured for HestiaCP PHP environment"
     print_status "✅ MySQL database setup completed with credentials displayed above"
     print_status "✅ Database privilege testing completed"
@@ -1268,13 +1268,13 @@ main() {
     echo "2. Upload and extract Gympify files to your domain's document root"
     echo "3. Copy .env.example to .env in the Gympify directory"
     echo "4. Update .env file with the database credentials shown above"
-    echo "5. In HestiaCP Panel: Ensure PHP 8.2 is selected for your domain"
+    echo "5. In HestiaCP Panel: Ensure PHP 8.3 is selected for your domain"
     echo "6. In HestiaCP Panel: Verify all required PHP extensions are enabled"
     echo "7. Set proper file permissions for your domain files"
     echo "8. Navigate to your-domain.com/install to complete Gympify installation"
     echo
     print_warning "Important HestiaCP Configuration:"
-    echo "- Use HestiaCP Panel to set PHP 8.2 for your domain"
+    echo "- Use HestiaCP Panel to set PHP 8.3 for your domain"
     echo "- Verify ionCube Loader is enabled in PHP settings"
     echo "- Ensure document root points to Gympify's public directory (if using Laravel structure)"
     echo "- Configure SSL certificate if needed via HestiaCP SSL settings"
