@@ -1,0 +1,117 @@
+#!/bin/bash
+
+# ==============================================================================
+# Script Name: download_from_goazh.sh
+# Description: Downloads files from ssh.goazh.com using rsync and SSH multiplexing.
+#
+# Usage:       ./download_from_goazh.sh [DOMAIN_OR_PATH] [LOCAL_DEST]
+#              If no arguments provided, it syncs the list of configured domains.
+# ==============================================================================
+
+# ----------------- Configuration -----------------
+
+HOST="ssh.goazh.com"
+USER="goazhcom"
+REMOTE_BASE_WEB="~" # cPanel home directory
+LOCAL_BASE="$HOME"
+
+# List of domains to sync
+# Format: "Source_Directory_Name:Destination_Domain_Name"
+# "Source_Directory_Name": Directory name in cPanel (relative to home)
+# "Destination_Domain_Name": Domain name in HestiaCP (folder name)
+domains=(
+    "public_html:goazh.com"
+    "members.goazh.com:members.goazh.com"
+)
+
+# Colors
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+# ----------------- SSH Connection Sharing -----------------
+SSH_SOCKET_DIR="$HOME/.ssh/sockets"
+mkdir -p "$SSH_SOCKET_DIR"
+SSH_SOCKET="$SSH_SOCKET_DIR/download_${USER}@${HOST}"
+
+echo -e "${GREEN}Establishing persistent SSH connection to $HOST...${NC}"
+ssh -M -f -N -o ControlPath="$SSH_SOCKET" -o ControlPersist=10m "$USER@$HOST"
+
+# Check socket
+if [ ! -S "$SSH_SOCKET" ]; then
+    echo -e "${RED}Error: Failed to establish SSH connection.${NC}"
+    echo -e "${YELLOW}Retrying interactively to check for errors...${NC}"
+    ssh -M -N -o ControlPath="$SSH_SOCKET" -o ControlPersist=10m "$USER@$HOST" &
+    SSH_PID=$!
+    sleep 5
+    if [ ! -S "$SSH_SOCKET" ]; then
+         echo -e "${RED}Still failed. Check your password or remote .bashrc output.${NC}"
+         kill $SSH_PID 2>/dev/null
+         exit 1
+    fi
+fi
+
+trap "echo -e '\nClosing SSH connection...'; ssh -O exit -o ControlPath='$SSH_SOCKET' '$USER@$HOST' 2>/dev/null" EXIT
+
+# ----------------- Functions -----------------
+
+sync_domain() {
+    local src_param=$1
+    local dest_param=$2
+
+    # Determine Remote Path
+    local remote_path
+    if [[ "$src_param" == ~* ]] || [[ "$src_param" == /* ]]; then
+        remote_path="$src_param"
+    else
+        remote_path="~/$src_param"
+    fi
+
+    # Determine Local Path
+    # If explicit destination provided (cmd line usage), use it.
+    # Otherwise, deduce from dest_param (assuming HestiaCP structure).
+    local local_dest
+    if [ -n "$dest_param" ]; then
+        if [[ "$dest_param" == /* ]] || [[ "$dest_param" == ~* ]] || [[ "$dest_param" == .* ]]; then
+             # Looks like a path
+             local_dest="$dest_param"
+        else
+             # Looks like a domain name
+             local_dest="$LOCAL_BASE/web/$dest_param/public_html"
+        fi
+    else
+        # Fallback if only one arg provided in loop (should not happen with loop below)
+        local_dest="$LOCAL_BASE/$src_param"
+    fi
+
+    echo -e "\n${YELLOW}==============================================${NC}"
+    echo -e "${YELLOW}Downloading: $src_param -> $dest_param${NC}"
+    echo -e "${YELLOW}From: $USER@$HOST:$remote_path${NC}"
+    echo -e "${YELLOW}To:   $local_dest${NC}"
+    echo -e "${YELLOW}==============================================${NC}"
+
+    mkdir -p "$local_dest"
+    
+    # Sync FROM remote TO local
+    rsync -avz --delete --progress -e "ssh -o ControlPath='$SSH_SOCKET'" \
+        "$USER@$HOST:$remote_path/" "$local_dest/"
+}
+
+# ----------------- Main Execution -----------------
+
+if [ -n "$1" ]; then
+    # User provided arguments: ./script source_path [dest_path_or_domain]
+    SRC="$1"
+    DEST="$2"
+    sync_domain "$SRC" "$DEST"
+else
+    # Sync all configured domains
+    echo -e "${GREEN}No specific target provided. Syncing all configured domains...${NC}"
+    for entry in "${domains[@]}"; do
+        IFS=":" read -r src_dir dest_domain <<< "$entry"
+        sync_domain "$src_dir" "$dest_domain"
+    done
+fi
+
+echo -e "\n${GREEN}Download finished!${NC}"
