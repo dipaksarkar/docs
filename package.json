@@ -6,8 +6,8 @@
   "config": {
     "ssh": {
       "user": "coderstm",
-      "server": "s1430.lon1.mysecurecloudhost.com",
-      "path": "~/docs.coderstm.com"
+      "server": "vmi4645.goazh.com",
+      "path": "~/web/docs.coderstm.com/public_html"
     }
   },
   "bin": {
