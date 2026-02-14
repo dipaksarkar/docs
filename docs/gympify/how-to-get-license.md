@@ -6,7 +6,7 @@ titleTemplate: Gympify
 
 To obtain a license for Gympify, follow these steps:
 
-1. Go to the [Coderstm](https://coderstm.com/user/) website.
+1. Go to the [Coderstm](https://coderstm.com/user) website.
 2. Create an account if you are not already registered: [Sign Up](https://coderstm.com/user/sign-up).
 3. Log in to your account.
 4. Choose `Licenses` from the menu.
@@ -15,5 +15,5 @@ To obtain a license for Gympify, follow these steps:
 7. Choose the sales channel from where you purchased the product.
 8. Enter your domain name in the `Domain` field.
 9. Enter the purchase code you received when you bought the product:
-    - Find your purchase code on the [Envato Market](https://get-atomx.com/help/activation/purchase-code-gumroad/) website.
+   - Find your purchase code on the [Envato Market](https://get-atomx.com/help/activation/purchase-code-gumroad/) website.
 10. Click the `Save` button.

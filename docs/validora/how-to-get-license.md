@@ -6,7 +6,7 @@ titleTemplate: Validora
 
 To obtain a license for Validora, follow these steps:
 
-1. Go to the [Coderstm](https://coderstm.com/user/) website.
+1. Go to the [Coderstm](https://coderstm.com/user) website.
 2. Create an account if you are not already registered: [Sign Up](https://coderstm.com/user/sign-up).
 3. Log in to your account.
 4. Choose `Licenses` from the menu.
