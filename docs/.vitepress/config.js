@@ -3,6 +3,7 @@ import nitrofit28 from "./sidebar/nitrofit28";
 import qaravel from "./sidebar/qaravel";
 import gympify from "./sidebar/gympify";
 import bouncify from "./sidebar/bouncify";
+import validora from "./sidebar/validora";
 
 export default defineConfig({
   lang: "en-US",
@@ -31,6 +32,7 @@ export default defineConfig({
       "/gympify/": gympify,
       "/qaravel/": qaravel,
       "/bouncify/": bouncify,
+      "/validora/": validora,
     },
 
     socialLinks: [
