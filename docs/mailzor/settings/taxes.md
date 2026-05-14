@@ -24,19 +24,15 @@ Follow these steps to set up a new tax rate.
 4.  Click `Done`.
 
 ## Delete a tax
+
 ::: danger
 Deleted taxes cannot be restored.
 :::
 
-To permanently delete a tax:
+1.  From your admin, go to **Settings > Taxes**.
+2.  Click the **Delete** icon next to the tax.
+3.  Click **Confirm**.
 
-1.  From your admin, go to `Settings > Taxes`.
-2.  Click the **Delete** icon next to the tax you want to remove.
-3.  Click `Confirm`.
-
-::: warning NOTE
-The system's default tax rate cannot be deleted.
-:::
 
 ## Example Scenarios
 

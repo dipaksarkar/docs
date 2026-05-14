@@ -28,9 +28,22 @@ If using SMTP, configure your server details:
 
 For high-performance sending, Amazon SES is the preferred choice. It provides granular tracking for bounces and complaints.
 
+- **Key & Secret**: Your AWS IAM credentials with SES sending permissions.
+- **Region**: The AWS region where your SES identity is verified.
+- **Configuration Set**: (Optional) Used to track events and include custom headers for high-volume sending.
+- **Enable for Campaigns**: Toggle this to allow this SES configuration to be used for mass email campaigns.
+
 ::: tip
 For a detailed guide on setting up AWS IAM, Configuration Sets, and Webhooks, see our **[AWS SES & SNS Setup Guide](../aws-ses-setup.md)**.
 :::
+
+## API Providers
+
+Mailzor supports several modern API-based email providers. These are often easier to set up than SMTP and offer better deliverability.
+
+- **Postmark**: Requires a **Postmark Token**. Known for excellent transactional delivery.
+- **Resend**: Requires a **Key**. A modern, developer-friendly email platform.
+- **Mailgun**: Requires your **Domain**, **Secret**, and **Endpoint** (e.g., `api.mailgun.net` or `api.eu.mailgun.net`).
 
 ## Sender Details
 
@@ -40,12 +53,18 @@ For a detailed guide on setting up AWS IAM, Configuration Sets, and Webhooks, se
 ## Additional SMTP Providers (Fallbacks)
 
 Mailzor allows you to define a list of secondary SMTP providers. These can be used to distribute load or act as a safety net if your primary provider fails.
+
 - Use the **Repeater** to add multiple providers with their own host, port, and credentials.
+- **Provider Name**: A label to identify the service (e.g., "SendGrid Backup").
 - Toggle **Enabled** to activate or deactivate providers without deleting their configuration.
 
 ## Testing Your Configuration
 
-Before launching a campaign, always verify your settings using the **Test Email** tool.
-1. Enter a recipient email address.
-2. Click **Send Test Email**.
-3. Check the recipient's inbox for the test message. If it doesn't arrive, check your [Application Logs](../logs.md) for connection errors.
+Before launching a campaign, always verify your settings using the **Send Test Email** action.
+
+1.  Navigate to **Settings > Mail Configuration**.
+2.  Click the **Send Test Email** button in the top actions bar.
+3.  Enter a recipient email address in the modal.
+4.  Click **Send**.
+5.  Check the recipient's inbox for the test message. If it doesn't arrive, check your [Application Logs](../logs.md) for connection errors.
+

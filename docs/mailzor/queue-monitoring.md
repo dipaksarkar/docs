@@ -11,9 +11,10 @@ Mailzor's high-performance sending engine relies on Laravel's queue system. We u
 The Horizon dashboard is available at:
 `https://your-domain.com/admin/horizon`
 
-::: important
+::: warning
 Horizon is only accessible to users with the **Super Admin** role.
 :::
+
 
 ## Real-time Metrics
 

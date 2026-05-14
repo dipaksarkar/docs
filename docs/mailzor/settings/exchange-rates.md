@@ -19,6 +19,7 @@ You can manage how currencies are converted in your platform:
 To keep your pricing accurate, Mailzor can automatically sync with global exchange rate providers.
 
 **Steps to Sync:**
+
 1. Navigate to **Settings > Exchange Rates**.
 2. Click the **Sync Rates** button.
 3. The system will fetch the latest mid-market rates and update all active currencies.
@@ -31,4 +32,9 @@ To keep your pricing accurate, Mailzor can automatically sync with global exchan
 4. Set to **Active** to allow this currency to be selected during plan creation or checkout.
 
 ## Deleting Rates
-Deleting an exchange rate will prevent future transactions in that currency. Ensure no active subscriptions are using the currency before removal.
+
+Deleting an exchange rate will prevent future transactions in that currency.
+
+::: warning
+Ensure no active subscriptions are using a currency before deleting its exchange rate.
+:::

@@ -40,3 +40,10 @@ Modifying a plan's price will only affect new subscribers. Existing subscribers 
 ::: warning
 Plans can be soft-deleted. Deleting a plan prevents new sign-ups but does not automatically cancel existing subscriptions associated with that plan.
 :::
+
+---
+
+## One-time Purchases
+
+If you want to offer one-time top-ups instead of recurring subscriptions, see our guide on **[Credit Packages](./credits.md)**.
+
