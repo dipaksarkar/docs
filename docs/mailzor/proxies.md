@@ -35,6 +35,6 @@ Mailzor recommends using high-quality proxies tailored for SMTP traffic. We have
 
 ### Proxy5
 
-Mailzor has been working closely with [Proxy5](https://proxy.coderstm.com) since early 2023. This service is run by industry experts who understand the complications and challenges that arise from large-scale SMTP connections. Their proxies integrate seamlessly with Mailzor and are specifically tailored for B2B email verification.
+Mailzor has been working closely with [Proxy5](https://proxy5.online) since early 2023. This service is run by industry experts who understand the complications and challenges that arise from large-scale SMTP connections. Their proxies integrate seamlessly with Mailzor and are specifically tailored for B2B email verification.
 
-For an introduction or more information, you can reach out to `hello@coderstm.com`.
+For an introduction or more information, you can reach out to `hello@proxy5.online`.
