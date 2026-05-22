@@ -23,7 +23,7 @@ hero:
       link: /qaravel/
     - theme: alt
       text: Mailzor
-      link: /mailzor/
+      link: https://docs.mailzor.app/
 
 features:
   - title: "Web Development"

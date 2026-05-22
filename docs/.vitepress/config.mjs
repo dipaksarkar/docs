@@ -1,17 +1,9 @@
 import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
-
-
-
-
-
 import nitrofit28 from "./sidebar/nitrofit28";
-
 import qaravel from "./sidebar/qaravel";
 import gympify from "./sidebar/gympify";
-import bouncify from "./sidebar/bouncify";
-import mailzor from "./sidebar/mailzor";
 
 export default withMermaid(
   defineConfig({
@@ -40,8 +32,6 @@ export default withMermaid(
         "/nitrofit28/": nitrofit28,
         "/gympify/": gympify,
         "/qaravel/": qaravel,
-        "/bouncify/": bouncify,
-        "/mailzor/": mailzor,
       },
 
       socialLinks: [
