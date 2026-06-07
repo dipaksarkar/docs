@@ -1,14 +1,10 @@
 #!/bin/bash
 set -e
 
-# Verify that a password argument was passed to the script
-if [ -z "$1" ]; then
-    echo "❌ Error: No password provided."
-    echo "Usage: $0 'your_secure_password'"
-    exit 1
-fi
-
-MANUAL_ROOT_PASSWORD="$1"
+# Interactive Password Prompt
+echo "=================================================="
+read -p "Enter the new root password: " MANUAL_ROOT_PASSWORD
+echo "=================================================="
 
 # Enforce non-interactive environment for backend package configurations
 export DEBIAN_FRONTEND=noninteractive
@@ -22,8 +18,10 @@ apt install -y htop iotop iftop nvme-cli curl wget gnupg2 ufw fail2ban sudo
 echo ">>> Updating root password via chpasswd..."
 echo "root:$MANUAL_ROOT_PASSWORD" | chpasswd
 
+# Clear the variable from memory immediately after use for security
+unset MANUAL_ROOT_PASSWORD
+
 echo ">>> Automated Storage: Building Snapshot-Ready LVM-Thin Pool..."
-# Instantly claims 100% of the unallocated footprint left by your 10GB partition scheme
 lvcreate -l 100%FREE -n pve-thinpool vg
 lvconvert --type thin-pool -y vg/pve-thinpool
 
@@ -32,7 +30,6 @@ if [ -f /etc/apt/sources.list.d/pve-enterprise.list ]; then
     sed -i 's/^deb/#deb/' /etc/apt/sources.list.d/pve-enterprise.list
 fi
 
-# Points directly to the Proxmox 9 (trixie) deployment branch
 echo "deb http://download.proxmox.com/debian/pve trixie pve-no-subscription" > /etc/apt/sources.list.d/pve-no-sub.list
 apt update && apt -y dist-upgrade
 
