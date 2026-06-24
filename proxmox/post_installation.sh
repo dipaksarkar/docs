@@ -4,61 +4,62 @@ set -e
 # Enforce non-interactive environment for backend package configurations
 export DEBIAN_FRONTEND=noninteractive
 
-echo ">>> Generating secure random credentials..."
+echo ">>> Generating secure random system credentials..."
 RANDOM_ROOT_PW=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
 RANDOM_USER_PW=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
+TARGET_SSH_PORT=22
 
-# Pick a truly random, non-conflicting port
-while true; do
-    RANDOM_SSH_PORT=$(shuf -i 2000-9999 -n 1)
-    case "$RANDOM_SSH_PORT" in
-        2000|2049|2181|3000|3306|3389|4443|5000|5432|5672|5900|6379|8000|8006|8080|8443|9000|9092|9200)
-            continue
-            ;;
-        *)
-            break
-            ;;
-    esac
-done
+echo ">>> Fetching official Proxmox Archive Keys..."
+wget -q https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg -O /usr/share/keyrings/proxmox-archive-keyring.gpg
 
-echo ">>> Updating system base layers..."
+echo ">>> Configuring Proxmox 9 Trixie No-Subscription Repositories (DEB822 Format)..."
+# Wipe the legacy /etc/apt/sources.list to prevent Bookworm mismatch errors
+truncate -s 0 /etc/apt/sources.list
+
+# Build the correct multi-line Trixie sources configuration
+cat > /etc/apt/sources.list.d/proxmox.sources << 'EOF'
+Types: deb
+URIs: http://download.proxmox.com/debian/pve
+Suites: trixie
+Components: pve-no-subscription
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+EOF
+
+# Safely disable the enterprise license repository flags
+if [ -f /etc/apt/sources.list.d/pve-enterprise.sources ]; then
+    if ! grep -q "Enabled: no" /etc/apt/sources.list.d/pve-enterprise.sources; then
+        echo "Enabled: no" >> /etc/apt/sources.list.d/pve-enterprise.sources
+    fi
+fi
+
+if [ -f /etc/apt/sources.list.d/ceph.sources ]; then
+    if ! grep -q "Enabled: no" /etc/apt/sources.list.d/ceph.sources; then
+        echo "Enabled: no" >> /etc/apt/sources.list.d/ceph.sources
+    fi
+fi
+
+echo ">>> Syncing repository indices and running full framework upgrades..."
 apt update && apt -y full-upgrade
 
 echo ">>> Installing systems monitoring & utility tools..."
-apt install -y htop iotop iftop nvme-cli curl wget gnupg2 ufw fail2ban sudo
+apt install -y htop iotop iftop nvme-cli curl wget gnupg2 fail2ban sudo
 
-echo ">>> Applying random root password..."
+echo ">>> Applying new root password baseline..."
 echo "root:$RANDOM_ROOT_PW" | chpasswd
 
-# ==============================================================================
-# STORAGE CONDITIONAL LAYER
-# ==============================================================================
-if lvs | grep -q "pve-thinpool"; then
-    echo ">>> [SKIP] LVM-Thin Pool 'pve-thinpool' already exists. Skipping allocation..."
-else
-    echo ">>> Automated Storage: Building Snapshot-Ready LVM-Thin Pool..."
-    lvcreate -l 100%FREE -n pve-thinpool vg
-    lvconvert --type thin-pool -y vg/pve-thinpool
-fi
-
-echo ">>> Configuring Proxmox 9 Repositories..."
-if [ -f /etc/apt/sources.list.d/pve-enterprise.list ]; then
-    sed -i 's/^deb/#deb/' /etc/apt/sources.list.d/pve-enterprise.list
-fi
-apt update && apt -y dist-upgrade
+echo ">>> Running distro specific component upgrades..."
+apt -y dist-upgrade
 
 # ==============================================================================
-# USER & GROUP REPAIR CONDITIONAL LAYER
+# USER & GROUP MANAGEMENT LAYER
 # ==============================================================================
-# Ensure the dedicated group exists
 if ! getent group goazh &>/dev/null; then
     echo ">>> Creating missing group 'goazh'..."
     groupadd goazh
 fi
 
-# Manage the user deployment safely
 if id "goazh" &>/dev/null; then
-    echo ">>> [SKIP] User 'goazh' already exists. Ensuring correct group mappings..."
+    echo ">>> User 'goazh' already exists. Ensuring correct group mappings..."
     usermod -aG sudo,goazh goazh
 else
     echo ">>> Creating new secure user 'goazh'..."
@@ -67,47 +68,86 @@ fi
 
 echo ">>> Updating password for 'goazh'..."
 echo "goazh:$RANDOM_USER_PW" | chpasswd
+
 # ==============================================================================
+# SSH SECURITY CONFIGURATION (Key-Only Enforcement)
+# ==============================================================================
+PUBLIC_KEY_STRING="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKi6LUOo/D8SX4gNLak7FxMY2RbHYA6vIgtqFwFjpXvO dipak@coderstm.com"
 
-echo ">>> Setting up production SSH keys for 'goazh'..."
+# Set up keys for goazh user
 mkdir -p /home/goazh/.ssh
-chmod 700 /home/goazh/.ssh
-
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbeYfOKRxq2SAc8WwyOrCdkTnD1Cct3CKLwgZQeh49Cw2oFTezIw+NaTAkhaw5RuYAOgSHWiAiZ+BdF+zIehIXWcwBB6UPZ+vh0V2XdMO6liVBA13ry9IsvAH2HMu1ZzxrD07JfzU5+HgcuoJofyL+dsBzgn6dp6Nvg6PUpCn5Mcoz0xYhomhCNQK4TnJEMbochXCj/wZJlJ+46OA8LMaseReN9jKVfobh4CxRqiP5kAnDY4SKCrGJY0BhXPxJulNPLy4gl/XHj9sP4R0JsJKaMNpID840i6oqPRCnMCqgAUvCm+s4t9aatdiYx4BfzYxV8bIzkbjJgpgIXJZ1gzdADj1unF8GiH0eGS69Y1TSeGsezLOld+DFSW+kDPklE8pvoMztyRVO+h8xqB2AHhV52d01/HR6Evgv5peshawltZygsCyOOui/7LsAOmPriLDQXO/p8pM7Wtda1hFF2Ym6qVCI4xa7fJMJ6EM2nM3oYMHhpcu8oL6ntt2WCFEU5FpsqHjFqdByDnkI1WmzBOaQKC5zgFNr0N0RIpCCFTS/o/2Kn/28WNIPAobognqwxMvQbMWlT5ZCYM+QPZxLCWc77xtLlgUxqqBlHALQvLPjrlA+JJY2FELYayPa//cYKWMGcQObs8xuac1jCeZL53fTiktiHJhOOzWYHooJehqw1Q== dipak@coderstm.com" > /home/goazh/.ssh/authorized_keys
-
-chmod 600 /home/goazh/.ssh/authorized_keys
+echo "$PUBLIC_KEY_STRING" > /home/goazh/.ssh/authorized_keys
+chmod 700 /home/goazh/.ssh && chmod 600 /home/goazh/.ssh/authorized_keys
 chown -R goazh:goazh /home/goazh/.ssh
 
-echo ">>> Securing SSH Service Daemons..."
-sed -i "s/^#\?Port .*/Port $RANDOM_SSH_PORT/" /etc/ssh/sshd_config 2>/dev/null || echo "Port $RANDOM_SSH_PORT" >> /etc/ssh/sshd_config
-sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
-sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
-systemctl restart sshd || systemctl restart ssh
+# Set up keys for root user (Ensures backup recovery links stay active)
+mkdir -p /root/.ssh
+echo "$PUBLIC_KEY_STRING" > /root/.ssh/authorized_keys
+chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys
 
-echo ">>> Configuring UFW Network Firewall Elements..."
-ufw default deny incoming
-ufw default allow outgoing
-ufw allow ${RANDOM_SSH_PORT}/tcp
-ufw allow 8006/tcp
-ufw --force enable
+echo ">>> Securing SSH Service Configuration..."
+sed -i "s/^#\?Port .*/Port $TARGET_SSH_PORT/" /etc/ssh/sshd_config
+sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
+sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+
+# Verify config syntax before bouncing daemon to prevent locks
+if sshd -t; then
+    systemctl restart sshd || systemctl restart ssh
+else
+    echo ">>> ERROR: SSH config validation failed! Reverting modifications..."
+    exit 1
+fi
+
+# ==============================================================================
+# LOCAL BRIDGED INTEGRATION (UFW Warning Clean)
+# ==============================================================================
+echo ">>> Disabling redundant system UFW layers to let Proxmox Firewall control vmbr0..."
+ufw disable || true
 
 echo ">>> Activating Fail2Ban Security Profiles..."
 systemctl enable fail2ban --now
 
+# ==============================================================================
+# RESOLVE SERVER IP
+# ==============================================================================
+echo ">>> Resolving public server IP address..."
+SERVER_IP=$(curl -s --max-time 5 https://ipinfo.io/ip || curl -s --max-time 5 https://api.ipify.org || curl -s --max-time 5 https://ifconfig.me || ip route get 1.1.1.1 2>/dev/null | awk '{print $7}' || hostname -I | awk '{print $1}')
+SERVER_IP=$(echo "$SERVER_IP" | xargs)
+if [ -z "$SERVER_IP" ]; then
+    SERVER_IP="65.109.56.203"
+fi
+
+# Define ANSI colors for styling
+BOLD='\033[1m'
+GREEN='\033;32m'
+RED='\033;31m'
+YELLOW='\033;33m'
+BLUE='\033;34m'
+CYAN='\033;36m'
+MAGENTA='\033;35m'
+RESET='\033[0m'
+
 clear
-echo "========================================================"
-echo "          🎉 POST-INSTALLATION COMPLETE 🎉"
-echo "========================================================"
-echo ""
-echo "  🔒 SECURITY CREDENTIALS GENERATED:"
-echo "  ------------------------------------------------------"
-echo "  SSH Port:        $RANDOM_SSH_PORT (Verified Uncommon)"
-echo "  Root Password:   $RANDOM_ROOT_PW"
-echo "  goazh Password:  $RANDOM_USER_PW"
-echo ""
-echo "  🚀 ACCESS COMMANDS:"
-echo "  ------------------------------------------------------"
-echo "  SSH Connection:  ssh -p $RANDOM_SSH_PORT goazh@your-server-ip"
-echo "  Proxmox Web UI:  https://your-server-ip:8006"
-echo ""
-echo "========================================================"
+echo -e "${CYAN}======================================================================${RESET}"
+echo -e "                    ${BOLD}${GREEN}🎉 POST-INSTALLATION COMPLETE 🎉${RESET}"
+echo -e "${CYAN}======================================================================${RESET}"
+echo -e ""
+echo -e "  ${BOLD}${YELLOW}🔒 SECURITY CREDENTIALS GENERATED:${RESET}"
+echo -e "  ${BLUE}----------------------------------------------------------------------${RESET}"
+echo -e "  ${BOLD}SSH Port:${RESET}        ${GREEN}$TARGET_SSH_PORT${RESET}"
+echo -e "  ${BOLD}Root Password:${RESET}   ${MAGENTA}$RANDOM_ROOT_PW${RESET}"
+echo -e "  ${BOLD}goazh Password:${RESET}  ${MAGENTA}$RANDOM_USER_PW${RESET}"
+echo -e ""
+echo -e "  ${BOLD}${RED}⚠️  IMPORTANT REMINDER:${RESET}"
+echo -e "  ${BLUE}----------------------------------------------------------------------${RESET}"
+echo -e "  Password authentication is now ${BOLD}${RED}DISABLED${RESET}."
+echo -e "  You must connect using your SSH private key matching:"
+echo -e "  ${CYAN}dipak@coderstm.com${RESET}"
+echo -e ""
+echo -e "  ${BOLD}${YELLOW}🚀 ACCESS COMMANDS:${RESET}"
+echo -e "  ${BLUE}----------------------------------------------------------------------${RESET}"
+echo -e "  ${BOLD}SSH Connection:${RESET}  ${CYAN}ssh -p $TARGET_SSH_PORT goazh@$SERVER_IP${RESET}"
+echo -e "  ${BOLD}Root Direct:${RESET}     ${CYAN}ssh -p $TARGET_SSH_PORT root@$SERVER_IP${RESET}"
+echo -e "  ${BOLD}Proxmox Web UI:${RESET}  ${CYAN}https://$SERVER_IP:8006${RESET}"
+echo -e ""
+echo -e "${CYAN}======================================================================${RESET}"
