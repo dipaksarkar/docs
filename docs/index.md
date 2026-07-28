@@ -14,7 +14,7 @@ hero:
       link: https://coderstm.com/
     - theme: alt
       text: NitroFTI28
-      link: /nitrofit28/
+      link: https://docs.nitrofit28.com/
     - theme: alt
       text: Gympify
       link: /gympify/
