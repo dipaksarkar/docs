@@ -6,7 +6,7 @@
   "config": {
     "ssh": {
       "user": "coderstm",
-      "server": "vmi4645.goazh.com",
+      "server": "vmi4151.goazh.com",
       "path": "~/web/docs.coderstm.com/public_html"
     }
   },
